@@ -1,0 +1,28 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer
+    #drawer
+    class="example-sidenav mat-elevation-z10"
+    [mode]="isSmallScreen ? 'over' : 'side'"
+    [opened]="!isSmallScreen"
+  >
+    <mat-toolbar color="accent">
+      <span>
+        <mat-icon svgIcon="unicorn"></mat-icon> Welcome Krishna
+      </span>
+    </mat-toolbar>
+    <mat-selection-list #shoes [multiple]="false">
+      <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+        <mat-icon mat-list-icon> <mat-icon svgIcon="unicorn"></mat-icon></mat-icon>
+
+        <div class="mat-list-text"> {{ shoe }}</div>
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <app-toolbar (sideNavToggle)="drawer.toggle()"></app-toolbar>
+    <div class="warpper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</mat-drawer-container>
