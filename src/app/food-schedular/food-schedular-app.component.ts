@@ -16,7 +16,7 @@ export class FoodSchedularAppComponent implements OnInit {
     private domSanitizer: DomSanitizer) {
     this.matIconRegistry.addSvgIcon(
       "unicorn",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/avatar-women.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/1.svg")
     );
 
   }

@@ -23,6 +23,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import {FieldsetModule} from 'primeng/fieldset';
+
 @NgModule({
   declarations: [],
   exports: [
@@ -48,7 +52,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDialogModule,
     MatRadioModule,
     MatBadgeModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
+    AvatarModule,
+    AvatarGroupModule,
+    FieldsetModule
   ]
 })
 export class AngularMaterialModule { }

@@ -1,0 +1,80 @@
+
+<div class="example-container">
+  <div class="row">
+    <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+
+      <form class="form-inline" autosize>
+        <div class="form-group">
+          <mat-form-field appearance="fill" style="width: 250px !important">
+            <mat-label>Enter your email or mobile</mat-label>
+            <input
+              matInput
+              placeholder="pat@example.com"
+              [formControl]="email"
+              required
+            />
+            <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field
+            appearance="fill"
+            fxFlex="40"
+            style="width: 250px !important"
+          >
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <button
+            class="mat-raised-button-width"
+            mat-raised-button
+            color="accent"
+          >
+            Sign In
+            <span class="material-icons"> login </span>
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9 text-nowrap"  style="width: 4rem;">
+      <button class="m-l" mat-button color="primary">By proceding you also agree the Terms of Service and Privacy Policy</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+      <span style=" margin-left:10px">Forgot your password?&nbsp; <button mat-button color="warn">Click Here..</button></span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+      <button class="m-l" mat-button color="primary">If your first time user. Please click on below Sign Up</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+
+      <button
+            class="mat-raised-button-width-reg "
+            mat-raised-button
+            color="warn"
+          >
+           Sign Up
+            <span class="material-icons"> person_add </span>
+          </button>
+    </div>
+  </div>
+</div>

@@ -8,12 +8,15 @@ import { MainContentComponent } from './components/banners/main-content/main-con
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
+import { UserAccountModule } from './components/user-account/user-account.module';
 
 const routes: Routes = [
   {
     path: '', component: FoodSchedularAppComponent,
     children: [
-      { path: '', component: MainContentComponent }
+      {
+        path: '', component: MainContentComponent
+      }
     ]
   },
   { path: '**', redirectTo: '' }
@@ -31,7 +34,8 @@ const routes: Routes = [
     CommonModule,
     FlexLayoutModule,
     RouterModule.forChild(routes),
-    AngularMaterialModule
+    AngularMaterialModule,
+    UserAccountModule
   ]
 })
 export class FoodSchedularModule { }
