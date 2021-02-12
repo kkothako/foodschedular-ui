@@ -5,19 +5,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-food-schedular-app',
   template: `
-   <app-sidenav></app-sidenav>
+   <router-outlet></router-outlet>
   `,
   styles: [
   ]
 })
 export class FoodSchedularAppComponent implements OnInit {
 
-  constructor(private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) {
-    this.matIconRegistry.addSvgIcon(
-      "unicorn",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/1.svg")
-    );
+  constructor() {
+
 
   }
 

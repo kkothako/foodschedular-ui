@@ -8,11 +8,12 @@ import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-m
 import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
-  { path: '', component: UserAccountComponent, children:[
-    { path: 'signin', component: LoginComponent },
-    { path: 'signup', component: RegistrationComponent }
-  ] },
-  { path: '**', redirectTo: 'signin' }
+  {
+    path: '', component: UserAccountComponent, children: [
+      { path: 'signin', component: LoginComponent },
+      { path: 'signup', component: RegistrationComponent }
+    ]
+  }
 ];
 
 @NgModule({
@@ -29,7 +30,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     AngularMaterialModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forChild(routes)
   ]
 })
 export class UserAccountModule { }
