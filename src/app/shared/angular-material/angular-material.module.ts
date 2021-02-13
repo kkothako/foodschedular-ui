@@ -26,6 +26,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {FieldsetModule} from 'primeng/fieldset';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 @NgModule({
   declarations: [],
@@ -56,7 +57,8 @@ import {FieldsetModule} from 'primeng/fieldset';
 
     AvatarModule,
     AvatarGroupModule,
-    FieldsetModule
+    FieldsetModule,
+    MultiSelectModule
   ]
 })
 export class AngularMaterialModule { }

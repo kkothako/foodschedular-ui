@@ -7,13 +7,15 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 import { FormsModule } from '@angular/forms';
 import { ForgotPassowrdComponent } from './forgot-passowrd/forgot-passowrd.component';
+import { PreferencesComponent } from './preferences/preferences.component';
 
 const routes: Routes = [
   {
     path: '', component: UserAccountComponent, children: [
       { path: 'signin', component: LoginComponent },
       { path: 'signup', component: RegistrationComponent },
-      { path: 'forgotpassword', component: ForgotPassowrdComponent }
+      { path: 'forgotpassword', component: ForgotPassowrdComponent },
+      { path: 'preferences', component: PreferencesComponent }
     ]
   }
 ];
@@ -23,7 +25,8 @@ const routes: Routes = [
     LoginComponent,
     RegistrationComponent,
     UserAccountComponent,
-    ForgotPassowrdComponent
+    ForgotPassowrdComponent,
+    PreferencesComponent
   ],
   exports: [
     LoginComponent,
