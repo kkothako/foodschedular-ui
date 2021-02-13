@@ -8,6 +8,7 @@ import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-m
 import { FormsModule } from '@angular/forms';
 import { ForgotPassowrdComponent } from './forgot-passowrd/forgot-passowrd.component';
 import { PreferencesComponent } from './preferences/preferences.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: 'signin', component: LoginComponent },
       { path: 'signup', component: RegistrationComponent },
       { path: 'forgotpassword', component: ForgotPassowrdComponent },
-      { path: 'preferences', component: PreferencesComponent }
+      { path: 'preferences', component: PreferencesComponent },
+      { path: 'terms-conditions', component: TermsConditionsComponent }
     ]
   }
 ];
@@ -26,7 +28,8 @@ const routes: Routes = [
     RegistrationComponent,
     UserAccountComponent,
     ForgotPassowrdComponent,
-    PreferencesComponent
+    PreferencesComponent,
+    TermsConditionsComponent
   ],
   exports: [
     LoginComponent,

@@ -27,4 +27,8 @@ export class LoginComponent implements OnInit {
   redirectToForgotPassword(): void {
     this.router.navigate(["food-schedular/useraccount/forgotpassword"]);
   }
+
+  redirectToTC(): void {
+    this.router.navigate(["food-schedular/useraccount/terms-conditions"]);
+  }
 }

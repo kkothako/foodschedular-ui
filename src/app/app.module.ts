@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from './shared/angular-material/angular-material.module';
 import { ToolbarComponent } from './food-schedular/components/banners/toolbar/toolbar.component';
 import { SidenavComponent } from './food-schedular/components/banners/sidenav/sidenav.component';
+
 const routes: Routes = [
   { path: 'food-schedular', loadChildren: () => import('./food-schedular/food-schedular.module').then(m => m.FoodSchedularModule) },
   { path: '**', redirectTo: 'food-schedular/useraccount/signin' }
@@ -17,7 +18,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ToolbarComponent,
-    SidenavComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
