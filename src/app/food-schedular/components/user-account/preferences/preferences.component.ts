@@ -9,16 +9,31 @@ import { KeyValueModel } from 'src/app/food-schedular/stores/models/preferences.
 })
 
 export class PreferencesComponent implements OnInit {
-    hide = true;
+    
+  constructor() { }
+
     lstCuisines: KeyValueModel[] = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
+      {name: 'American', code: 'AM'},
+      {name: 'Asian', code: 'AS'},
+      {name: 'Mexican', code: 'ME'},
+      {name: 'Italian', code: 'IT'},
+      {name: 'Spanish', code: 'SP'}
     ]
     selectedCuisine: KeyValueModel[];
-    constructor() { }
+    
+    lstProtiens: KeyValueModel[] = [
+      {name: 'Chicken', code: 'CH'},
+      {name: 'Goat', code: 'GO'},
+      {name: 'Beef', code: 'BE'}
+    ]
+    selectedProtien: KeyValueModel[];
+
+    lstAllergies: KeyValueModel[] = [
+      {name: 'Peanuts', code: 'PE'},
+      {name: 'Seafood', code: 'SE'},
+      {name: 'Other', code: 'OT'}
+    ]
+    selectedAllergy: KeyValueModel[];
     
     ngOnInit(): void {
     }
