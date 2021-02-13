@@ -14,7 +14,6 @@ import { UserAccountComponent } from './components/user-account/user-account.com
 const routes: Routes = [
   {
     path: '', component: FoodSchedularAppComponent, children: [
-      // { path: 'useraccount', component: UserAccountComponent }
       { path: 'useraccount',  loadChildren: () => import('./components/user-account/user-account.module').then(m=>m.UserAccountModule) }
     ]
   },
