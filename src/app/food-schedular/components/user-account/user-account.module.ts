@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ForgotPassowrdComponent } from './forgot-passowrd/forgot-passowrd.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: 'signup', component: RegistrationComponent },
       { path: 'forgotpassword', component: ForgotPassowrdComponent },
       { path: 'preferences', component: PreferencesComponent },
-      { path: 'terms-conditions', component: TermsConditionsComponent }
+      { path: 'terms-conditions', component: TermsConditionsComponent },
+      { path: 'user-profile', component: ProfileComponent }
     ]
   }
 ];
@@ -29,7 +31,8 @@ const routes: Routes = [
     UserAccountComponent,
     ForgotPassowrdComponent,
     PreferencesComponent,
-    TermsConditionsComponent
+    TermsConditionsComponent,
+    ProfileComponent
   ],
   exports: [
     LoginComponent,

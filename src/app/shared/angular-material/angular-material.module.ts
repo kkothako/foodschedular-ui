@@ -22,6 +22,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatStepperModule} from '@angular/material/stepper';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
@@ -54,6 +56,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
     MatRadioModule,
     MatBadgeModule,
     MatSnackBarModule,
+    MatStepperModule,
+    ScrollingModule,
 
     AvatarModule,
     AvatarGroupModule,
