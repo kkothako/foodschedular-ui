@@ -19,7 +19,7 @@ const routes: Routes = [
       { path: 'forgotpassword', component: ForgotPassowrdComponent },
       { path: 'preferences', component: PreferencesComponent },
       { path: 'terms-conditions', component: TermsConditionsComponent },
-      { path: 'user-profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent }
     ]
   }
 ];

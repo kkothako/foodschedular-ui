@@ -1,18 +1,29 @@
 <div class="example-container">
     <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <h2 class="mt-0 mb-1">Please set your Preferences</h2>
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+          scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+          vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
+          nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </div>
+      </div>
+      <br/>
+      <br/>
+    <div class="row">
         <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
             <form autosize>
-                <div class="form-group">
+                <div class="form-group" >
                     <p-multiSelect [options]="lstCuisines" [(ngModel)]="selectedCuisine" defaultLabel="Select Cuisine"
-                        optionLabel="name" [style]="{'width':'50%'}"></p-multiSelect>
+                        optionLabel="name" [style]="{'width':'50%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
                 </div>
                 <div class="form-group">
                     <p-multiSelect [options]="lstProtiens" [(ngModel)]="selectedProtien" defaultLabel="Select Protien"
-                        optionLabel="name" [style]="{'width':'50%'}"></p-multiSelect>
+                        optionLabel="name" [style]="{'width':'50%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
                 </div>
                 <div class="form-group">
                     <p-multiSelect [options]="lstAllergies" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
-                        optionLabel="name" [style]="{'width':'50%'}"></p-multiSelect>
+                        optionLabel="name" [style]="{'width':'50%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
                 </div>
                 <div class="form-group">
                     <button
@@ -23,7 +34,6 @@
                       Save
                       <span class="material-icons"> save </span>
                     </button>
-          
                   </div>
             </form>
         </div>

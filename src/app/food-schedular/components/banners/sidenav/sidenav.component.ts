@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -8,8 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
   isSmallScreen: boolean;
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
-  constructor(private breakPointObserver: BreakpointObserver) {
+  typesOfShoes: string[] = ['Sign In'];
+  constructor(private breakPointObserver: BreakpointObserver,
+    private router: Router) {
 
   }
 
@@ -18,6 +20,12 @@ export class SidenavComponent implements OnInit {
       .subscribe(state => {
         this.isSmallScreen = state.matches;
       })
+
+      
+  }
+
+  redirectToSignIn(): void {
+    this.router.navigate(['food-schedular/useraccount/signin']);
   }
 
 }
