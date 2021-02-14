@@ -10,6 +10,7 @@ import { ForgotPassowrdComponent } from './forgot-passowrd/forgot-passowrd.compo
 import { PreferencesComponent } from './preferences/preferences.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
       { path: 'forgotpassword', component: ForgotPassowrdComponent },
       { path: 'preferences', component: PreferencesComponent },
       { path: 'terms-conditions', component: TermsConditionsComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'confirm-email', component: ConfirmEmailComponent },
     ]
   }
 ];
@@ -32,7 +34,8 @@ const routes: Routes = [
     ForgotPassowrdComponent,
     PreferencesComponent,
     TermsConditionsComponent,
-    ProfileComponent
+    ProfileComponent,
+    ConfirmEmailComponent
   ],
   exports: [
     LoginComponent,

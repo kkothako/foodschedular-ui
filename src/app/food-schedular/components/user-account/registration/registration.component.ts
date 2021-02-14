@@ -24,4 +24,8 @@ export class RegistrationComponent implements OnInit {
   redirectToSignIn(): void {
     this.router.navigate(['food-schedular/useraccount/signin']);
   }
+
+  redirectToConfirmEmail(): void {
+    this.router.navigate(['food-schedular/useraccount/confirm-email']);
+  }
 }

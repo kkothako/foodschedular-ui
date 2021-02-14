@@ -1,0 +1,36 @@
+<div class="example-container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <h2 class="mt-0 mb-1">Please confirm your Email</h2>
+            We sent a code to your Email address. Sent to test@gmail.com
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+            <form autosize>
+                <div class="form-group">
+                    <mat-form-field appearance="fill" style="width: 250px !important">
+                        <mat-label>Enter Code received in your email</mat-label>
+                        <input
+                          matInput
+                          formControlName="ConfirmEmailCode"
+                          placeholder="Code"
+                          required
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <button
+                    class="mat-raised-button-width-reg"
+                    mat-raised-button
+                    color="warn"
+                  >
+                    Complete Sign Up
+                    <span class="material-icons"> person_add </span>
+                  </button>
+                  </div>
+            </form>
+        </div>
+    </div>
