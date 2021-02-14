@@ -1,99 +1,384 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 col-md-12">
-      <mat-horizontal-stepper linear #stepper>
-        <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" state="phone">
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Fill out your name</ng-template>
-            <div class="example-container">
+      <ng-template [ngIf]="isSmallScreen" [ngIfElse]="isBigScreen">
+        <mat-vertical-stepper linear #stepper>
+          <mat-step [stepControl]="nameFormGroup" [editable]="isEditable">
+            <form [formGroup]="nameFormGroup">
+              <ng-template matStepLabel>Fill out your name</ng-template>
+
               <div class="row">
                 <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
-                  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-                    <form autosize>
-                      <div class="form-group">
-                        <mat-form-field appearance="fill" style="width: 250px !important">
-                          <mat-label>Enter your nick name</mat-label>
-                          <input
-                            matInput
-                            placeholder="nick name"
-                            required
-                          />
-
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group">
-                        <mat-form-field appearance="fill" style="width: 250px !important">
-                          <mat-label>Enter your first name</mat-label>
-                          <input
-                            matInput
-                            placeholder="fist name"
-                            required
-                          />
-
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group">
-                        <mat-form-field appearance="fill" style="width: 250px !important">
-                          <mat-label>Enter your last name</mat-label>
-                          <input
-                            matInput
-                            placeholder="last name"
-                            required
-                          />
-
-                        </mat-form-field>
-                      </div>
-
-                      <div class="form-group">
-                        <mat-form-field appearance="fill" style="width: 250px !important">
-                          <mat-label>Enter your email or mobile</mat-label>
-                          <input
-                            matInput
-                            placeholder="pat@example.com"
-                            [formControl]="email"
-                            required
-                          />
-                          <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
-                        </mat-form-field>
-                      </div>
-                    </form>
+                  <cdk-virtual-scroll-viewport
+                    itemSize="50"
+                    class="example-viewport"
+                  >
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your nick name</mat-label>
+                        <input
+                          matInput
+                          formControlName="nickName"
+                          placeholder="Nick name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your first name</mat-label>
+                        <input
+                          matInput
+                          formControlName="firstName"
+                          placeholder="First name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your last name</mat-label>
+                        <input
+                          matInput
+                          formControlName="lastName"
+                          placeholder="Last name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your email or mobile</mat-label>
+                        <input
+                          matInput
+                          formControlName="email"
+                          placeholder="Email or Mobile"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
                   </cdk-virtual-scroll-viewport>
-
                 </div>
               </div>
 
-            </div>
-
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Fill out your address</ng-template>
-            <mat-form-field>
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required>
-            </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Fill out your address</ng-template>
+              <div class="row">
+                <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+                  <cdk-virtual-scroll-viewport
+                    itemSize="50"
+                    class="example-viewport"
+                  >
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your address line 1</mat-label>
+                        <input
+                          matInput
+                          formControlName="addressLine1"
+                          placeholder="Address line 1"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your address line 2</mat-label>
+                        <input
+                          matInput
+                          formControlName="addressLine2"
+                          placeholder="Address line 2"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your city</mat-label>
+                        <input
+                          matInput
+                          formControlName="city"
+                          placeholder="City"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your state</mat-label>
+                        <input
+                          matInput
+                          formControlName="state"
+                          placeholder="State"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your zip code</mat-label>
+                        <input
+                          matInput
+                          formControlName="zipCode"
+                          placeholder="Zip Code"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your country</mat-label>
+                        <input
+                          matInput
+                          formControlName="country"
+                          placeholder="Country"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </cdk-virtual-scroll-viewport>
+                </div>
+              </div>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
             </div>
-          </form>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          <p>You are now done.</p>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-          </div>
-        </mat-step>
+          </mat-step>
+        </mat-vertical-stepper>
+      </ng-template>
+      <ng-template #isBigScreen>
+        <mat-horizontal-stepper linear  #stepper>
+          <mat-step [stepControl]="nameFormGroup" [editable]="isEditable">
+            <form [formGroup]="nameFormGroup">
+              <ng-template matStepLabel>Fill out your name</ng-template>
 
-      </mat-horizontal-stepper>
+              <div class="row">
+                <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+                  <cdk-virtual-scroll-viewport
+                    itemSize="50"
+                    class="example-viewport"
+                  >
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your nick name</mat-label>
+                        <input
+                          matInput
+                          formControlName="nickName"
+                          placeholder="Nick name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your first name</mat-label>
+                        <input
+                          matInput
+                          formControlName="firstName"
+                          placeholder="First name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your last name</mat-label>
+                        <input
+                          matInput
+                          formControlName="lastName"
+                          placeholder="Last name"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your email or mobile</mat-label>
+                        <input
+                          matInput
+                          formControlName="email"
+                          placeholder="Email or Mobile"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </cdk-virtual-scroll-viewport>
+                </div>
+              </div>
 
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Fill out your address</ng-template>
+              <div class="row">
+                <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+                  <cdk-virtual-scroll-viewport
+                    itemSize="50"
+                    class="example-viewport"
+                  >
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your address line 1</mat-label>
+                        <input
+                          matInput
+                          formControlName="addressLine1"
+                          placeholder="Address line 1"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your address line 2</mat-label>
+                        <input
+                          matInput
+                          formControlName="addressLine2"
+                          placeholder="Address line 2"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your city</mat-label>
+                        <input
+                          matInput
+                          formControlName="city"
+                          placeholder="City"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your state</mat-label>
+                        <input
+                          matInput
+                          formControlName="state"
+                          placeholder="State"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your zip code</mat-label>
+                        <input
+                          matInput
+                          formControlName="zipCode"
+                          placeholder="Zip Code"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field
+                        appearance="fill"
+                        style="width: 250px !important"
+                      >
+                        <mat-label>Enter your country</mat-label>
+                        <input
+                          matInput
+                          formControlName="country"
+                          placeholder="Country"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </cdk-virtual-scroll-viewport>
+                </div>
+              </div>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </ng-template>
     </div>
   </div>
 </div>

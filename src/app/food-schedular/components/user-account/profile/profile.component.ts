@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-profile',
@@ -8,19 +10,37 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ProfileComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
+  nameFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  isEditable = false;
+  isEditable = true;
   email = new FormControl('', [Validators.required, Validators.email]);
+  isSmallScreen: boolean;
 
-  constructor(private _formBuilder: FormBuilder) {}
+
+  constructor(private _formBuilder: FormBuilder,
+    private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+
+    this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
+      .subscribe(state => {
+        this.isSmallScreen = state.matches;
+
+      })
+
+    this.nameFormGroup = this._formBuilder.group({
+      nickName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email:['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      addressLine1: ['', Validators.required],
+      addressLine2: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipCode: ['', Validators.required],
+      country: ['', Validators.required]
     });
   }
 
