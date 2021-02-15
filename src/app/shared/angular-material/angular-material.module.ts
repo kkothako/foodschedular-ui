@@ -24,6 +24,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatStepperModule} from '@angular/material/stepper';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatDividerModule} from '@angular/material/divider';
 
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
@@ -58,6 +59,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
     MatSnackBarModule,
     MatStepperModule,
     ScrollingModule,
+    MatDividerModule,
 
     AvatarModule,
     AvatarGroupModule,
