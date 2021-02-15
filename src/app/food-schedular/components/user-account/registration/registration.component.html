@@ -1,15 +1,17 @@
 <div class="example-container">
   <div class="row">
     <div class="col-sm-12 col-md-12">
-      <h2 class="mt-0 mb-1">Complete Your registration</h2>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-      scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-      vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-      nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+      <h2 class="mt-0 mb-1">Complete Your registration(<small>{{selectedCustomerType}}</small>)</h2>
+      <mat-divider></mat-divider>
+      <br>
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+      ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
+      viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+      lacinia congue felis in faucibus.
     </div>
   </div>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <div class="row">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
       <form autosize>
@@ -63,30 +65,107 @@
             </button>
           </mat-form-field>
         </div>
+
+        <div class="form-group" *ngIf="selectedCustomerType==='Restorent'">
+          <mat-form-field
+            appearance="fill"
+            style="width: 250px !important"
+          >
+            <mat-label>Enter your address line 1</mat-label>
+            <input
+              matInput
+
+              placeholder="Address line 1"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group" *ngIf="selectedCustomerType==='Restorent'">
+          <mat-form-field
+            appearance="fill"
+            style="width: 250px !important"
+          >
+            <mat-label>Enter your city</mat-label>
+            <input
+              matInput
+
+              placeholder="City"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group" *ngIf="selectedCustomerType==='Restorent'">
+          <mat-form-field
+            appearance="fill"
+            style="width: 250px !important"
+          >
+            <mat-label>Enter your state</mat-label>
+            <input
+              matInput
+
+              placeholder="State"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group" *ngIf="selectedCustomerType==='Restorent'">
+          <mat-form-field
+            appearance="fill"
+            style="width: 250px !important"
+          >
+            <mat-label>Enter your zip code</mat-label>
+            <input
+              matInput
+
+              placeholder="Zip Code"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group" *ngIf="selectedCustomerType==='Restorent'">
+          <mat-form-field
+            appearance="fill"
+            style="width: 250px !important"
+          >
+            <mat-label>Enter your country</mat-label>
+            <input
+              matInput
+
+              placeholder="Country"
+              required
+            />
+          </mat-form-field>
+        </div>
         <div class="form-group">
-          <button class="p-0" mat-button color="primary">
-            By proceding you also agree the Terms of Service and Privacy Policy
-          </button>
+          <p
+            class="text-warning font-italic"
+            mat-button
+            color="warn"
+            (click)="redirectToTC()"
+            style="cursor: pointer; "
+          >
+            By proceding you also agree the Terms of Service and Privacy Policy.
+          </p>
+
         </div>
         <div class="form-group">
           <button
-          class="mat-raised-button-width-reg"
-          mat-raised-button
-          color="warn"
-          (click)="redirectToConfirmEmail()"
-        >
-          Sign Up
-          <span class="material-icons"> person_add </span>
-        </button>
+            class="mat-raised-button-width-reg"
+            mat-raised-button
+            color="warn"
+            (click)="redirectToConfirmEmail()"
+          >
+            Sign Up
+            <span class="material-icons"> person_add </span>
+          </button>
         </div>
         <div class="form-group" (click)="redirectToSignIn()">
           <span
-          >Already have an account?&nbsp;
-          <button mat-button color="warn">Sign In..</button></span
-        >
+            >Already have an account?&nbsp;
+            <button mat-button color="warn">Sign In..</button></span
+          >
         </div>
       </form>
     </div>
   </div>
-
 </div>

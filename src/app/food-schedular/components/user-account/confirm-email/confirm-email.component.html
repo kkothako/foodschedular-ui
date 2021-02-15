@@ -2,6 +2,8 @@
     <div class="row">
         <div class="col-sm-12 col-md-12">
             <h2 class="mt-0 mb-1">Please confirm your Email</h2>
+            <mat-divider></mat-divider>
+            <br>
             We sent a code to your Email address. Sent to test@gmail.com
         </div>
     </div>
@@ -26,6 +28,7 @@
                     class="mat-raised-button-width-reg"
                     mat-raised-button
                     color="warn"
+                    (click)="redirectToProfile()"
                   >
                     Complete Sign Up
                     <span class="material-icons"> person_add </span>

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent implements OnInit {
   isSmallScreen: boolean;
+  isAlternateColor: boolean;
   typesOfShoes: string[] = ['Sign In'];
   constructor(private breakPointObserver: BreakpointObserver,
     private router: Router) {
@@ -21,11 +22,13 @@ export class SidenavComponent implements OnInit {
         this.isSmallScreen = state.matches;
       })
 
-      
+
   }
 
   redirectToSignIn(): void {
     this.router.navigate(['food-schedular/useraccount/signin']);
   }
-
+  changeColor(): void {
+    this.isAlternateColor = !this.isAlternateColor;
+  }
 }

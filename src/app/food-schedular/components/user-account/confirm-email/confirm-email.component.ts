@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 })
 export class ConfirmEmailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
-
+  redirectToProfile(): void {
+    this.router.navigate(['food-schedular/useraccount/profile'])
+  }
 }

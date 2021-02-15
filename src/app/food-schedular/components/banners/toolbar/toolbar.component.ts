@@ -11,6 +11,7 @@ export class ToolbarComponent implements OnInit {
 
   isSmallScreen: boolean;
   @Output() sideNavToggle = new EventEmitter<void>();
+  @Output() changeTheame = new EventEmitter<void>();
 
   constructor(private breakpointObserver: BreakpointObserver) { }
 

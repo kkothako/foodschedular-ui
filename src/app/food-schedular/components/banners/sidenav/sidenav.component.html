@@ -1,4 +1,5 @@
-<mat-drawer-container class="example-container" autosize>
+<mat-drawer-container class="example-container"
+[class.unicorn-dark-theme]="isAlternateColor"  autosize>
   <mat-drawer
     #drawer
     class="example-sidenav mat-elevation-z10"
@@ -21,7 +22,8 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <app-toolbar (sideNavToggle)="drawer.toggle()"></app-toolbar>
+    <app-toolbar (sideNavToggle)="drawer.toggle()"
+    (changeTheame)="isAlternateColor = !isAlternateColor"></app-toolbar>
     <div class="warpper">
       <router-outlet></router-outlet>
     </div>
