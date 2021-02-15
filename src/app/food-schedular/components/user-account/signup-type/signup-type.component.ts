@@ -24,16 +24,16 @@ export class SignupTypeComponent implements OnInit {
   bindLoginTypes(): void {
     this.loginTypes = [
       {
-        name: 'Customer',
-        title: 'Are You Customer',
+        name: 'Consumer',
+        title: 'Are You Consumer',
         subTitle: 'Loves eating fresh food',
         className: 'pi pi-user',
         hasSelected: true,
         style: { 'background-color': '#ff4081', color: '#ffffff' }
       },
       {
-        name: 'Restorent',
-        title: 'Are You Restorent',
+        name: 'Restaurant',
+        title: 'Are You Restaurant',
         subTitle: 'Loves making fresh food',
         className: 'pi pi-user',
         style: { 'background-color': '#9c27b0', color: '#ffffff' },
