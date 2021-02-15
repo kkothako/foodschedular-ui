@@ -6,6 +6,11 @@ import { LoginTypeModel } from 'src/app/food-schedular/store/models/login-type.m
   selector: 'app-signup-type',
   templateUrl: './signup-type.component.html',
   styles: [
+    `
+    .m-t14{
+  margin-top: -14px;
+}
+    `
   ]
 })
 export class SignupTypeComponent implements OnInit {
