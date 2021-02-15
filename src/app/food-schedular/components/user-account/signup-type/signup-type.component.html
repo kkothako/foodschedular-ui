@@ -1,0 +1,40 @@
+
+ <h1 mat-dialog-title>Choose SignUp Type</h1>
+ <mat-divider></mat-divider>
+ <br>
+ <div mat-dialog-content >
+
+   <div class="container-fluid">
+    <div class="row">
+
+      <div
+        class="col-sm-4 col-md-4 col-xs-12"
+        *ngFor="let item of loginTypes; index as i"
+      >
+        <div style="padding-left: 30px; cursor: pointer">
+          <p-avatar
+            (click)="redirectToSingUp(item)"
+            icon="{{ item.className }}"
+            styleClass="p-mr-2"
+            size="xlarge"
+            [style]="item.style"
+            shape="circle"
+            [mat-dialog-close]="true"></p-avatar>
+        </div>
+        <p class="font-weight-bold font-italic text-danger">{{ item.title }}?</p>
+        <small class="form-text text-muted m-t14 text-primary"
+          >( {{ item.subTitle }})</small
+        >
+      </div>
+    </div>
+  </div>
+  </div>
+  <br>
+  <mat-divider></mat-divider>
+  <br>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+
+  </mat-dialog-actions>
+
+

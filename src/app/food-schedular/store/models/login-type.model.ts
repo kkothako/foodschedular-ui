@@ -1,4 +1,5 @@
 export interface LoginTypeModel {
+  name:string;
   title: string;
   subTitle: string;
   className: string;

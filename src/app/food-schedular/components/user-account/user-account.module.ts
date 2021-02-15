@@ -11,12 +11,13 @@ import { PreferencesComponent } from './preferences/preferences.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { SignupTypeComponent } from './signup-type/signup-type.component';
 
 const routes: Routes = [
   {
     path: '', component: UserAccountComponent, children: [
       { path: 'signin', component: LoginComponent },
-      { path: 'signup', component: RegistrationComponent },
+      { path: 'signup/:type', component: RegistrationComponent },
       { path: 'forgotpassword', component: ForgotPassowrdComponent },
       { path: 'preferences', component: PreferencesComponent },
       { path: 'terms-conditions', component: TermsConditionsComponent },
@@ -35,7 +36,8 @@ const routes: Routes = [
     PreferencesComponent,
     TermsConditionsComponent,
     ProfileComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    SignupTypeComponent
   ],
   exports: [
     LoginComponent,

@@ -2,6 +2,8 @@
   <div class="row">
     <div class="col-sm-12 col-md-12">
       <h2 class="mt-0 mb-1">Welcome to Fresh Food Schedular!</h2>
+      <mat-divider></mat-divider>
+      <br>
       Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
       ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
       viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
@@ -9,36 +11,8 @@
     </div>
   </div>
   <br />
-  <br />
 
-  <div class="row">
-    <div class="offset-sm-3 offset-md-3"></div>
-    <div class="col-sm-2 col-md-2 col-xs-12" *ngFor="let item of loginTypes; index as i">
-      <div style="padding-left: 30px; cursor: pointer;">
-        <p-avatar
-        (click)="selectedLoginType(item, i)"
-          icon="{{ item.className }}"
-          styleClass="p-mr-2"
-          size="xlarge"
-          [style]="item.style"
-          shape="circle"
-        ></p-avatar>
-      </div>
-      <p class="font-weight-bold font-italic text-danger">
-        {{ item.title }}?
-      </p>
-      <small class="form-text text-muted m-t14 text-primary"
-        >( {{ item.subTitle }})</small
-      >
-    </div>
 
-  </div>
-  <div class="row m-t4">
-    <div class="offset-sm-3 offset-md-3 col-sm-8 col-md-8">
-      <mat-divider></mat-divider>
-    </div>
-  </div>
-  <br />
   <div class="row">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
       <form class="form-inline" autosize>
@@ -88,29 +62,33 @@
   </div>
   <div class="row">
     <div
-      class="offset-sm-3 offset-md-3 col-sm-9 col-md-9 text-nowrap"
-      style="width: 4rem"
+      class="offset-sm-3 offset-md-3 col-sm-9 col-md-9 "
+
     >
-      <button class="m-l" mat-button color="primary" (click)="redirectToTC()">
+    <p class="text-warning font-italic" mat-button color="warn"
+    (click)="redirectToTC()" style="cursor: pointer;margin-left: 10px">
+      By proceding you also agree the Terms of Service and Privacy Policy.
+    </p>
+      <!-- <button class="m-l" mat-button color="primary" (click)="redirectToTC()">
         By proceding you also agree the Terms of Service and Privacy Policy
-      </button>
+      </button> -->
     </div>
   </div>
   <div class="row">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
-      <span style="margin-left: 10px"
+      <p class="text-primary font-italic" style="margin-left: 10px"
         >Forgot your password?&nbsp;
         <button mat-button color="warn" (click)="redirectToForgotPassword()">
           Click Here..
-        </button></span
+        </button></p
       >
     </div>
   </div>
   <div class="row">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
-      <button class="m-l" mat-button color="primary">
+      <p class="text-primary font-italic" style="margin-left: 10px">
         If your first time user. Please click on below Sign Up
-      </button>
+      </p>
     </div>
   </div>
   <div class="row">
@@ -119,7 +97,7 @@
         class="mat-raised-button-width-reg"
         mat-raised-button
         color="warn"
-        (click)="redirectToSingUp()"
+        (click)="openSignUpTypeDialog()"
       >
         Sign Up
         <span class="material-icons"> person_add </span>
