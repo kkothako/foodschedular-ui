@@ -22,6 +22,6 @@ const reducerMap = {
     UserAccountService
   ]
 })
-export class StoreFeatureModule {
+export class StoreFeatureBaseModule {
 
 }

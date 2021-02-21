@@ -8,9 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from './shared/angular-material/angular-material.module';
 import { ToolbarComponent } from './food-schedular/components/banners/toolbar/toolbar.component';
 import { SidenavComponent } from './food-schedular/components/banners/sidenav/sidenav.component';
-import { StoreFeatureModule, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreFeatureBaseModule } from './food-schedular/store/store-feature.module';
 const routes: Routes = [
   { path: 'food-schedular', loadChildren: () => import('./food-schedular/food-schedular.module').then(m => m.FoodSchedularModule) },
   { path: '**', redirectTo: 'food-schedular/useraccount/signin' }
@@ -28,7 +29,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     AngularMaterialModule,
-    StoreFeatureModule,
+    StoreFeatureBaseModule,
     StoreModule.forRoot({}, {
       runtimeChecks: {
         strictStateImmutability: false,
