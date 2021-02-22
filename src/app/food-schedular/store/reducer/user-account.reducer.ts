@@ -11,6 +11,9 @@ const reducer = createReducer(initialState,
     return { ...state, load: true };
   }),
   on(actions.createRegistrationSuccess, (state, { response }) => {
-    return { ...state, load: true, newUser: response };
+    return { ...state, load: false, newUser: response, error: null };
+  }),
+  on(actions.createRegistrationError, (state, {error})=>{
+    return { ...state, load: false, error: error };
   })
 );

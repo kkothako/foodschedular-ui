@@ -30,6 +30,9 @@ import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {FieldsetModule} from 'primeng/fieldset';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [],
@@ -64,7 +67,12 @@ import {MultiSelectModule} from 'primeng/multiselect';
     AvatarModule,
     AvatarGroupModule,
     FieldsetModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ProgressSpinnerModule,
+    ToastModule
+  ],
+  providers:[
+    MessageService
   ]
 })
 export class AngularMaterialModule { }

@@ -1,3 +1,5 @@
+import { UserAccountState } from './user-account.state';
+
 export interface AppState{
-  accountStats: UserAccountState;
+  userAccountState: UserAccountState;
 }

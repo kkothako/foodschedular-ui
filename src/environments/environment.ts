@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl:'https://my-activity-api.herokuapp.com/api'
+  baseUrl:'https://foodschedular-api.herokuapp.com/api'
 };
 
 /*

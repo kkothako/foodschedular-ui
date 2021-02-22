@@ -19,7 +19,9 @@ export class UserAccountEffect {
     () => this.actions.pipe(
       ofType(action.createRegistration),
       mergeMap(({ payload }) => this.userAccountService.createUserAccount(payload).pipe(
-        map((result: any) => action.createRegistrationSuccess({ response: result.data })),
+        map((result: any) => result.status ? action.createRegistrationSuccess({
+          response: result.data
+        }) : action.createRegistrationError({ error: result.error?.errors?.email })),
         catchError((result: any) => of(action.createRegistrationError({ error: result.error }))
         ))
       )
