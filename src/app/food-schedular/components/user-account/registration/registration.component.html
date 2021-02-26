@@ -1,3 +1,5 @@
+
+
 <div class="example-container">
   <div class="row">
     <div class="col-sm-12 col-md-12">
@@ -17,7 +19,11 @@
   <br />
   <div class="row">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
-      <form autosize [formGroup]="registationFormGroup" (ngSubmit)="saveRegistration(registationFormGroup)">
+      <form
+        autosize
+        [formGroup]="registationFormGroup"
+        (ngSubmit)="saveRegistration(registationFormGroup)"
+      >
         <div class="form-group">
           <mat-form-field appearance="fill" style="width: 250px !important">
             <mat-label>Enter your email or mobile</mat-label>
@@ -72,7 +78,6 @@
           </mat-form-field>
         </div>
         <div class="form-group">
-
           <mat-form-field
             appearance="fill"
             fxFlex="40"
@@ -95,15 +100,15 @@
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
             <mat-error
-              *ngIf="registationFormGroup.get('confirmPassword').hasError('required')"
+              *ngIf="
+                registationFormGroup.get('confirmPassword').hasError('required')
+              "
             >
               Password is <strong>required</strong>
             </mat-error>
-            <mat-error
-            *ngIf="registationFormGroup.hasError('notSame')"
-          >
-            Repeat password is not <strong>match</strong>
-          </mat-error>
+            <mat-error *ngIf="registationFormGroup.hasError('notSame')">
+              Repeat password is not <strong>match</strong>
+            </mat-error>
             <!-- <mat-error
             *ngIf="registationFormGroup.hasError('notSame')"
           >
@@ -111,37 +116,63 @@
           </mat-error> -->
           </mat-form-field>
         </div>
+        <div formGroupName="address">
+          <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
+            <mat-form-field appearance="fill" style="width: 250px !important">
+              <mat-label>Enter your address line 1</mat-label>
+              <input
+                matInput
+                placeholder="Address line 1"
+                formControlName="addressLine1"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
+            <mat-form-field appearance="fill" style="width: 250px !important">
+              <mat-label>Enter your city</mat-label>
+              <input
+                matInput
+                placeholder="City"
+                required
+                formControlName="city"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
+            <mat-form-field appearance="fill" style="width: 250px !important">
+              <mat-label>Enter your state</mat-label>
+              <input
+                matInput
+                placeholder="State"
+                required
+                formControlName="state"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
+            <mat-form-field appearance="fill" style="width: 250px !important">
+              <mat-label>Enter your zip code</mat-label>
+              <input
+                matInput
+                placeholder="Zip Code"
+                required
+                formControlName="zipCode"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
+            <mat-form-field appearance="fill" style="width: 250px !important">
+              <mat-label>Enter your country</mat-label>
+              <input
+                matInput
+                placeholder="Country"
+                required
+                formControlName="country"
+              />
+            </mat-form-field>
+          </div>
+        </div>
 
-        <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
-          <mat-form-field appearance="fill" style="width: 250px !important">
-            <mat-label>Enter your address line 1</mat-label>
-            <input matInput placeholder="Address line 1" required />
-          </mat-form-field>
-        </div>
-        <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
-          <mat-form-field appearance="fill" style="width: 250px !important">
-            <mat-label>Enter your city</mat-label>
-            <input matInput placeholder="City" required />
-          </mat-form-field>
-        </div>
-        <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
-          <mat-form-field appearance="fill" style="width: 250px !important">
-            <mat-label>Enter your state</mat-label>
-            <input matInput placeholder="State" required />
-          </mat-form-field>
-        </div>
-        <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
-          <mat-form-field appearance="fill" style="width: 250px !important">
-            <mat-label>Enter your zip code</mat-label>
-            <input matInput placeholder="Zip Code" required />
-          </mat-form-field>
-        </div>
-        <div class="form-group" *ngIf="selectedCustomerType === 'Restaurant'">
-          <mat-form-field appearance="fill" style="width: 250px !important">
-            <mat-label>Enter your country</mat-label>
-            <input matInput placeholder="Country" required />
-          </mat-form-field>
-        </div>
         <div class="form-group">
           <p
             class="text-warning font-italic"
@@ -163,10 +194,15 @@
             Sign Up
             <span class="material-icons"> person_add </span>
             <span *ngIf="load$ | async as load">
-              <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
-             </span>
+              <p-progressSpinner
+                [style]="{ width: '50px', height: '50px' }"
+                styleClass="custom-spinner"
+                strokeWidth="8"
+                fill="#EEEEEE"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
           </button>
-
         </div>
         <div class="form-group" (click)="redirectToSignIn()">
           <span
@@ -178,3 +214,4 @@
     </div>
   </div>
 </div>
+

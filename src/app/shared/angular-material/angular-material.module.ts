@@ -72,7 +72,7 @@ import { MessageService } from 'primeng/api';
     ToastModule
   ],
   providers:[
-    MessageService
+
   ]
 })
 export class AngularMaterialModule { }

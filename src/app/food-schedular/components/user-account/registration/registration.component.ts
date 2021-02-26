@@ -16,7 +16,8 @@ import * as userAccountSelectors from '../../../store/selector/user-account.sele
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers:[MessageService]
 })
 export class RegistrationComponent implements OnInit {
   hide = true;
@@ -44,6 +45,7 @@ export class RegistrationComponent implements OnInit {
       if (!result && this.handleClick) {
         this.openSnackBar('User account created successfully!', 'New Account')
         this.handleClick = false;
+        this.redirectToConfirmEmail();
       }
 
     });
@@ -65,6 +67,10 @@ export class RegistrationComponent implements OnInit {
       this.selectedCustomerType = param['type'];
     });
 
+    this.mapControlls();
+
+  }
+  mapControlls(): void {
     this.registationFormGroup = this._formBuilder.group({
       email: ['', {
         validators: [Validators.required, Validators.email],
@@ -78,9 +84,16 @@ export class RegistrationComponent implements OnInit {
         validators: [Validators.required],
         updateOn: 'change'
       }],
+      address: this._formBuilder.group({
+        addressLine1: ['', { updateOn: 'change' }],
+        city: ['', { updateOn: 'change' }],
+        state: ['', { updateOn: 'change' }],
+        country: ['', { updateOn: 'change' }],
+        zipCode: ['', { updateOn: 'change' }]
+      })
     });
-
   }
+
   passwordMatchValidator(group: FormGroup) {
     const password = group.get('password').value;
     const confirmPassword = group.get('confirmPassword').value;
@@ -95,6 +108,9 @@ export class RegistrationComponent implements OnInit {
     this.handleClick = true;
     this.registrationModel = <UserAccountRegistrationModel>this.registationFormGroup.value;
     this.registrationModel.role = this.selectedCustomerType;
+    if(this.selectedCustomerType==='Consumer') {
+      this.registrationModel.address = null;
+    }
     this.store.dispatch(action.createRegistration({ payload: this.registrationModel }));
   }
   redirectToConfirmEmail(): void {
@@ -112,9 +128,8 @@ export class RegistrationComponent implements OnInit {
 
   }
   showError(message: string) {
-    this._snackBar.open('Message archived', 'Undo', {
-      duration: 5000
-    });
+    this.messageService.clear();
+    this.messageService.add({key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'});
   }
 
 }
