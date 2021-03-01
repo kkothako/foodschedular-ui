@@ -17,7 +17,7 @@ import * as userAccountSelectors from '../../../store/selector/user-account.sele
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers:[MessageService]
+  providers: [MessageService]
 })
 export class RegistrationComponent implements OnInit {
   hide = true;
@@ -108,9 +108,10 @@ export class RegistrationComponent implements OnInit {
     this.handleClick = true;
     this.registrationModel = <UserAccountRegistrationModel>this.registationFormGroup.value;
     this.registrationModel.role = this.selectedCustomerType;
-    if(this.selectedCustomerType==='Consumer') {
+    if (this.selectedCustomerType === 'Consumer') {
       this.registrationModel.address = null;
     }
+    debugger
     this.store.dispatch(action.createRegistration({ payload: this.registrationModel }));
   }
   redirectToConfirmEmail(): void {
@@ -129,7 +130,7 @@ export class RegistrationComponent implements OnInit {
   }
   showError(message: string) {
     this.messageService.clear();
-    this.messageService.add({key: 'tl', severity:'info', summary: 'Info', detail: 'Message Content'});
+    this.messageService.add({ key: 'tl', severity: 'info', summary: 'Info', detail: 'Message Content' });
   }
 
 }

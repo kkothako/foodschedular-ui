@@ -9,16 +9,10 @@ export interface UserAccountRegistrationModel {
   firstName: string;
   lastName: string;
   email: string;
-  passowrd: string;
+  password: string;
   mobile: string;
   role: string;
-  address: {
-    addressLine1: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
-  },
+  address: AddressModel;
   isActive: boolean;
   createAt: Date;
 }
@@ -26,4 +20,13 @@ export interface UserAccountRegistrationModel {
 export interface LoginModel {
   email: string;
   password: string;
+}
+
+export interface AddressModel {
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
 }

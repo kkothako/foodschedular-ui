@@ -1,12 +1,15 @@
 import { EntityState } from '@ngrx/entity';
 import { userAccountEntity } from '../entity/user-account.entity';
 import { UserAccountModel } from '../models/user-account.model';
+import { UserProfileModel } from '../models/user-profile.model';
 import * as model from './../models/user-account.model';
 
 export interface UserAccountState extends EntityState<UserAccountModel> {
   load: boolean,
   newUser: model.UserAccountRegistrationModel,
-  error: any
+  error: any,
+  validateActivationStatus: boolean,
+  userProfiles: UserProfileModel[]
 }
 
 
@@ -15,7 +18,9 @@ export const defaultState: UserAccountState = {
   ids: null,
   load: false,
   newUser: null,
-  error: null
+  error: null,
+  validateActivationStatus: false,
+  userProfiles: null
 };
 
 export const initialState = userAccountEntity.getInitialState(defaultState);

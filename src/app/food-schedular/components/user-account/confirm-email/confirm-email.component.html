@@ -4,7 +4,7 @@
             <h2 class="mt-0 mb-1">Please confirm your Email</h2>
             <mat-divider></mat-divider>
             <br>
-            We sent a code to your Email address. Sent to test@gmail.com
+            We sent a code to your Email address. Sent to {{email$ | async}}
         </div>
     </div>
     <br />
@@ -13,14 +13,14 @@
         <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
             <form autosize>
                 <div class="form-group">
+                  <div class="example-container">
                     <mat-form-field appearance="fill" style="width: 250px !important">
-                        <mat-label>Enter Code received in your email</mat-label>
-                        <input
-                          matInput
-                          placeholder="Code"
-                          required
-                        />
+                      <mat-label>Enter Code received in your email</mat-label>
+                      <input matInput placeholder="pat@example.com" [formControl]="activationKey" required>
+                      <mat-error *ngIf="activationKey.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
+                  </div>
+
                 </div>
                 <div class="form-group">
                     <button
@@ -28,6 +28,7 @@
                     mat-raised-button
                     color="warn"
                     (click)="redirectToProfile()"
+                    [disabled]="activationKey.invalid"
                   >
                     Complete Sign Up
                     <span class="material-icons"> person_add </span>

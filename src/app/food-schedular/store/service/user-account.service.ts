@@ -10,6 +10,15 @@ export class UserAccountService {
   constructor(private httpClient: HttpClient) { }
   createUserAccount(userAccountRegistration: UserAccountRegistrationModel): Observable<any> {
     return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts`, userAccountRegistration)
+      .pipe(catchError(error => of(error)));
+  }
+  validateActivationKey(activationKey: string): Observable<any> {
+    return this.httpClient.get<any>(`${environment.baseUrl}/useraccounts/${activationKey}`)
+      .pipe(catchError(error => of(error)));
+  }
+
+  getProfilesByUserId(userId:string): Observable<any>{
+    return this.httpClient.get<any>(`${environment.baseUrl}/userprofiles/${userId}`)
     .pipe(catchError(error => of(error)));
   }
 }

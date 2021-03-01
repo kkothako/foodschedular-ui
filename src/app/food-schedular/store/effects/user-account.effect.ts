@@ -26,4 +26,22 @@ export class UserAccountEffect {
         ))
       )
     ));
+
+  validateActivationKeyEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(action.validateActivationKey),
+      mergeMap(({ activationKey }) => this.userAccountService.validateActivationKey(activationKey).
+        pipe(map((result: any) => result.status ? action.validateActivationKeySuccess({ status: result.status }) :
+          action.validateActivationKeyError({ error: result.error }),
+          catchError((result: any) => of(action.validateActivationKeyError({ error: result.error }))))))
+    ));
+
+    userProfilesEffect$: Observable<Action> = createEffect(
+      () => this.actions.pipe(
+        ofType(action.getUserProfiles),
+        mergeMap(({ userId }) => this.userAccountService.getProfilesByUserId(userId).
+          pipe(map((result: any) => result.status ? action.getUserProfilesSuccess({ profiles: result.data }) :
+            action.getUserProfilesError({ error: result.error }),
+            catchError((result: any) => of(action.getUserProfilesError({ error: result.error }))))))
+      ));
 }

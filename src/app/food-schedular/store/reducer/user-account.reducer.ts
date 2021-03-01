@@ -13,7 +13,25 @@ const reducer = createReducer(initialState,
   on(actions.createRegistrationSuccess, (state, { response }) => {
     return { ...state, load: false, newUser: response, error: null };
   }),
-  on(actions.createRegistrationError, (state, {error})=>{
+  on(actions.createRegistrationError, (state, { error }) => {
     return { ...state, load: false, error: error };
-  })
+  }),
+  on(actions.validateActivationKey, (state) => {
+    return { ...state, load: true };
+  }),
+  on(actions.validateActivationKeySuccess, (state, { status }) => {
+    return { ...state, load: false, validateActivationStatus: status };
+  }),
+  on(actions.validateActivationKeyError, (state, { error }) => {
+    return { ...state, load: false, validateActivationStatus: false, error: error };
+  }),
+  on(actions.getUserProfiles, (state) => {
+    return { ...state, load: true };
+  }),
+  on(actions.getUserProfilesSuccess, (state, { profiles }) => {
+    return { ...state, load: false, userProfiles: profiles };
+  }),
+  on(actions.getUserProfilesError, (state, { error }) => {
+    return { ...state, load: false, error: error };
+  }),
 );
