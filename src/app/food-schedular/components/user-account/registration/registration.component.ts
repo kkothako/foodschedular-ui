@@ -52,11 +52,9 @@ export class RegistrationComponent implements OnInit {
 
     this.store.pipe(select(userAccountSelectors.error))
       .subscribe(error => {
-        debugger
         if (error) {
           this.openSnackBar(error.message, 'Error', 6000);
         }
-
       });
 
   }
@@ -111,7 +109,7 @@ export class RegistrationComponent implements OnInit {
     if (this.selectedCustomerType === 'Consumer') {
       this.registrationModel.address = null;
     }
-    debugger
+
     this.store.dispatch(action.createRegistration({ payload: this.registrationModel }));
   }
   redirectToConfirmEmail(): void {

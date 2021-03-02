@@ -16,7 +16,15 @@ export const error = createSelector(
   accountState,
   state => state.error
 );
-export const selectNewlyCreatedEmail = createSelector(
+export const selectNewlyCreatedUser = createSelector(
   accountState,
-  state => state.newUser?.email
+  state => state.newUser
+);
+export const selectUserProfiles = createSelector(
+  accountState,
+  state => state.userProfiles
+);
+export const selectValidateActivationStatus = createSelector(
+  accountState,
+  state => state.validateActivationStatus
 );
