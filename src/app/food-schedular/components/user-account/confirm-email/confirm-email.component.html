@@ -1,10 +1,10 @@
-<div class="example-container">
-    <div class="row">
+<div class="example-container" *ngIf="newUser$ | async as newUser">
+    <div class="row" >
         <div class="col-sm-12 col-md-12">
             <h2 class="mt-0 mb-1">Please confirm your Email</h2>
             <mat-divider></mat-divider>
             <br>
-            We sent a code to your Email address. Sent to {{email$ | async}}
+            We sent a code to your Email address. Sent to <strong class="text-danger">{{newUser.email}}</strong>
         </div>
     </div>
     <br />
@@ -27,11 +27,20 @@
                     class="mat-raised-button-width-reg"
                     mat-raised-button
                     color="warn"
-                    (click)="redirectToProfile()"
+                    (click)="vaidateActivationKey(newUser.id)"
                     [disabled]="activationKey.invalid"
                   >
                     Complete Sign Up
                     <span class="material-icons"> person_add </span>
+                    <span *ngIf="load$ | async as load">
+                      <p-progressSpinner
+                        [style]="{ width: '50px', height: '50px' }"
+                        styleClass="custom-spinner"
+                        strokeWidth="8"
+                        fill="#EEEEEE"
+                        animationDuration=".5s"
+                      ></p-progressSpinner>
+                    </span>
                   </button>
                   </div>
             </form>
