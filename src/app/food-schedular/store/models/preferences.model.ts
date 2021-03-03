@@ -1,10 +1,10 @@
-export interface PreferencesModel{
-cusinses:KeyValueModel[],
-protien: KeyValueModel[],
-allergy: KeyValueModel[]
+export interface PreferencesModel {
+    cuisines: KeyValueModel[],
+    protiens: KeyValueModel[],
+    allergies: KeyValueModel[]
 }
 
-export interface KeyValueModel{
+export interface KeyValueModel {
     name: string;
-    code:string;
+    code: string;
 }

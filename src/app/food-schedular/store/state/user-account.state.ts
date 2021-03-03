@@ -12,7 +12,6 @@ export interface UserAccountState extends EntityState<UserAccountModel> {
   userProfiles: UserProfileModel[]
 }
 
-
 export const defaultState: UserAccountState = {
   entities: {},
   ids: null,

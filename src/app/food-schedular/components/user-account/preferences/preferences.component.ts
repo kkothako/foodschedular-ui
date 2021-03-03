@@ -12,7 +12,6 @@ export class PreferencesComponent implements OnInit {
 
   constructor() { }
 
-
   lstCuisines: KeyValueModel[] = [];
   selectedCuisine: KeyValueModel[] = [];
 
@@ -21,6 +20,7 @@ export class PreferencesComponent implements OnInit {
 
   lstAllergies: KeyValueModel[] = [];
   selectedAllergy: KeyValueModel[] = [];
+
   ngOnInit(): void {
 
     this.lstCuisines = [
