@@ -18,7 +18,7 @@ export const createRegistrationError = createAction(
 
 export const validateActivationKey = createAction(
   '[app-confirm-email] Validate account activation key',
-  props<{ activationKey: string }>()
+  props<{ activationKey: string, userId:string }>()
 );
 export const validateActivationKeySuccess = createAction(
   '[app-confirm-email] Validate account activation key success',
@@ -38,7 +38,7 @@ export const getUserProfilesSuccess = createAction(
   props<{ profiles: UserProfileModel[] }>()
 );
 export const getUserProfilesError = createAction(
-  '[app-profile] Get user profiles by userid success',
+  '[app-profile] Get user profiles by userid error',
   props<{ error: any }>()
 );
 

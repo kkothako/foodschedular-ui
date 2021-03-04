@@ -46,12 +46,13 @@ export class ConfirmEmailComponent implements OnInit {
       }));
     combineLatest(this.validateActivationStatus$, this.userProfiles$)
       .subscribe(([status, profiles]) => {
+        debugger
         if (this.handleClick && status && !profiles) {
           this.openSnackBar('Validated activation key successfully!', 'Activation Key');
           this.router.navigate(['food-schedular/useraccount/profile']);
           this.handleClick = false;
-        } else if (this.handleClick && !status) {
-          this.openSnackBar('OOPs, The entered activation key does not exist. Please try again!', 'Activation Key');
+        } else if (this.handleClick && !status && profiles != undefined) {
+          this.openSnackBar('OOPs, activation key does not exist. Please try again!', 'Activation Key');
         }
       });
     this.load$ = this.store.pipe(select(selectors.load))
@@ -65,7 +66,7 @@ export class ConfirmEmailComponent implements OnInit {
   }
   vaidateActivationKey(userId: string): void {
     this.handleClick = true;
-    this.store.dispatch(actions.validateActivationKey({ activationKey: this.activationKey.value }))
+    this.store.dispatch(actions.validateActivationKey({ activationKey: this.activationKey.value.trim(), userId:userId }))
     this.store.dispatch(actions.getUserProfiles({ userId: userId }));
   }
   getErrorMessage() {
@@ -73,7 +74,7 @@ export class ConfirmEmailComponent implements OnInit {
       return 'You must enter a activation key';
     }
   }
-  openSnackBar(message: string, action: string, duration = 5000) {
+  openSnackBar(message: string, action: string, duration = 8000) {
     this._snackBar.open(message, action, {
       duration: duration,
     });

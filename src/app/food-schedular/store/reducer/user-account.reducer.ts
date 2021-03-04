@@ -32,6 +32,6 @@ const reducer = createReducer(initialState,
     return { ...state, load: false, userProfiles: profiles };
   }),
   on(actions.getUserProfilesError, (state, { error }) => {
-    return { ...state, load: false, error: error };
+    return { ...state, load: false, error: error, validateActivationStatus:true };
   }),
 );

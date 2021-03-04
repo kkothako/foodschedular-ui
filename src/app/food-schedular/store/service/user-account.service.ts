@@ -12,8 +12,10 @@ export class UserAccountService {
     return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts`, userAccountRegistration)
       .pipe(catchError(error => of(error)));
   }
-  validateActivationKey(activationKey: string): Observable<any> {
-    return this.httpClient.get<any>(`${environment.baseUrl}/useraccounts/${activationKey}`)
+  validateActivationKey(activationKey: string, userId:string): Observable<any> {
+    const data = {activationKey: activationKey, userId:userId};
+
+    return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts/validateActivationKey`, data)
       .pipe(catchError(error => of(error)));
   }
 

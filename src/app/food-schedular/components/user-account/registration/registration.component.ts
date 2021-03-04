@@ -78,10 +78,10 @@ export class RegistrationComponent implements OnInit {
         validators: [Validators.required],
         updateOn: 'change'
       }],
-      confirmPassword: ['', {
-        validators: [Validators.required],
-        updateOn: 'change'
-      }],
+      // confirmPassword: ['', {
+      //   validators: [Validators.required],
+      //   updateOn: 'change'
+      // }],
       address: this._formBuilder.group({
         addressLine1: ['', { updateOn: 'change' }],
         city: ['', { updateOn: 'change' }],
