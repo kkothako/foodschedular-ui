@@ -9,12 +9,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { UserAccountModule } from './components/user-account/user-account.module';
-import { UserAccountComponent } from './components/user-account/user-account.component';
 
 const routes: Routes = [
   {
     path: '', component: FoodSchedularAppComponent, children: [
-      { path: 'useraccount',  loadChildren: () => import('./components/user-account/user-account.module').then(m=>m.UserAccountModule) }
+      { path: 'useraccount', loadChildren: () => import('./components/user-account/user-account.module').then(m => m.UserAccountModule) },
+      { path: 'dashboard', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule) }
     ]
   },
   { path: '**', redirectTo: 'useraccount' }

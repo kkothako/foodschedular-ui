@@ -38,9 +38,11 @@ export class LoginComponent implements OnInit {
 
   openSignUpTypeDialog() {
     this.dialog.open(SignupTypeComponent, {
-      width:'800px'
+      width: '800px'
     });
   }
-
+  validateLogin(): void {
+    this.router.navigate(['food-schedular/dashboard/schedule-food']);
+  }
 
 }

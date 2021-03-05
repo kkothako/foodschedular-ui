@@ -34,6 +34,16 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+import timeGridPlugin from '@fullcalendar/timegrid';
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+  timeGridPlugin
+]);
+
 @NgModule({
   declarations: [],
   exports: [
@@ -69,7 +79,8 @@ import { MessageService } from 'primeng/api';
     FieldsetModule,
     MultiSelectModule,
     ProgressSpinnerModule,
-    ToastModule
+    ToastModule,
+    FullCalendarModule
   ],
   providers:[
 
