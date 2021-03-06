@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({
@@ -37,12 +37,16 @@ export class ScheduleFoodComponent implements OnInit {
   handleDateClick(arg) {
     alert('date click! ' + arg.dateStr)
   }
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
 
 
 
+  }
+
+  addFood(): void {
+    this.router.navigate(["food-schedular/dashboard/add-food"]);
   }
 
 }
