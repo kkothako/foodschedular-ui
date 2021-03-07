@@ -12,7 +12,7 @@ export class ScheduleFoodComponent implements OnInit {
 
   options: any;
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
+    initialView: 'timeGridWeek',
     headerToolbar: {
       start: 'prevYear,today prev,next,nextYear', // will normally be on the left. if RTL, will be on the right
       center: 'title',
@@ -25,15 +25,25 @@ export class ScheduleFoodComponent implements OnInit {
       day: 'day',
       list: 'list'
     },
-    editable: true,
     dayHeaders: true,
-    dateClick: this.handleDateClick.bind(this), // bind is important!
-    events: [
-      { title: 'event 1', date: '2019-04-01' },
-      { title: 'event 2', date: '2019-04-02' }
-    ]
-  };
+    navLinks: true,
+    editable: true,
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
+    views: {
+      titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
 
+    },
+    dateClick: this.handleDateClick.bind(this),
+    events: [
+      { title: 'event 1', date: '2021-03-01 12:00:00' },
+      { title: 'event 2', date: '2021-03-06' }
+    ],
+    eventClick: function (info) {
+      alert('Event: ' + info.event.title);
+    }
+  };
   handleDateClick(arg) {
     alert('date click! ' + arg.dateStr)
   }

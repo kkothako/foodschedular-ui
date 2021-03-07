@@ -9,7 +9,8 @@ export interface UserAccountState extends EntityState<UserAccountModel> {
   newUser: model.UserAccountRegistrationModel,
   error: any,
   validateActivationStatus: boolean,
-  userProfiles: UserProfileModel[]
+  userProfiles: UserProfileModel[],
+  loggedInUser: model.UserAccountRegistrationModel
 }
 
 export const defaultState: UserAccountState = {
@@ -19,7 +20,8 @@ export const defaultState: UserAccountState = {
   newUser: null,
   error: null,
   validateActivationStatus: false,
-  userProfiles: null
+  userProfiles: null,
+  loggedInUser:null
 };
 
 export const initialState = userAccountEntity.getInitialState(defaultState);

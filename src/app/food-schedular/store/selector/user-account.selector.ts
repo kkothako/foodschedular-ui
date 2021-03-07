@@ -28,3 +28,13 @@ export const selectValidateActivationStatus = createSelector(
   accountState,
   state => state.validateActivationStatus
 );
+
+export const selectLoggedInUser = createSelector(
+  accountState,
+  state => state.loggedInUser
+);
+
+export const selectError = createSelector(
+  accountState,
+  state => state.error
+);

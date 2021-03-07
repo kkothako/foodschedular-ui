@@ -15,17 +15,31 @@
 
   <div class="row">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
-      <form class="form-inline" autosize>
+      <form class="form-inline" autosize
+      [formGroup]="loginFormGroup"
+      (ngSubmit)="validateLogin(loginFormGroup)">
         <div class="form-group">
           <mat-form-field appearance="fill" style="width: 250px !important">
             <mat-label>Enter your email or mobile</mat-label>
             <input
               matInput
               placeholder="pat@example.com"
-              [formControl]="email"
+              formControlName="email"
               required
             />
-            <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+            <mat-error
+              *ngIf="
+              loginFormGroup.get('email').hasError('email') &&
+                !loginFormGroup.get('email').hasError('required')
+              "
+            >
+              Please enter a valid email address
+            </mat-error>
+            <mat-error
+              *ngIf="loginFormGroup.get('email').hasError('required')"
+            >
+              Email is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
@@ -35,7 +49,8 @@
             style="width: 250px !important"
           >
             <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" />
+            <input matInput [type]="hide ? 'password' : 'text'"
+            formControlName="password" required/>
             <button
               mat-icon-button
               matSuffix
@@ -45,6 +60,11 @@
             >
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
+            <mat-error
+            *ngIf="loginFormGroup.get('password').hasError('required')"
+          >
+            Password is <strong>required</strong>
+          </mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
@@ -52,10 +72,19 @@
             class="mat-raised-button-width"
             mat-raised-button
             color="accent"
-            (click)="validateLogin()"
+[disabled]="loginFormGroup.invalid"
           >
             Sign In
             <span class="material-icons"> login </span>
+            <span *ngIf="load$ | async as load">
+              <p-progressSpinner
+                [style]="{ width: '50px', height: '50px' }"
+                styleClass="custom-spinner"
+                strokeWidth="8"
+                fill="#EEEEEE"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
           </button>
         </div>
       </form>

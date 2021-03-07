@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserAccountRegistrationModel } from '../models/user-account.model';
 
@@ -22,5 +22,12 @@ export class UserAccountService {
   getProfilesByUserId(userId:string): Observable<any>{
     return this.httpClient.get<any>(`${environment.baseUrl}/userprofiles/${userId}`)
     .pipe(catchError(error => of(error)));
+  }
+  validateLogin(login: UserAccountRegistrationModel): Observable<any>{
+    return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts/validateLogin`, login)
+    .pipe(
+
+      catchError(error => of(error))
+      );
   }
 }
