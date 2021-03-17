@@ -21,9 +21,11 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="['food-schedular/useraccount/signin']">
-      <mat-icon>dialpad</mat-icon>
-      <span>Login</span>
+    <button mat-menu-item (click)="navigateLoginOrLogOut()">
+      <mat-icon>{{
+        (loggedInUser$ | async) !== null ? "logout" : "login"
+      }}</mat-icon>
+      <span>{{ (loggedInUser$ | async) !== null ? "Logout" : "Login" }}</span>
     </button>
 
     <button mat-menu-item>

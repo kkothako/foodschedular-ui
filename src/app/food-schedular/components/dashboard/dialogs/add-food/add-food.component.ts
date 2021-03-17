@@ -6,22 +6,21 @@ import { KeyValueModel } from 'src/app/food-schedular/store/models/preferences.m
   templateUrl: './add-food.component.html',
   styleUrls: ['./add-food.component.scss']
 })
-
 export class AddFoodComponent implements OnInit {
 
-  constructor() { }
-
-  lstCuisines: KeyValueModel[] = [];
+  cuisines: KeyValueModel[] = [];
   selectedCuisine: KeyValueModel[] = [];
 
-  lstProtiens: KeyValueModel[] = [];
+  protiens: KeyValueModel[] = [];
   selectedProtien: KeyValueModel[] = [];
 
-  date1: Date;
-  timeonly: Date;
+  selectedDate: Date;
+  selectedTime: Date;
+  myDatePicker: any;
+  constructor() { }
 
   ngOnInit(): void {
-    this.lstCuisines = [
+    this.cuisines = [
       { name: 'American', code: 'AM' },
       { name: 'Asian', code: 'AS' },
       { name: 'Mexican', code: 'ME' },
@@ -30,10 +29,11 @@ export class AddFoodComponent implements OnInit {
     ]
       ;
 
-    this.lstProtiens = [
+    this.protiens = [
       { name: 'Chicken', code: 'CH' },
       { name: 'Goat', code: 'GO' },
       { name: 'Beef', code: 'BE' }
     ];
   }
+
 }

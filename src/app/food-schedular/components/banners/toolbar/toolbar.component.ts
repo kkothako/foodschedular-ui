@@ -1,5 +1,12 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { UserAccountRegistrationModel } from 'src/app/food-schedular/store/models/user-account.model';
+import { AppState } from 'src/app/food-schedular/store/state/app.state';
+import * as selectors from './../../../store/selector/user-account.selector';
+import * as loginActions from './../../../store/action/user-account-login';
 
 
 @Component({
@@ -12,14 +19,24 @@ export class ToolbarComponent implements OnInit {
   isSmallScreen: boolean;
   @Output() sideNavToggle = new EventEmitter<void>();
   @Output() changeTheame = new EventEmitter<void>();
+  loggedInUser$: Observable<UserAccountRegistrationModel>;
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver,
+    private store: Store<AppState>,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([Breakpoints.XSmall])
       .subscribe(state => {
         this.isSmallScreen = state.matches;
       });
+
+    this.loggedInUser$ = this.store.pipe(select(selectors.selectLoggedInUser));
+
+  }
+  navigateLoginOrLogOut(): void {
+    this.store.dispatch(loginActions.logoutAction());
+    this.router.navigate(['food-schedular/useraccount/signin']);
   }
 
 }

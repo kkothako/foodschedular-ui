@@ -15,3 +15,7 @@ export const validateLoginError = createAction(
   '[app-login] Validate user login error',
   props<{error: any}>()
 );
+
+export const logoutAction = createAction(
+  '[app-toolbar] Logout action'
+);

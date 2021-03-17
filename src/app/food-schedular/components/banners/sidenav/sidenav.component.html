@@ -8,7 +8,7 @@
   >
     <mat-toolbar color="accent">
       <span>
-        <p-avatar icon="pi pi-user" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>Welcome Krishna
+        <p-avatar icon="pi pi-user" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>Welcome {{this.loggedInUser$?.email.split(".")[0]}}
         <!-- <mat-icon svgIcon="unicorn"></mat-icon>  -->
       </span>
     </mat-toolbar>
@@ -16,7 +16,7 @@
       <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
         <mat-icon mat-list-icon> <mat-icon svgIcon="unicorn"></mat-icon></mat-icon>
 
-        <div class="mat-list-text"  (click)="redirectToSignIn()"> {{ shoe }}</div>
+        <div class="mat-list-text"  (click)="navigateLoginOrLogOut()"> {{ shoe }}</div>
       </mat-list-option>
     </mat-selection-list>
   </mat-drawer>

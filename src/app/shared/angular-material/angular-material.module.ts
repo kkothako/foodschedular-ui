@@ -32,7 +32,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
@@ -41,6 +41,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { MatNativeDateModule } from '@angular/material/core';
+
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -77,6 +84,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MatStepperModule,
     ScrollingModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
     AvatarModule,
     AvatarGroupModule,
@@ -87,7 +96,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FullCalendarModule,
     DropdownModule,
     CalendarModule,
-    RadioButtonModule
+    RadioButtonModule,
+
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule
   ],
   providers: [
 

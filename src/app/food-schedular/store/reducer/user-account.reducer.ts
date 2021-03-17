@@ -36,12 +36,15 @@ const reducer = createReducer(initialState,
     return { ...state, load: false, error: error, validateActivationStatus: true };
   }),
   on(loginActions.validateLogin, (state) => {
-    return { ...state, load: true,error: null, loggedInUser: null  };
+    return { ...state, load: true, error: null, loggedInUser: null };
   }),
   on(loginActions.validateLoginSuccess, (state, { response }) => {
     return { ...state, load: false, loggedInUser: response, error: null };
   }),
   on(loginActions.validateLoginError, (state, { error }) => {
-    return { ...state, load: false, error: error , loggedInUser: null };
+    return { ...state, load: false, error: error, loggedInUser: null };
+  }),
+  on(loginActions.logoutAction, (state) => {
+    return { ...state, load: false, error: null, loggedInUser: null };
   })
 );
