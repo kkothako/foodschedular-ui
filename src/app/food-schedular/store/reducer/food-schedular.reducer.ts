@@ -15,7 +15,13 @@ const reducer = createReducer(initialState,
   on(actions.getAllCuisinesSuccess, (state, { response }) => {
     return { ...state, cuisines: response, load: false }
   }),
-  on(actions.getAllCuisinesError, (state, { error }) => {
+  on(actions.getAllProtiens, (state)=>{
+    return {...state, load: true}
+  }),
+  on(actions.getAllProtiensSuccess, (state, { response }) => {
+    return { ...state, protiens: response, load: false }
+  }),
+  on(actions.getErrorAction, (state, { error }) => {
     return { ...state, cuisines: null, load: false, error: error }
   })
 );

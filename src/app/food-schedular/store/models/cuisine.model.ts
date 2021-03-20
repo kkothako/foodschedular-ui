@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+
 export interface CuisineModel {
   cuisineID: string;
   cuisineName: string;
@@ -15,3 +17,4 @@ export interface ProtienModel {
   modifiedAt: Date;
   modifiedBy: string;
 }
+

@@ -18,10 +18,21 @@ export class FoodSchedularEffect {
     () => this.actions.pipe(
       ofType(schedularActions.getAllCuisines),
       mergeMap(() => this.foodSchedularService.getAllCuisines().pipe(
-        map((result) => result?.status ? schedularActions.getAllCuisinesSuccess({ response: result.data }) :
-          schedularActions.getAllCuisinesError({ error: result.error }),
-          catchError((result) => of(schedularActions.getAllCuisinesError({ error: result.error })))
+        map((result) => result?.status ? schedularActions.getAllCuisinesSuccess({ response: result?.data }) :
+          schedularActions.getAllCuisinesSuccess({ response: result?.error }),
+          catchError((result) => of(schedularActions.getErrorAction({ error: result?.error })))
         ))
       ))
+  );
+
+  getAllProtiensEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(schedularActions.getAllProtiens),
+      mergeMap(() => this.foodSchedularService.getAllProtiens().pipe(
+        map((result) => result?.status ? schedularActions.getAllProtiensSuccess({ response: result?.data }) :
+          schedularActions.getErrorAction({ error: result?.error })),
+        catchError((result) => of(schedularActions.getErrorAction({ error: result?.error })))
+      ))
+    )
   );
 }

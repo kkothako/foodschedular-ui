@@ -12,15 +12,15 @@
   </div>
   <br />
   <br />
-  <div class="row">
+  <div class="row" *ngIf="viewModel$ | async as vm">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
       <form autosize>
         <div class="form-group">
           <p-dropdown
-            [options]="cuisines"
+            [options]="vm.cuisines"
             [(ngModel)]="selectedCuisine"
             placeholder="Select Cuisine"
-            optionLabel="name"
+            optionLabel="cuisineName"
             [style]="{ width: '240px' }"
             [ngModelOptions]="{ standalone: true }"
           ></p-dropdown>
@@ -28,10 +28,10 @@
         <div class="form-group">
           <p-dropdown
           autoWidth="false"
-            [options]="protiens"
+            [options]="vm.protiens"
             [(ngModel)]="selectedProtien"
             placeholder="Select Protien"
-            optionLabel="name"
+            optionLabel="protienName"
             [style]="{ width: '240px' }"
             [ngModelOptions]="{ standalone: true }"
           ></p-dropdown>

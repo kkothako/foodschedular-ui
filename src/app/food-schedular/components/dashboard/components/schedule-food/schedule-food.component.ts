@@ -30,11 +30,21 @@ export class ScheduleFoodComponent implements OnInit {
       list: 'list'
     },
     dayHeaders: true,
-    navLinks: true,
+    navLinks: false,
     editable: true,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    slotMinTime: '08:00:00',
+    slotMaxTime: '22:00:00',
+    height:'auto',
+    allDaySlot:false,
+    // firstDay:1,
+    businessHours: {
+      daysOfWeek: [0, 1, 2, 3, 4, 5, 6, 7],
+      startTime: '08:00', // 8am
+      endTime: '22:00' // 6pm
+    },
     views: {
       titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
 
