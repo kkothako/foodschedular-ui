@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { KeyValueModel } from 'src/app/food-schedular/store/models/preferences.model';
+import { AppState } from 'src/app/food-schedular/store/state/app.state';
+
+import * as actions from './../../../../store/action/food-schedular.action';
 
 @Component({
   selector: 'app-add-food',
@@ -17,9 +21,11 @@ export class AddFoodComponent implements OnInit {
   selectedDate: Date;
   selectedTime: Date;
   myDatePicker: any;
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(actions.getAllCuisines());
+
     this.cuisines = [
       { name: 'American', code: 'AM' },
       { name: 'Asian', code: 'AS' },

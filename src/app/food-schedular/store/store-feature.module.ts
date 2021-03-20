@@ -2,12 +2,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { FoodSchedularEffect } from './effects/food.schedular.effect';
 import { UserAccountEffect } from './effects/user-account.effect';
+import { foodSchedularReducer } from './reducer/food-schedular.reducer';
 import { userAccountReducer } from './reducer/user-account.reducer';
+import { ConstantService } from './service/constant.service';
+import { FoodSchedularService } from './service/food-schedular.service';
 import { UserAccountService } from './service/user-account.service';
 
 const reducerMap = {
-  userAccountState: userAccountReducer
+  userAccountState: userAccountReducer,
+  foodSchedularState: foodSchedularReducer
 };
 
 @NgModule({
@@ -15,11 +20,14 @@ const reducerMap = {
     CommonModule,
     StoreModule.forFeature('appState', reducerMap),
     EffectsModule.forFeature([
-      UserAccountEffect
+      UserAccountEffect,
+      FoodSchedularEffect
     ])
   ],
   providers: [
-    UserAccountService
+    UserAccountService,
+    FoodSchedularService,
+    ConstantService
   ]
 })
 export class StoreFeatureBaseModule {
