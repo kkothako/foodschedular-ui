@@ -3,15 +3,15 @@
     <div class="col-sm-12 col-md-12">
       <h2 class="mt-0 mb-1">Update your Profile</h2>
       <mat-divider></mat-divider>
-      <br>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-      scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-      vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-      nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+      <br />
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+      ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
+      viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+      lacinia congue felis in faucibus.
     </div>
   </div>
-  <br/>
-  <br/>
+  <br />
+  <br />
   <div class="row">
     <div class="col-sm-12 col-md-12">
       <ng-template [ngIf]="isSmallScreen" [ngIfElse]="isBigScreen">
@@ -73,11 +73,11 @@
                         appearance="fill"
                         style="width: 250px !important"
                       >
-                        <mat-label>Enter your email or mobile</mat-label>
+                        <mat-label>Enter your mobile</mat-label>
                         <input
                           matInput
-                          formControlName="email"
-                          placeholder="Email or Mobile"
+                          formControlName="mobile"
+                          placeholder="Mobile"
                           required
                         />
                       </mat-form-field>
@@ -195,7 +195,29 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
+            <!-- <p>You are now done.</p> -->
+            <div class="container-fluid">
+              <div class="offset-sm-6 offset-md-6">
+                <button
+                  class="mat-raised-button-width-reg"
+                  mat-raised-button
+                  color="warn"
+                  (click)="createUserProfile()"
+                >
+                  Create Profile
+                  <span class="material-icons">save</span>
+                </button>
+                <span *ngIf="load$ | async as load">
+                  <p-progressSpinner
+                    [style]="{ width: '50px', height: '50px' }"
+                    styleClass="custom-spinner"
+                    strokeWidth="8"
+                    fill="#EEEEEE"
+                    animationDuration=".5s"
+                  ></p-progressSpinner>
+                </span>
+              </div>
+            </div>
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button (click)="stepper.reset()">Reset</button>
@@ -204,7 +226,7 @@
         </mat-vertical-stepper>
       </ng-template>
       <ng-template #isBigScreen>
-        <mat-horizontal-stepper linear  #stepper>
+        <mat-horizontal-stepper linear #stepper>
           <mat-step [stepControl]="nameFormGroup" [editable]="isEditable">
             <form [formGroup]="nameFormGroup">
               <ng-template matStepLabel>Fill out your name</ng-template>
@@ -262,11 +284,11 @@
                         appearance="fill"
                         style="width: 250px !important"
                       >
-                        <mat-label>Enter your email or mobile</mat-label>
+                        <mat-label>Enter your mobile</mat-label>
                         <input
                           matInput
-                          formControlName="email"
-                          placeholder="Email or Mobile"
+                          formControlName="mobile"
+                          placeholder="Mobile"
                           required
                         />
                       </mat-form-field>
@@ -384,7 +406,35 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
+            <!-- <p>You are now done.</p> -->
+            <br>
+            <br>
+            <br>
+            <div class="container-fluid">
+              <div class="offset-sm-6 offset-md-6">
+                <button
+                  class="mat-raised-button-width-reg"
+                  mat-raised-button
+                  color="warn"
+                  (click)="createUserProfile()"
+                >
+                  Create Profile
+                  <span class="material-icons">save</span>
+                </button>
+                <span *ngIf="load$ | async as load">
+                  <p-progressSpinner
+                    [style]="{ width: '50px', height: '50px' }"
+                    styleClass="custom-spinner"
+                    strokeWidth="8"
+                    fill="#EEEEEE"
+                    animationDuration=".5s"
+                  ></p-progressSpinner>
+                </span>
+              </div>
+            </div>
+            <br>
+            <br>
+            <br>
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button (click)="stepper.reset()">Reset</button>

@@ -1,4 +1,4 @@
-<div class="example-container">
+<div class="example-container ">
     <div class="row">
         <div class="col-sm-9 col-md-9">
             <h2 class="mt-0 mb-1">Dashboard</h2>
@@ -12,7 +12,8 @@
         <div class="col-sm-3 col-md-3">
 
             <button class="mat-raised-button-width-reg" mat-raised-button color="warn" (click)="openAddFoodDialog()">
-                Add Food
+              <mat-icon>add_alarm</mat-icon>
+              Add Food
                 <span class="material-icons"> restaurant</span>
             </button>
         </div>
@@ -20,4 +21,7 @@
 
 </div>
 <br/>
-<full-calendar [options]="calendarOptions"></full-calendar>
+<div>
+  <full-calendar [options]="calendarOptions"></full-calendar>
+</div>
+

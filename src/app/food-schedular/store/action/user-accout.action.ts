@@ -18,7 +18,7 @@ export const createRegistrationError = createAction(
 
 export const validateActivationKey = createAction(
   '[app-confirm-email] Validate account activation key',
-  props<{ activationKey: string, userId:string }>()
+  props<{ activationKey: string, userId: string }>()
 );
 export const validateActivationKeySuccess = createAction(
   '[app-confirm-email] Validate account activation key success',
@@ -42,3 +42,17 @@ export const getUserProfilesError = createAction(
   props<{ error: any }>()
 );
 
+export const createUserProfile = createAction(
+  '[app-profile] Create user profile',
+  props<{ payload: UserProfileModel }>()
+);
+
+export const createUserProfileSuccess = createAction(
+  '[app-profile] Create user profile success',
+  props<{ response: boolean }>()
+);
+
+export const createUserProfileError = createAction(
+  '[app-profile] Create user profile error',
+  props<{ error: any }>()
+);

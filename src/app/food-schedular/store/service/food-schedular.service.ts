@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Action } from '@fullcalendar/angular';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -23,4 +24,7 @@ export class FoodSchedularService {
     return this.httpClient.post<any>(url,this.constantService.httpOptions)
       .pipe(catchError(error => of(error)));
   }
+  // createDraftOrder(): Observable<Action>{
+
+  // }
 }

@@ -46,5 +46,14 @@ const reducer = createReducer(initialState,
   }),
   on(loginActions.logoutAction, (state) => {
     return { ...state, load: false, error: null, loggedInUser: null };
-  })
+  }),
+  on(actions.createUserProfile, (state) => {
+    return { ...state, load: true, error: null, loggedInUser: null };
+  }),
+  on(actions.createUserProfileSuccess, (state, { response }) => {
+    return { ...state, load: false, hasSavedSuccess: response, error: null };
+  }),
+  on(actions.createUserProfileError, (state, { error }) => {
+    return { ...state, load: false, error: error, loggedInUser: null, hasSavedSuccess: false };
+  }),
 );

@@ -56,4 +56,15 @@ export class UserAccountEffect {
       ))
     )
   );
+
+  createUserProfileEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(action.createUserProfile),
+      mergeMap(({ payload }) => this.userAccountService.createUserProfile(payload).pipe(
+        map((result:any) => result?.status ? action.createUserProfileSuccess({ response: result?.data }) : action.createUserProfileError({ error: result.error }),
+        catchError((result: any) => of(action.createUserProfileError({ error: result.error }))),
+        )
+      ))
+    )
+  );
 }

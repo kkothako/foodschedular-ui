@@ -38,3 +38,8 @@ export const selectError = createSelector(
   accountState,
   state => state.error
 );
+
+export const selectHasProfileCreated =  createSelector(
+  accountState,
+  state => state.hasSavedSuccess
+);

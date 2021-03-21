@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserAccountRegistrationModel } from '../models/user-account.model';
+import { UserProfileModel } from '../models/user-profile.model';
 
 @Injectable()
 export class UserAccountService {
@@ -12,22 +13,28 @@ export class UserAccountService {
     return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts`, userAccountRegistration)
       .pipe(catchError(error => of(error)));
   }
-  validateActivationKey(activationKey: string, userId:string): Observable<any> {
-    const data = {activationKey: activationKey, userId:userId};
+  validateActivationKey(activationKey: string, userId: string): Observable<any> {
+    const data = { activationKey: activationKey, userId: userId };
 
     return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts/validateActivationKey`, data)
       .pipe(catchError(error => of(error)));
   }
 
-  getProfilesByUserId(userId:string): Observable<any>{
+  getProfilesByUserId(userId: string): Observable<any> {
     return this.httpClient.get<any>(`${environment.baseUrl}/userprofiles/${userId}`)
-    .pipe(catchError(error => of(error)));
+      .pipe(catchError(error => of(error)));
   }
-  validateLogin(login: UserAccountRegistrationModel): Observable<any>{
+  validateLogin(login: UserAccountRegistrationModel): Observable<any> {
     return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts/validateLogin`, login)
-    .pipe(
+      .pipe(
 
-      catchError(error => of(error))
+        catchError(error => of(error))
+      );
+  }
+  createUserProfile(profile: UserProfileModel): Observable<any> {
+    return this.httpClient.post<any>(`${environment.baseUrl}/userprofiles`, profile)
+      .pipe(
+        catchError(error => of(error))
       );
   }
 }

@@ -46,7 +46,6 @@ export class ConfirmEmailComponent implements OnInit {
       }));
     combineLatest(this.validateActivationStatus$, this.userProfiles$)
       .subscribe(([status, profiles]) => {
-        debugger
         if (this.handleClick && status && !profiles) {
           this.openSnackBar('Validated activation key successfully!', 'Activation Key');
           this.router.navigate(['food-schedular/useraccount/profile']);

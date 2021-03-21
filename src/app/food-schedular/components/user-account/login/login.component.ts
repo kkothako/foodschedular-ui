@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit {
   bindErrors(): void {
     this.store.pipe(select(selectors.selectError))
       .subscribe(error => {
-        debugger
         if (error) {
           this.openSnackBar(error, 'Error');
         }

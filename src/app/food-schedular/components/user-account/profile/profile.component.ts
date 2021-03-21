@@ -1,7 +1,18 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AddressModel, UserAccountRegistrationModel } from 'src/app/food-schedular/store/models/user-account.model';
+import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
+import { AppState } from 'src/app/food-schedular/store/state/app.state';
+
+import * as actions from './../../../store/action/user-accout.action';
+import * as selectors from './../../../store/selector/user-account.selector';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +26,34 @@ export class ProfileComponent implements OnInit {
   isEditable = true;
   email = new FormControl('', [Validators.required, Validators.email]);
   isSmallScreen: boolean;
-
+  load$: Observable<boolean>;
+  newUser: UserAccountRegistrationModel;
+  hasSaveClicked = false;
 
   constructor(private _formBuilder: FormBuilder,
-    private breakpointObserver: BreakpointObserver) { }
+    private breakpointObserver: BreakpointObserver,
+    private store: Store<AppState>,
+    private router: Router,
+    private _snackBar: MatSnackBar) {
+    this.load$ = this.store.pipe(select(selectors.load));
+
+    this.store.pipe(select(selectors.selectNewlyCreatedUser))
+      .subscribe(response => {
+        this.newUser = response;
+      });
+
+    this.store.pipe(select(selectors.selectHasProfileCreated))
+      .subscribe(response => {
+        if (response) {
+          this.openSnackBar("User profile created", "success")
+          this.router.navigate(['food-schedular/useraccount/signin']);
+        } if (this.hasSaveClicked && !response) {
+          this.openSnackBar("Opps!, Error while creating user profile", "error")
+          this.hasSaveClicked = false;
+        }
+      });
+
+  }
 
   ngOnInit() {
 
@@ -32,7 +67,7 @@ export class ProfileComponent implements OnInit {
       nickName: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email:['', Validators.required]
+      mobile: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       addressLine1: ['', Validators.required],
@@ -42,6 +77,8 @@ export class ProfileComponent implements OnInit {
       zipCode: ['', Validators.required],
       country: ['', Validators.required]
     });
+
+
   }
 
   getErrorMessage() {
@@ -50,5 +87,20 @@ export class ProfileComponent implements OnInit {
     }
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  createUserProfile(): void {
+    this.hasSaveClicked = true;
+    const profile = <UserProfileModel>this.nameFormGroup.value;
+    profile.address = <AddressModel>this.secondFormGroup.value;
+    profile.userId = this.newUser.id;
+
+    this.store.dispatch(actions.createUserProfile({ payload: profile }));
+
+  }
+  openSnackBar(message: string, action: string, duration = 8000) {
+    this._snackBar.open(message, action, {
+      duration: duration,
+    });
   }
 }

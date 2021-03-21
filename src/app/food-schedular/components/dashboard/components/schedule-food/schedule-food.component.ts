@@ -35,15 +35,15 @@ export class ScheduleFoodComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-    slotMinTime: '08:00:00',
-    slotMaxTime: '22:00:00',
+    slotMinTime: '11:00:00',
+    slotMaxTime: '23:00:00',
     height:'auto',
     allDaySlot:false,
     // firstDay:1,
     businessHours: {
       daysOfWeek: [0, 1, 2, 3, 4, 5, 6, 7],
-      startTime: '08:00', // 8am
-      endTime: '22:00' // 6pm
+      startTime: '11:00', // 8am
+      endTime: '23:00' // 6pm
     },
     views: {
       titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
@@ -51,8 +51,9 @@ export class ScheduleFoodComponent implements OnInit {
     },
     dateClick: this.handleDateClick.bind(this),
     events: [
-      { title: 'event 1', date: '2021-03-01 12:00:00' },
-      { title: 'event 2', date: '2021-03-06' }
+      { title: 'event 1', date: '2021-03-17 18:00:00' },
+      { title: 'event 1', date: '2021-03-20 12:00:00' },
+      { title: 'event 2', date: '2021-03-21 11:00:00' }
     ],
     eventClick: function (info) {
       alert('Event: ' + info.event.title);
