@@ -12,7 +12,7 @@ export class FoodSchedularService {
   constructor(private httpClient: HttpClient,
     private constantService: ConstantService) { }
   getAllCuisines(): Observable<any> {
-    const url = `${environment.baseUrl}/restaurantCuisine/getallcuisines`;
+    const url = `${environment.baseUrl}/cuisine/getallcuisines`;
     return this.httpClient.post<any>(url, this.constantService.httpOptions)
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
@@ -20,7 +20,7 @@ export class FoodSchedularService {
         );
   }
   getAllProtiens(): Observable<any> {
-    const url = `${environment.baseUrl}/restaurantProtien/getallprotiens`;
+    const url = `${environment.baseUrl}/protein/getallproteins`;
     return this.httpClient.post<any>(url,this.constantService.httpOptions)
       .pipe(catchError(error => of(error)));
   }

@@ -34,6 +34,7 @@ export class AddFoodComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(actions.getAllCuisines());
     this.store.dispatch(actions.getAllProtiens());
+
   }
   bindDropdowns(): void {
 
@@ -52,6 +53,7 @@ export class AddFoodComponent implements OnInit {
       .pipe(map(([cuisines, protiens]) => ({ cuisines, protiens })));
 
   }
+
 
   addOrder(): void {
 

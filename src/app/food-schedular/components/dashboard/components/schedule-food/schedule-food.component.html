@@ -1,27 +1,46 @@
-<div class="example-container ">
-    <div class="row">
-        <div class="col-sm-9 col-md-9">
-            <h2 class="mt-0 mb-1">Dashboard</h2>
-            <mat-divider></mat-divider>
-            <br>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-            nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-        <div class="col-sm-3 col-md-3">
-
-            <button class="mat-raised-button-width-reg" mat-raised-button color="warn" (click)="openAddFoodDialog()">
-              <mat-icon>add_alarm</mat-icon>
-              Add Food
-                <span class="material-icons"> restaurant</span>
-            </button>
-        </div>
+<div class="example-container">
+  <div class="row">
+    <div class="col-sm-4 col-md-4">
+      <h2 class="mt-0 mb-1">Dashboard</h2>
     </div>
+    <div class="col-sm-4 col-md-4" *ngIf="userProfiles$ | async as userProfiles">
+      <mat-form-field appearance="fill" >
+        <mat-label>Select Profile</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let item of userProfiles" value="item.id" >{{item.nickName}}</mat-option>
 
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4 col-md-4">
+      <button
+        class="mat-raised-button-width-reg"
+        mat-raised-button
+        color="warn"
+        (click)="openAddFoodDialog()"
+      >
+        <mat-icon>add_alarm</mat-icon>
+        Add Food
+        <span class="material-icons"> restaurant</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <mat-divider></mat-divider>
+      <br />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+      ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
+      viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+      lacinia congue felis in faucibus.
+    </div>
+  </div>
 </div>
-<br/>
+<br />
 <div>
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
-

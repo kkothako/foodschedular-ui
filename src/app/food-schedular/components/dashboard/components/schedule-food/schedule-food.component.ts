@@ -2,7 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
+import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import { AddFoodComponent } from '../../dialogs/add-food/add-food.component';
+
+import * as userAccountActions from './../../../../store/action/user-accout.action';
+import * as userAccountSelectors from './../../../../store/selector/user-account.selector'
+
 
 @Component({
   selector: 'app-schedule-food',
@@ -37,8 +45,10 @@ export class ScheduleFoodComponent implements OnInit {
     dayMaxEvents: true,
     slotMinTime: '11:00:00',
     slotMaxTime: '23:00:00',
-    height:'auto',
-    allDaySlot:false,
+    height: 'auto',
+    allDaySlot: false,
+    // slotDuration:'01:00', // 1 Hours
+    contentHeight: 800,
     // firstDay:1,
     businessHours: {
       daysOfWeek: [0, 1, 2, 3, 4, 5, 6, 7],
@@ -62,8 +72,14 @@ export class ScheduleFoodComponent implements OnInit {
   handleDateClick(arg) {
     alert('date click! ' + arg.dateStr)
   }
+  userProfiles$: Observable<UserProfileModel[]>;
+
   constructor(private router: Router,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private store: Store<AppState>) {
+    this.bindUserId();
+    this.bindUserProfiles();
+  }
 
   ngOnInit(): void {
 
@@ -78,5 +94,16 @@ export class ScheduleFoodComponent implements OnInit {
     this.dialog.open(AddFoodComponent, {
       width: '500px'
     });
+  }
+  bindUserId(): void {
+    this.store.pipe(select(userAccountSelectors.selectLoggedInUser))
+      .subscribe(user => {
+        if (user) {
+          this.store.dispatch(userAccountActions.getUserProfiles({ userId: user.id }));
+        }
+      });
+  }
+  bindUserProfiles(): void {
+    this.userProfiles$ = this.store.pipe(select(userAccountSelectors.selectUserProfiles));
   }
 }
