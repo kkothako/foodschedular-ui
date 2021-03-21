@@ -9,6 +9,7 @@ import { userAccountReducer } from './reducer/user-account.reducer';
 import { ConstantService } from './service/constant.service';
 import { FoodSchedularService } from './service/food-schedular.service';
 import { UserAccountService } from './service/user-account.service';
+import { UserPreferencesService } from './service/user-preferences.service';
 
 const reducerMap = {
   userAccountState: userAccountReducer,
@@ -27,7 +28,8 @@ const reducerMap = {
   providers: [
     UserAccountService,
     FoodSchedularService,
-    ConstantService
+    ConstantService,
+    UserPreferencesService
   ]
 })
 export class StoreFeatureBaseModule {

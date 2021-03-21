@@ -11,7 +11,7 @@ import { AddressModel, UserAccountRegistrationModel } from 'src/app/food-schedul
 import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 
-import * as actions from './../../../store/action/user-accout.action';
+import * as actions from '../../../store/action/user-account.action';
 import * as selectors from './../../../store/selector/user-account.selector';
 
 @Component({
@@ -46,8 +46,9 @@ export class ProfileComponent implements OnInit {
       .subscribe(response => {
         if (response) {
           this.openSnackBar("User profile created", "success")
-          this.router.navigate(['food-schedular/useraccount/signin']);
-        } if (this.hasSaveClicked && !response) {
+          this.router.navigate(['food-schedular/useraccount/preferences']);
+        }
+         if (this.hasSaveClicked && !response) {
           this.openSnackBar("Opps!, Error while creating user profile", "error")
           this.hasSaveClicked = false;
         }

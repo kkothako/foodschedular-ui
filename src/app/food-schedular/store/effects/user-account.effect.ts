@@ -3,15 +3,18 @@ import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
-import * as action from './../action/user-accout.action';
+import * as action from '../action/user-account.action';
+import * as preferencesAction from '../action/user-preferences.action';
 import { UserAccountService } from '../service/user-account.service';
 import * as loginActions from './../action/user-account-login';
+import { UserPreferencesService } from '../service/user-preferences.service';
 
 @Injectable()
 export class UserAccountEffect {
   constructor(
     private actions: Actions,
-    private userAccountService: UserAccountService) {
+    private userAccountService: UserAccountService,
+    private userPreferencesService: UserPreferencesService) {
 
   }
 
@@ -67,4 +70,16 @@ export class UserAccountEffect {
       ))
     )
   );
+
+  createUserPreferencesEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(preferencesAction.createPreferences),
+      mergeMap(({ payload }) => this.userPreferencesService.createPreferences(payload).pipe(
+        map((result: any) => result.status ? preferencesAction.createPreferencesSuccess({
+          response: result.data
+        }) : preferencesAction.createPreferencesError({ error: result.error })),
+        catchError((result: any) => of(preferencesAction.createPreferencesError({ error: result.error }))
+        ))
+      )
+    ));
 }

@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { UserAccountRegistrationModel } from 'src/app/food-schedular/store/models/user-account.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 
-import * as action from '../../../store/action/user-accout.action';
+import * as action from '../../../store/action/user-account.action';
 import * as userAccountSelectors from '../../../store/selector/user-account.selector';
 
 @Component({

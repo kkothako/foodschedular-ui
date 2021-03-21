@@ -12,24 +12,24 @@
   </div>
   <br />
   <br />
-  <div class="row">
+  <div class="row" *ngIf="viewModel$ | async as vm">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
       <form autosize>
         <div class="form-group">
-          <p-multiSelect [options]="lstCuisines" [(ngModel)]="selectedCuisine" defaultLabel="Select Cuisine"
-            optionLabel="name" [style]="{'width':'50%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+          <p-multiSelect [options]="vm.cuisines" [(ngModel)]="selectedCuisine" defaultLabel="Select Cuisine"
+            optionLabel="cuisineName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
         <div class="form-group">
-          <p-multiSelect [options]="lstProtiens" [(ngModel)]="selectedProtien" defaultLabel="Select Protien"
-            optionLabel="name" [style]="{'width':'50%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+          <p-multiSelect [options]="vm.protiens" [(ngModel)]="selectedProtien" defaultLabel="Select Protien"
+            optionLabel="proteinName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
         <div class="form-group">
-          <p-multiSelect [options]="lstAllergies" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
-            optionLabel="name" [style]="{'width':'50%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+          <p-multiSelect [options]="vm.Allergies" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
+            optionLabel="name" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
-        <div class="form-group" hidden>
-          <textarea rows="3" cols="80" pInputTextarea autoResize="autoResize"
-            placeholder="Enter your allergies"></textarea>
+        <div class="form-group">
+          <textarea rows="3" cols="80" pInputTextarea autoResize="autoResize" class="form-control"
+            placeholder="Enter your allergies" [style]="{'width':'40%'}"></textarea>
         </div>
         <div class="form-group">
           <button class="mat-raised-button-width-reg" mat-raised-button color="warn">

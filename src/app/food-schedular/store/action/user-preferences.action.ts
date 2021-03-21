@@ -8,9 +8,9 @@ export const createPreferences = createAction(
   );
   export const createPreferencesSuccess = createAction(
     '[user-preferences] Create Preferences success',
-    props<{ response: model.PreferencesModel }>()
+    props<{ response: boolean }>()
   );
-  export const createPreferenceError = createAction(
+  export const createPreferencesError = createAction(
     '[user-preferences] Create Preferences error',
     props<{ error: any }>()
   );

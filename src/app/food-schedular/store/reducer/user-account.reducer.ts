@@ -1,7 +1,8 @@
 import { createReducer, Action, on } from '@ngrx/store';
 import { userAccountEntity } from '../entity/user-account.entity';
 import { initialState, UserAccountState } from '../state/user-account.state';
-import * as actions from './../action/user-accout.action';
+import * as actions from '../action/user-account.action';
+import * as preferenceActions from '../action/user-preferences.action';
 import * as loginActions from './../action/user-account-login';
 
 export function userAccountReducer(state: UserAccountState, action: Action) {
@@ -54,6 +55,15 @@ const reducer = createReducer(initialState,
     return { ...state, load: false, hasSavedSuccess: response, error: null };
   }),
   on(actions.createUserProfileError, (state, { error }) => {
+    return { ...state, load: false, error: error, loggedInUser: null, hasSavedSuccess: false };
+  }),
+  on(preferenceActions.createPreferences, (state) => {
+    return { ...state, load: true, error: null, loggedInUser: null };
+  }),
+  on(preferenceActions.createPreferencesSuccess, (state, { response }) => {
+    return { ...state, load: false, hasSavedSuccess: response, error: null };
+  }),
+  on(preferenceActions.createPreferencesError, (state, { error }) => {
     return { ...state, load: false, error: error, loggedInUser: null, hasSavedSuccess: false };
   }),
 );

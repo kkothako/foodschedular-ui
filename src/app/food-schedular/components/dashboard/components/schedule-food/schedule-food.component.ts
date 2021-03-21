@@ -8,7 +8,7 @@ import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profi
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import { AddFoodComponent } from '../../dialogs/add-food/add-food.component';
 
-import * as userAccountActions from './../../../../store/action/user-accout.action';
+import * as userAccountActions from '../../../../store/action/user-account.action';
 import * as userAccountSelectors from './../../../../store/selector/user-account.selector'
 
 

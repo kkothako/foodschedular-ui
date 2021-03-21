@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { UserProfileModel } from '../models/user-profile.model';
 
-import * as model from './../models/user-account.model';
+import * as model from '../models/user-account.model';
 
 export const createRegistration = createAction(
   '[app-registration] Create registration',

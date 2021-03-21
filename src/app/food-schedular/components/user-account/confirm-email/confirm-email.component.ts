@@ -8,7 +8,7 @@ import { catchError, combineAll } from 'rxjs/operators';
 import { UserAccountRegistrationModel } from 'src/app/food-schedular/store/models/user-account.model';
 import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
-import * as actions from './../../../store/action/user-accout.action';
+import * as actions from '../../../store/action/user-account.action';
 import * as selectors from './../../../store/selector/user-account.selector';
 
 @Component({
