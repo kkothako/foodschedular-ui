@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, EMPTY, merge, Observable, of, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CuisineModel, ProtienModel } from 'src/app/food-schedular/store/models/cuisine.model';
+import { AllergyModel, CuisineModel, ProtienModel } from 'src/app/food-schedular/store/models/cuisine.model';
 import { KeyValueModel } from 'src/app/food-schedular/store/models/preferences.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import * as actions from './../../../store/action/food-schedular.action';
@@ -19,9 +19,11 @@ export class PreferencesComponent implements OnInit {
 
   selectedCuisine: KeyValueModel[] = [];
   selectedProtien: KeyValueModel[] = [];
+  selectedAllergy: KeyValueModel[] = [];
 
   cusines$: Observable<CuisineModel[]>;
   protiens$: Observable<ProtienModel[]>;
+  allergys$: Observable<AllergyModel[]>;
   viewModel$: Observable<any>;
 
   constructor(private store: Store<AppState>) {
@@ -42,18 +44,22 @@ export class PreferencesComponent implements OnInit {
         return EMPTY;
       }));
 
-    this.viewModel$ = combineLatest([this.cusines$, this.protiens$])
-      .pipe(map(([cuisines, protiens]) => ({ cuisines, protiens })));
+      this.allergys$ = this.store.pipe(select(selectors.selectAllAllergys))
+      .pipe(catchError((error) => {
+        console.log(error);
+        return EMPTY;
+      }));
+
+    this.viewModel$ = combineLatest([this.cusines$, this.protiens$, this.allergys$])
+      .pipe(map(([cuisines, protiens, allergys]) => ({ cuisines, protiens, allergys })));
 
   }
-
-  Allergies: KeyValueModel[] = [];
-  selectedAllergy: KeyValueModel[] = [];
 
   ngOnInit(): void {
 
     this.store.dispatch(actions.getAllCuisines());
     this.store.dispatch(actions.getAllProtiens());
+    this.store.dispatch(actions.getAllAllergys());
   }
 
 }

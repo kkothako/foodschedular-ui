@@ -24,8 +24,8 @@
             optionLabel="proteinName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
         <div class="form-group">
-          <p-multiSelect [options]="vm.Allergies" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
-            optionLabel="name" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+          <p-multiSelect [options]="vm.allergys" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
+            optionLabel="allergyName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
         <div class="form-group">
           <textarea rows="3" cols="80" pInputTextarea autoResize="autoResize" class="form-control"

@@ -18,3 +18,12 @@ export interface ProtienModel {
   modifiedBy: string;
 }
 
+export interface AllergyModel {
+  allergyID: string;
+  allergyName: string;
+  createAt: Date;
+  createdBy: string;
+  modifiedAt: Date;
+  modifiedBy: string;
+}
+

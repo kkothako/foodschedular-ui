@@ -21,6 +21,12 @@ const reducer = createReducer(initialState,
   on(actions.getAllProtiensSuccess, (state, { response }) => {
     return { ...state, protiens: response, load: false }
   }),
+  on(actions.getAllAllergys, (state) => {
+    return { ...state, load: true };
+  }),
+  on(actions.getAllAllergysSuccess, (state, { response }) => {
+    return { ...state, allergys: response, load: false }
+  }),
   on(actions.getErrorAction, (state, { error }) => {
     return { ...state, cuisines: null, load: false, error: error }
   })

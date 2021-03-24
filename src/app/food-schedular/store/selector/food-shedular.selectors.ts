@@ -22,3 +22,8 @@ export const slectAllProtiens = createSelector(
   foodSchedularState,
   state => state.protiens
 );
+
+export const selectAllAllergys = createSelector(
+  foodSchedularState,
+  state => state.allergys
+);
