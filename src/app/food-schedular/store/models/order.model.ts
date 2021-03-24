@@ -1,16 +1,14 @@
-export interface OrderModel{
-  // id:string;
-  // cuisineID:String,
-  // cuisineName:String,
-  // protienID:String,
-  // protienName: String,
-  // scheduledDate: Date,
-  // profileId: String,
-  // userId: String,
-  // isCancelled: String,
-  // cancelledDeadlineDate: Date,
-  // createAt: { type: Date, default: Date.now },
-  // createdBy: String,
-  // modifiedAt: { type: Date, default: Date.now },
-  // modifiedBy: String
+export interface OrderModel {
+  id: string;
+  cuisineID: string;
+  cuisineName: string;
+  proteinID: string;
+  proteinName: string;
+  scheduledDate: string;
+  profileId: string;
+  userId: string;
+  createAt: Date;
+  createdBy: string;
+  modifiedAt: Date;
+  modifiedBy: string;
 }

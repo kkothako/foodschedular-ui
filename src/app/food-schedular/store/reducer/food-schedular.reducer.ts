@@ -4,6 +4,7 @@ import { initialState } from '../state/food-schedular.state';
 import * as actions from './../action/food-schedular.action';
 
 import { FoodSchedularState } from '../state/food-schedular.state';
+import * as orderAction from '../action/order.action';
 
 export function foodSchedularReducer(state: FoodSchedularState, action: Action) {
   return reducer(state, action);
@@ -15,8 +16,8 @@ const reducer = createReducer(initialState,
   on(actions.getAllCuisinesSuccess, (state, { response }) => {
     return { ...state, cuisines: response, load: false }
   }),
-  on(actions.getAllProtiens, (state)=>{
-    return {...state, load: true}
+  on(actions.getAllProtiens, (state) => {
+    return { ...state, load: true }
   }),
   on(actions.getAllProtiensSuccess, (state, { response }) => {
     return { ...state, protiens: response, load: false }
@@ -29,5 +30,14 @@ const reducer = createReducer(initialState,
   }),
   on(actions.getErrorAction, (state, { error }) => {
     return { ...state, cuisines: null, load: false, error: error }
+  }),
+  on(orderAction.createDraftOrder, (state) => {
+    return { ...state, load: true }
+  }),
+  on(orderAction.createDraftOrderSuccess, (state) => {
+    return { ...state, load: false, hasSaved: true }
+  }),
+  on(orderAction.orderError, (state) => {
+    return { ...state, load: false, hasSaved: false, }
   })
 );

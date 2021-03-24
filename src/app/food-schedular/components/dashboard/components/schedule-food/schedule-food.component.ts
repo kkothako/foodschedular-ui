@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
@@ -8,7 +9,7 @@ import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profi
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import { AddFoodComponent } from '../../dialogs/add-food/add-food.component';
 
-import * as userAccountActions from '../../../../store/action/user-account.action';
+import * as userAccountActions from './../../../../store/action/user-account.action';
 import * as userAccountSelectors from './../../../../store/selector/user-account.selector'
 
 
@@ -73,18 +74,24 @@ export class ScheduleFoodComponent implements OnInit {
     alert('date click! ' + arg.dateStr)
   }
   userProfiles$: Observable<UserProfileModel[]>;
-
+  userProfileFormGroup: FormGroup;
+  userId: string;
+  userProfiles: UserProfileModel[] = [];
+  hasActionDisapactched = false;
   constructor(private router: Router,
     public dialog: MatDialog,
-    private store: Store<AppState>) {
+    private store: Store<AppState>,
+    private _formBuilder: FormBuilder) {
     this.bindUserId();
-    this.bindUserProfiles();
+
   }
 
   ngOnInit(): void {
 
-
-
+    this.userProfileFormGroup = this._formBuilder.group({
+      userProfile: [null, Validators.required]
+    });
+    this.bindUserProfiles();
   }
 
   addFood(): void {
@@ -98,12 +105,23 @@ export class ScheduleFoodComponent implements OnInit {
   bindUserId(): void {
     this.store.pipe(select(userAccountSelectors.selectLoggedInUser))
       .subscribe(user => {
-        if (user) {
+        if (user && this.userProfiles.length == 0 && !this.hasActionDisapactched) {
+          this.hasActionDisapactched = true;
+          this.userId = user.id;
           this.store.dispatch(userAccountActions.getUserProfiles({ userId: user.id }));
         }
       });
   }
   bindUserProfiles(): void {
     this.userProfiles$ = this.store.pipe(select(userAccountSelectors.selectUserProfiles));
+    this.userProfiles$.subscribe(response => {
+      if (response && this.userProfileFormGroup.get('userProfile')) {
+        this.userProfiles = response;
+        const userProfile = response.find(dr => dr.userId === this.userId);
+        this.userProfileFormGroup.get('userProfile').setValue(userProfile);
+      }
+    });
   }
+
+
 }

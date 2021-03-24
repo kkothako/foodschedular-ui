@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { pid } from 'process';
 import { combineLatest, EMPTY, merge, Observable, of, pipe } from 'rxjs';
@@ -17,8 +17,8 @@ import * as selectors from './../../../../store/selector/food-shedular.selectors
 })
 export class AddFoodComponent implements OnInit {
 
-  selectedCuisine: KeyValueModel[] = [];
-  selectedProtien: KeyValueModel[] = [];
+  selectedCuisine: CuisineModel;
+  selectedProtien: ProtienModel;
 
   selectedDate: Date;
   selectedTime: Date;
@@ -26,15 +26,18 @@ export class AddFoodComponent implements OnInit {
   cusines$: Observable<CuisineModel[]>;
   protiens$: Observable<ProtienModel[]>;
   viewModel$: Observable<any>;
-
+  @ViewChild('#picker') timePicker;
+  defaultTime =[new Date().getHours(), 0 , 0];;
   constructor(private store: Store<AppState>) {
     this.bindDropdowns();
   }
 
   ngOnInit(): void {
+
+debugger
     this.store.dispatch(actions.getAllCuisines());
     this.store.dispatch(actions.getAllProtiens());
-
+console.log('kk', this.timePicker)
   }
   bindDropdowns(): void {
 
@@ -55,8 +58,8 @@ export class AddFoodComponent implements OnInit {
   }
 
 
-  addOrder(): void {
-
+  createDraftOrder(cusine:CuisineModel, protien: ProtienModel, data: any): void {
+debugger
   }
 
 }

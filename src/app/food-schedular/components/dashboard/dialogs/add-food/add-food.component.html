@@ -7,7 +7,7 @@
       Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
       ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
       viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
-      lacinia congue felis in faucibus.
+      lacinia congue felis in faucibus.{{ defaultTime }}
       <br />
     </div>
   </div>
@@ -60,6 +60,9 @@
             <ngx-mat-datetime-picker
               #picker
               [enableMeridian]="true"
+              [disableMinute]="true"
+              [hideTime]="false"
+              [defaultTime]="defaultTime"
             ></ngx-mat-datetime-picker>
           </mat-form-field>
         </div>
@@ -68,6 +71,9 @@
             class="mat-raised-button-width-reg"
             mat-raised-button
             color="warn"
+            (click)="
+              createDraftOrder(selectedCuisine, selectedProtien, myDatePicker)
+            "
           >
             Save
             <span class="material-icons"> save </span></button

@@ -8,7 +8,7 @@ import { catchError, combineAll } from 'rxjs/operators';
 import { UserAccountRegistrationModel } from 'src/app/food-schedular/store/models/user-account.model';
 import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
-import * as actions from '../../../store/action/user-account.action';
+import * as actions from './../../../store/action/user-account.action';
 import * as selectors from './../../../store/selector/user-account.selector';
 
 @Component({
@@ -46,11 +46,11 @@ export class ConfirmEmailComponent implements OnInit {
       }));
     combineLatest(this.validateActivationStatus$, this.userProfiles$)
       .subscribe(([status, profiles]) => {
-        if (this.handleClick && status && !profiles) {
+        if (this.handleClick && status) {
           this.openSnackBar('Validated activation key successfully!', 'Activation Key');
           this.router.navigate(['food-schedular/useraccount/profile']);
           this.handleClick = false;
-        } else if (this.handleClick && !status && profiles != undefined) {
+        } else if (this.handleClick && !status) {
           this.openSnackBar('OOPs, activation key does not exist. Please try again!', 'Activation Key');
         }
       });
@@ -66,7 +66,7 @@ export class ConfirmEmailComponent implements OnInit {
   vaidateActivationKey(userId: string): void {
     this.handleClick = true;
     this.store.dispatch(actions.validateActivationKey({ activationKey: this.activationKey.value.trim(), userId:userId }))
-    this.store.dispatch(actions.getUserProfiles({ userId: userId }));
+    // this.store.dispatch(actions.getUserProfiles({ userId: userId }));
   }
   getErrorMessage() {
     if (this.activationKey.hasError('required')) {

@@ -8,8 +8,6 @@ import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-m
 import { FormsModule } from '@angular/forms';
 import { AddFoodComponent } from './dialogs/add-food/add-food.component';
 
-
-
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [

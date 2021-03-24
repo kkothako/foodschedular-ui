@@ -4,13 +4,16 @@
       <h2 class="mt-0 mb-1">Dashboard</h2>
     </div>
     <div class="col-sm-4 col-md-4" *ngIf="userProfiles$ | async as userProfiles">
-      <mat-form-field appearance="fill" >
-        <mat-label>Select Profile</mat-label>
-        <mat-select >
-          <mat-option *ngFor="let item of userProfiles" value="item.id" >{{item.nickName}}</mat-option>
+      <form [formGroup]="userProfileFormGroup">
+        <mat-form-field appearance="fill" >
+          <mat-label>Select Profile</mat-label>
+          <mat-select formControlName="userProfile">
+            <mat-option *ngFor="let item of userProfiles" [value]="item" >{{item.nickName}}</mat-option>
 
-        </mat-select>
-      </mat-form-field>
+          </mat-select>
+        </mat-form-field>
+      </form>
+
     </div>
     <div class="col-sm-4 col-md-4">
       <button
