@@ -1,13 +1,17 @@
 import { Component, KeyValueDiffers, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, EMPTY, merge, Observable, of, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AllergyModel, CuisineModel, ProtienModel } from 'src/app/food-schedular/store/models/cuisine.model';
-import { KeyValueModel } from 'src/app/food-schedular/store/models/preferences.model';
+import { KeyValueModel, PreferencesModel } from 'src/app/food-schedular/store/models/preferences.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import * as actions from './../../../store/action/food-schedular.action';
 import * as selectors from './../../../store/selector/food-shedular.selectors';
+import * as preferenceActions from './../../../store/action/user-preferences.action';
+
+import * as userAccountActions from './../../../store/action/user-account.action';
+import * as userAccountSelectors from './../../../store/selector/user-account.selector'
 
 @Component({
   selector: 'app-preferences',
@@ -17,15 +21,17 @@ import * as selectors from './../../../store/selector/food-shedular.selectors';
 
 export class PreferencesComponent implements OnInit {
 
+  FormGroup: FormGroup;
+
   selectedCuisine: KeyValueModel[] = [];
-  selectedProtien: KeyValueModel[] = [];
+  selectedProtein: KeyValueModel[] = [];
   selectedAllergy: KeyValueModel[] = [];
 
   cusines$: Observable<CuisineModel[]>;
-  protiens$: Observable<ProtienModel[]>;
+  proteins$: Observable<ProtienModel[]>;
   allergys$: Observable<AllergyModel[]>;
   viewModel$: Observable<any>;
-
+userId : string;
   constructor(private store: Store<AppState>) {
     this.bindDropdowns();
   }
@@ -38,7 +44,7 @@ export class PreferencesComponent implements OnInit {
         return EMPTY;
       }));
 
-    this.protiens$ = this.store.pipe(select(selectors.slectAllProtiens))
+    this.proteins$ = this.store.pipe(select(selectors.slectAllProtiens))
       .pipe(catchError((error) => {
         console.log(error);
         return EMPTY;
@@ -50,8 +56,8 @@ export class PreferencesComponent implements OnInit {
         return EMPTY;
       }));
 
-    this.viewModel$ = combineLatest([this.cusines$, this.protiens$, this.allergys$])
-      .pipe(map(([cuisines, protiens, allergys]) => ({ cuisines, protiens, allergys })));
+    this.viewModel$ = combineLatest([this.cusines$, this.proteins$, this.allergys$])
+      .pipe(map(([cuisines, proteins, allergys]) => ({ cuisines, proteins, allergys })));
 
   }
 
@@ -60,6 +66,39 @@ export class PreferencesComponent implements OnInit {
     this.store.dispatch(actions.getAllCuisines());
     this.store.dispatch(actions.getAllProtiens());
     this.store.dispatch(actions.getAllAllergys());
+
+    this.bindUserId();
+  }
+
+  bindUserId(): void {
+    this.store.pipe(select(userAccountSelectors.selectLoggedInUser))
+      .subscribe(user => {
+        this.userId = user.id;
+      });
+  }
+  // bindUserProfiles(): void {
+  //   this.userProfiles$ = this.store.pipe(select(userAccountSelectors.selectUserProfiles));
+  //   this.userProfiles$.subscribe(response => {
+  //     if (response && this.userProfileFormGroup.get('userProfile')) {
+  //       this.userProfiles = response;
+  //       const userProfile = response.find(dr => dr.userId === this.userId);
+  //       this.userProfileFormGroup.get('userProfile').setValue(userProfile);
+  //     }
+  //   });
+  // }
+
+  createPreferences():void{
+
+    const preferences = <PreferencesModel>this.FormGroup.value;
+    preferences.cuisines = this.selectedCuisine;
+    preferences.proteins = this.selectedProtein;
+    preferences.allergys = this.selectedAllergy;
+
+    preferences.userId  = this.userId;
+    preferences.profileId  = "";
+
+    //preferences
+    this.store.dispatch(preferenceActions.createPreferences({ payload: preferences }));
   }
 
 }

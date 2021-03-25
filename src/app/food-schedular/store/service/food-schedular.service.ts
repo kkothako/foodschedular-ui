@@ -25,6 +25,13 @@ export class FoodSchedularService {
     return this.httpClient.post<any>(url, this.constantService.httpOptions)
       .pipe(catchError(error => of(error)));
   }
+
+  getAllAllergys(): Observable<any> {
+    const url = `${environment.baseUrl}/allergy/getallallergys`;
+    return this.httpClient.post<any>(url, this.constantService.httpOptions)
+      .pipe(catchError(error => of(error)));
+  }
+
   createDraftOrder(draftOrder: OrderModel): Observable<any> {
     const url = `${environment.baseUrl}/orderDraft`;
     return this.httpClient.post<any>(url, draftOrder)

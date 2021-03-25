@@ -14,25 +14,25 @@
   <br />
   <div class="row" *ngIf="viewModel$ | async as vm">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
-      <form autosize>
+      <form [formGroup]="FormGroup" autosize>
         <div class="form-group">
           <p-multiSelect [options]="vm.cuisines" [(ngModel)]="selectedCuisine" defaultLabel="Select Cuisine"
             optionLabel="cuisineName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
         <div class="form-group">
-          <p-multiSelect [options]="vm.protiens" [(ngModel)]="selectedProtien" defaultLabel="Select Protien"
+          <p-multiSelect [options]="vm.proteins" [(ngModel)]="selectedProtein" defaultLabel="Select Protein"
             optionLabel="proteinName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
         <div class="form-group">
           <p-multiSelect [options]="vm.allergys" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
             optionLabel="allergyName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
         </div>
-        <div class="form-group">
+        <div class="form-group" hidden>
           <textarea rows="3" cols="80" pInputTextarea autoResize="autoResize" class="form-control"
             placeholder="Enter your allergies" [style]="{'width':'40%'}"></textarea>
         </div>
         <div class="form-group">
-          <button class="mat-raised-button-width-reg" mat-raised-button color="warn">
+          <button class="mat-raised-button-width-reg" mat-raised-button color="warn" (click)="createPreferences()">
             Save
             <span class="material-icons"> save </span>
           </button>
