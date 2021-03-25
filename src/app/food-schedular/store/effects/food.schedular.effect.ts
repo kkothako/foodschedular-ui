@@ -37,6 +37,18 @@ export class FoodSchedularEffect {
     )
   );
 
+  getAllAllergysEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(schedularActions.getAllAllergys),
+      mergeMap(() => this.foodSchedularService.getAllAllergys().pipe(
+        map((result) => result?.status ? schedularActions.getAllAllergysSuccess({ response: result?.data }) :
+          schedularActions.getErrorAction({ error: result?.error })),
+        catchError((result) => of(schedularActions.getErrorAction({ error: result?.error })))
+      ))
+    )
+  );
+
+
   createDraftOrderEffect$: Observable<Action> = createEffect(
     () => this.actions.pipe(
       ofType(orderActions.createDraftOrder),
