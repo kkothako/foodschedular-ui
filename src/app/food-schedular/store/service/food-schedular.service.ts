@@ -27,7 +27,7 @@ export class FoodSchedularService {
   }
   createDraftOrder(draftOrder: OrderModel): Observable<any> {
     const url = `${environment.baseUrl}/orderDraft`;
-    return this.httpClient.post<any>(url, this.constantService.httpOptions)
+    return this.httpClient.post<any>(url, draftOrder)
       .pipe(catchError(error => of(error)));
   }
 }
