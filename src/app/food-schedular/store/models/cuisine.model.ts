@@ -10,8 +10,9 @@ export interface CuisineModel {
 }
 
 export interface ProtienModel {
-  protienID: string;
-  protienName: string;
+  proteinID: string;
+  _id: string;
+  proteinName: string;
   createAt: Date;
   createdBy: string;
   modifiedAt: Date;

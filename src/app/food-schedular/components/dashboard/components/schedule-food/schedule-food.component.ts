@@ -99,7 +99,8 @@ export class ScheduleFoodComponent implements OnInit {
   }
   openAddFoodDialog(): void {
     this.dialog.open(AddFoodComponent, {
-      width: '500px'
+      width: '500px',
+      data: { userId: this.userId, profileId: this.userProfileFormGroup.get('userProfile').value.id }
     });
   }
   bindUserId(): void {
