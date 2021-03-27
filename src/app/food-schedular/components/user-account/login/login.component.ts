@@ -12,7 +12,8 @@ import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import { SignupTypeComponent } from '../signup-type/signup-type.component';
 import * as loginActions from './../../../store/action/user-account-login';
 import * as selectors from './../../../store/selector/user-account.selector';
-
+import * as userAccountSelectors from './../../../store/selector/user-account.selector'
+import * as userAccountActions from './../../../store/action/user-account.action';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,12 +24,15 @@ export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup;
   load$: Observable<boolean>;
   handleClick: boolean;
+userId:string;
 
   constructor(private router: Router,
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>) {
+      this.bindUserProfiles();
+    }
 
 
   ngOnInit(): void {
@@ -49,7 +53,8 @@ export class LoginComponent implements OnInit {
     this.store.pipe(select(selectors.selectLoggedInUser))
       .subscribe(response => {
         if (this.handleClick && response) {
-          this.router.navigate(['food-schedular/dashboard/schedule-food']);
+          this.userId= response.id;
+          this.store.dispatch(userAccountActions.getUserProfiles({ userId: response.id }));
         }
       });
   }
@@ -95,4 +100,14 @@ export class LoginComponent implements OnInit {
 
   }
 
+  bindUserProfiles(): void {
+    this.store.pipe(select(userAccountSelectors.selectUserProfiles))
+      .subscribe(response => {
+        if (response) {
+          const userProfile = response.find(dr => dr.userId === this.userId);
+          this.router.navigate(['food-schedular/dashboard/schedule-food',this.userId, userProfile.id]);
+        }
+
+      });
+  }
 }

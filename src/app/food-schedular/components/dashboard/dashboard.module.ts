@@ -11,7 +11,7 @@ import { AddFoodComponent } from './dialogs/add-food/add-food.component';
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
-      { path: 'schedule-food', component: ScheduleFoodComponent }
+      { path: 'schedule-food/:userId/:profileId', component: ScheduleFoodComponent }
     ]
   }
 ]

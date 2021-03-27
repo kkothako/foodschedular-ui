@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { pid } from 'process';
 import { combineLatest, EMPTY, merge, Observable, of, pipe } from 'rxjs';
@@ -46,6 +46,9 @@ export class AddFoodComponent implements OnInit {
         if (this.hasOrderClick && response && response.status) {
           this.openSnackBar('Order draft saved successfully', 'Hurrey');
           this.hasOrderClick = false;
+
+          this.store.dispatch(orderActions.getDraftOrders({ userId: this.data.userId, profileId: this.data.profileId }));
+
         } else if (this.hasOrderClick && !response.status) {
           this.openSnackBar(response.message, 'Warning');
           this.hasOrderClick = false;
@@ -94,12 +97,11 @@ export class AddFoodComponent implements OnInit {
     this.hasOrderClick = true;
   }
   getFormatedDate(date: any): string {
-    return ("00" + (date.getMonth() + 1)).slice(-2)
-      + "-" + ("00" + date.getDate()).slice(-2)
-      + "-" + date.getFullYear() + " "
+    return + date.getFullYear() + '-' + ("00" + (date.getMonth() + 1)).slice(-2)
+      + "-" + ("00" + date.getDate()).slice(-2) + " "
       + ("00" + date.getHours()).slice(-2) + ":"
       + ("00" + date.getMinutes()).slice(-2)
-      + ":" + ("00" + date.getSeconds()).slice(-2);
+      + ":" + ("00" + date.getSeconds()).slice(-2)
   }
   openSnackBar(message: string, action: string, duration = 5000) {
     this._snackBar.dismiss();

@@ -44,6 +44,6 @@
   </div>
 </div>
 <br />
-<div>
-  <full-calendar [options]="calendarOptions"></full-calendar>
+<div *ngIf="this.draftOrdersEvents">
+  <full-calendar  [options]="calendarOptions" id="mycal" #mycal></full-calendar>
 </div>

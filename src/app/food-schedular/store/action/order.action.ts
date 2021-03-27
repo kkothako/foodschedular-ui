@@ -13,3 +13,12 @@ export const createDraftOrderSuccess = createAction(
   '[app-schedule-food] Create a draft order success',
   props<{ result:any }>()
 );
+
+export const getDraftOrders = createAction(
+  '[app-schedule-food] Get a draft order by UserId and ProfileId',
+  props<{ userId: string, profileId:string }>()
+);
+export const getDraftOrdersSuccess = createAction(
+  '[app-schedule-food] Get a draft order by UserId and ProfileId success',
+  props<{ result:OrderModel[] }>()
+);

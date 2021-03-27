@@ -10,7 +10,7 @@ export interface FoodSchedularState extends EntityState<FoodSchedularModel> {
   protiens: ProtienModel[],
   cuisines: CuisineModel[],
   allergys: AllergyModel[]
-  draftOrder: OrderModel[],
+  draftOrders: OrderModel[],
   hasSaved: boolean;
   orderStatus: any;
 }
@@ -23,7 +23,7 @@ export const defaultState: FoodSchedularState = {
   protiens: null,
   cuisines: null,
   allergys: null,
-  draftOrder: null,
+  draftOrders: null,
   hasSaved: false,
   orderStatus: null
 };

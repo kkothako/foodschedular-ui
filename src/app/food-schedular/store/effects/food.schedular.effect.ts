@@ -59,4 +59,16 @@ export class FoodSchedularEffect {
       ))
     )
   );
+
+
+  getDraftOrdersByEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(orderActions.getDraftOrders),
+      mergeMap(({ userId, profileId }) => this.foodSchedularService.getDraftOrdersBy(userId, profileId).pipe(
+        map((result) => result?.status ? orderActions.getDraftOrdersSuccess({ result: result?.data }) :
+          orderActions.orderError({ error: result?.error })),
+        catchError((result) => of(orderActions.orderError({ error: result?.error })))
+      ))
+    )
+  );
 }

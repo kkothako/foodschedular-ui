@@ -1,5 +1,6 @@
 import { EntityState } from '@ngrx/entity';
 import { userAccountEntity } from '../entity/user-account.entity';
+import { OrderModel } from '../models/order.model';
 import { UserAccountModel } from '../models/user-account.model';
 import { UserProfileModel } from '../models/user-profile.model';
 import * as model from './../models/user-account.model';

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
+import { CalendarApi } from '@fullcalendar/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { FoodSchedularEffect } from './effects/food.schedular.effect';
@@ -29,7 +30,8 @@ const reducerMap = {
     UserAccountService,
     FoodSchedularService,
     ConstantService,
-    UserPreferencesService
+    UserPreferencesService,
+    CalendarApi
   ]
 })
 export class StoreFeatureBaseModule {

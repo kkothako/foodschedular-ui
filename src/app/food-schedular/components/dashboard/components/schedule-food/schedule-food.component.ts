@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { CalendarOptions } from '@fullcalendar/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CalendarApi, CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
@@ -11,7 +11,12 @@ import { AddFoodComponent } from '../../dialogs/add-food/add-food.component';
 
 import * as userAccountActions from './../../../../store/action/user-account.action';
 import * as userAccountSelectors from './../../../../store/selector/user-account.selector'
+import * as orderActions from './../../../../store/action/order.action';
+import * as foodSelectors from './../../../../store/selector/food-shedular.selectors';
+import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
 
+
+declare var $: any;
 
 @Component({
   selector: 'app-schedule-food',
@@ -61,11 +66,11 @@ export class ScheduleFoodComponent implements OnInit {
 
     },
     dateClick: this.handleDateClick.bind(this),
-    events: [
-      { title: 'event 1', date: '2021-03-17 18:00:00' },
-      { title: 'event 1', date: '2021-03-20 12:00:00' },
-      { title: 'event 2', date: '2021-03-21 11:00:00' }
-    ],
+    // events: [
+    //   { title: 'event 1', date: '2021-03-17 18:00:00' },
+    //   { title: 'event 1', date: '2021-03-20 12:00:00' },
+    //   { title: 'event 2', date: '2021-03-21 11:00:00' }
+    // ],
     eventClick: function (info) {
       alert('Event: ' + info.event.title);
     }
@@ -78,11 +83,14 @@ export class ScheduleFoodComponent implements OnInit {
   userId: string;
   userProfiles: UserProfileModel[] = [];
   hasActionDisapactched = false;
+  draftOrdersEvents: any[] = [];
+  profileId: string;
+
   constructor(private router: Router,
     public dialog: MatDialog,
     private store: Store<AppState>,
-    private _formBuilder: FormBuilder) {
-    this.bindUserId();
+    private _formBuilder: FormBuilder,
+    private route: ActivatedRoute) {
 
   }
 
@@ -91,7 +99,13 @@ export class ScheduleFoodComponent implements OnInit {
     this.userProfileFormGroup = this._formBuilder.group({
       userProfile: [null, Validators.required]
     });
-    this.bindUserProfiles();
+
+    this.route.params.subscribe(param => {
+      this.userId = param["userId"];
+      this.profileId = param["profileId"];
+      this.bindUserProfiles();
+      this.store.dispatch(orderActions.getDraftOrders({ userId: this.userId, profileId: this.profileId }));
+    });
   }
 
   addFood(): void {
@@ -103,16 +117,7 @@ export class ScheduleFoodComponent implements OnInit {
       data: { userId: this.userId, profileId: this.userProfileFormGroup.get('userProfile').value.id }
     });
   }
-  bindUserId(): void {
-    this.store.pipe(select(userAccountSelectors.selectLoggedInUser))
-      .subscribe(user => {
-        if (user && this.userProfiles.length == 0 && !this.hasActionDisapactched) {
-          this.hasActionDisapactched = true;
-          this.userId = user.id;
-          this.store.dispatch(userAccountActions.getUserProfiles({ userId: user.id }));
-        }
-      });
-  }
+
   bindUserProfiles(): void {
     this.userProfiles$ = this.store.pipe(select(userAccountSelectors.selectUserProfiles));
     this.userProfiles$.subscribe(response => {
@@ -124,5 +129,21 @@ export class ScheduleFoodComponent implements OnInit {
     });
   }
 
+  bindDraftOrders(): void {
+    this.store.pipe(select(foodSelectors.selectDraftOrders))
+      .subscribe(draftOders => {
+        if (draftOders) {
+          this.draftOrdersEvents =[];
+          draftOders.forEach(order => {
+            this.draftOrdersEvents.push({ title: `${order.cuisineName}, ${order.proteinName}`, date: order.scheduledDate })
+          });
+          this.calendarOptions.events = this.draftOrdersEvents;
+          //this.ch.detectChanges();
+        }
+      });
 
+  }
+  ngAfterViewInit() {
+    this.bindDraftOrders();
+  }
 }

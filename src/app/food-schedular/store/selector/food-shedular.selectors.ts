@@ -32,3 +32,7 @@ export const selectOrderStatus = createSelector(
   foodSchedularState,
   state => state.orderStatus
 );
+export const selectDraftOrders = createSelector(
+  foodSchedularState,
+  state => state.draftOrders
+);
