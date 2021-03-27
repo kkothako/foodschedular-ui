@@ -27,3 +27,8 @@ export const selectAllAllergys = createSelector(
   foodSchedularState,
   state => state.allergys
 );
+
+export const selectOrderStatus = createSelector(
+  foodSchedularState,
+  state => state.orderStatus
+);

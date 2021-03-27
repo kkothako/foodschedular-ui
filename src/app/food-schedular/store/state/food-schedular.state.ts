@@ -12,6 +12,7 @@ export interface FoodSchedularState extends EntityState<FoodSchedularModel> {
   allergys: AllergyModel[]
   draftOrder: OrderModel[],
   hasSaved: boolean;
+  orderStatus: any;
 }
 
 export const defaultState: FoodSchedularState = {
@@ -23,7 +24,8 @@ export const defaultState: FoodSchedularState = {
   cuisines: null,
   allergys: null,
   draftOrder: null,
-  hasSaved: false
+  hasSaved: false,
+  orderStatus: null
 };
 
 export const initialState = foodSchedularEntity.getInitialState(defaultState);

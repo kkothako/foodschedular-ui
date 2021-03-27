@@ -11,5 +11,5 @@ export const createDraftOrder = createAction(
 );
 export const createDraftOrderSuccess = createAction(
   '[app-schedule-food] Create a draft order success',
-  props<{ result:boolean }>()
+  props<{ result:any }>()
 );

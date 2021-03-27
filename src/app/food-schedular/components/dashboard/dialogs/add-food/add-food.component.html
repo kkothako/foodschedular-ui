@@ -76,7 +76,17 @@
             "
           >
             Save
-            <span class="material-icons"> save </span></button
+            <span class="material-icons"> save </span>
+            <span *ngIf="load$ | async as load">
+              <p-progressSpinner
+                [style]="{ width: '50px', height: '50px' }"
+                styleClass="custom-spinner"
+                strokeWidth="8"
+                fill="#EEEEEE"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
+            </button
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button
             mat-mini-fab

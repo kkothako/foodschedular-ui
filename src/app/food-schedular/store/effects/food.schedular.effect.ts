@@ -53,7 +53,7 @@ export class FoodSchedularEffect {
     () => this.actions.pipe(
       ofType(orderActions.createDraftOrder),
       mergeMap(({ payload }) => this.foodSchedularService.createDraftOrder(payload).pipe(
-        map((result) => result?.status ? orderActions.createDraftOrderSuccess({ result: result?.status }) :
+        map((result) => result?.status ? orderActions.createDraftOrderSuccess({ result: result?.data }) :
           orderActions.orderError({ error: result?.error })),
         catchError((result) => of(orderActions.orderError({ error: result?.error })))
       ))
