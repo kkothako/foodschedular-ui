@@ -43,7 +43,10 @@ const reducer = createReducer(initialState,
   on(orderAction.getDraftOrders, (state) => {
     return { ...state, load: true, draftOrders: null }
   }),
-  on(orderAction.getDraftOrdersSuccess, (state, {result}) => {
+  on(orderAction.getDraftOrdersSuccess, (state, { result }) => {
     return { ...state, load: false, hasSaved: true, draftOrders: result }
+  }),
+  on(orderAction.clearOrderStore, (state) => {
+    return { ...state, load: false, draftOrders: null }
   })
 );

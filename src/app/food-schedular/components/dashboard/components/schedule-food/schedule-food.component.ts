@@ -16,6 +16,7 @@ import * as foodSelectors from './../../../../store/selector/food-shedular.selec
 import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { ConstantService } from 'src/app/food-schedular/store/service/constant.service';
+import { ViewOrderComponent } from '../../dialogs/view-order/view-order.component';
 
 
 declare var $: any;
@@ -74,6 +75,7 @@ export class ScheduleFoodComponent implements OnInit {
     //   { title: 'event 2', date: '2021-03-21 11:00:00' }
     // ],
     eventClick: function (info) {
+
       alert('Event: ' + info.event.title);
     }
   };
@@ -148,16 +150,30 @@ export class ScheduleFoodComponent implements OnInit {
       });
 
   }
-  opendialogWithSelectedDate(): void{
+  initializeCalendarClickEvents(): void{
     this.calendarOptions.dateClick = (arg)=>{
       const scheduleDate = this.constantService.getFormatedDateWithNoMinutes(arg.date)
       this.openAddFoodDialog(scheduleDate);
     }
-  }
 
+    this.calendarOptions.eventClick = (info)=>{
+      const scheduleDate = this.constantService.getFormatedDateWithNoMinutes(info.event.start)
+     this.openViewOrderFoodDialog(scheduleDate, info.event.title)
+    }
+  }
+  openViewOrderFoodDialog(scheduleDate:string, title: string): void {
+    this.dialog.open(ViewOrderComponent, {
+      width: '500px',
+      data: { userId: this.userId,
+        profileId: this.userProfileFormGroup.get('userProfile').value.id,
+        scheduleDate: scheduleDate,
+        title: title
+       }
+    });
+  }
   ngAfterViewInit() {
     this.bindDraftOrders();
-    this.opendialogWithSelectedDate();
+    this.initializeCalendarClickEvents();
   }
 
 }

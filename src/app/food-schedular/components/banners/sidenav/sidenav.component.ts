@@ -46,4 +46,7 @@ export class SidenavComponent implements OnInit {
   changeColor(): void {
     this.isAlternateColor = !this.isAlternateColor;
   }
+
+
+
 }

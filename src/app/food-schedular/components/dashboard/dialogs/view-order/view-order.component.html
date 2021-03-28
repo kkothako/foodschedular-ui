@@ -1,0 +1,57 @@
+<div class="example-container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <h2 class="mt-0 mb-1">View /Delete Scheduled Food</h2>
+      <mat-divider></mat-divider>
+      <br />
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+      ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
+      viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+      lacinia congue felis in faucibus.
+      <br />
+    </div>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
+      <form autosize>
+        <div class="form-group">
+          <mat-form-field appearance="fill" [style]="{ width: '240px' }">
+            <mat-label>Cuisine</mat-label>
+            <input matInput readonly   [(ngModel)]="data?.title?.split(',')[0]"
+            [ngModelOptions]="{ standalone: true }">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" [style]="{ width: '240px' }">
+            <mat-label>Protein</mat-label>
+            <input matInput readonly   [(ngModel)]="data?.title?.split(',')[1]"
+            [ngModelOptions]="{ standalone: true }">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group" >
+          <mat-form-field appearance="fill" [style]="{ width: '240px' }">
+            <mat-label>Schedule Date</mat-label>
+            <input matInput readonly   [(ngModel)]="data.scheduleDate"
+            [ngModelOptions]="{ standalone: true }">
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button
+            mat-mini-fab
+            mat-button
+            mat-dialog-close
+            color="primary"
+            aria-label="Example icon button with a filter list icon"
+          >
+            <mat-icon>cancel_schedule_send</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-m
 
 import { FormsModule } from '@angular/forms';
 import { AddFoodComponent } from './dialogs/add-food/add-food.component';
+import { ViewOrderComponent } from './dialogs/view-order/view-order.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
   declarations: [
     DashboardComponent,
     ScheduleFoodComponent,
-    AddFoodComponent
+    AddFoodComponent,
+    ViewOrderComponent
   ],
   imports: [
     CommonModule,

@@ -22,3 +22,8 @@ export const getDraftOrdersSuccess = createAction(
   '[app-schedule-food] Get a draft order by UserId and ProfileId success',
   props<{ result:OrderModel[] }>()
 );
+
+export const clearOrderStore = createAction(
+  '[app-add-food] Clear order store',
+);
+

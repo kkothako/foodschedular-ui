@@ -7,7 +7,9 @@ import { UserAccountRegistrationModel } from 'src/app/food-schedular/store/model
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import * as selectors from './../../../store/selector/user-account.selector';
 import * as loginActions from './../../../store/action/user-account-login';
-
+import * as foodSelectors from './../../../store/selector/food-shedular.selectors';
+import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
+import * as orderActions from './../../../store/action/order.action';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,10 +22,13 @@ export class ToolbarComponent implements OnInit {
   @Output() sideNavToggle = new EventEmitter<void>();
   @Output() changeTheame = new EventEmitter<void>();
   loggedInUser$: Observable<UserAccountRegistrationModel>;
+  draftOrders$: Observable<OrderModel[]>;
 
   constructor(private breakpointObserver: BreakpointObserver,
     private store: Store<AppState>,
-    private router: Router) { }
+    private router: Router) {
+      this.bindDraftOrders();
+    }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([Breakpoints.XSmall])
@@ -36,7 +41,11 @@ export class ToolbarComponent implements OnInit {
   }
   navigateLoginOrLogOut(): void {
     this.store.dispatch(loginActions.logoutAction());
+    this.store.dispatch(orderActions.clearOrderStore());
+
     this.router.navigate(['food-schedular/useraccount/signin']);
   }
-
+  bindDraftOrders(): void {
+    this.draftOrders$ = this.store.pipe(select(foodSelectors.selectDraftOrders));
+   }
 }

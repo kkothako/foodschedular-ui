@@ -12,6 +12,10 @@
   <!-- <span class="dense" *ngIf="!isSmallScreen">
     <mat-icon svgIcon="unicorn"></mat-icon> Welcome Krishna
   </span> -->
+  <button *ngIf="draftOrders$ | async as draftOrder" mat-mini-fab color="warn"  aria-label="Example icon button with a home icon"
+  matBadge="{{draftOrder.length}}" matBadgeColor="primary">
+   <mat-icon  size="16" >delivery_dining</mat-icon>
+ </button>
 
   <button
     mat-icon-button
