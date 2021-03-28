@@ -14,6 +14,8 @@ import * as userAccountSelectors from './../../../../store/selector/user-account
 import * as orderActions from './../../../../store/action/order.action';
 import * as foodSelectors from './../../../../store/selector/food-shedular.selectors';
 import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+import { ConstantService } from 'src/app/food-schedular/store/service/constant.service';
 
 
 declare var $: any;
@@ -65,7 +67,7 @@ export class ScheduleFoodComponent implements OnInit {
       titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
 
     },
-    dateClick: this.handleDateClick.bind(this),
+    // dateClick: this.handleDateClick.bind(this),
     // events: [
     //   { title: 'event 1', date: '2021-03-17 18:00:00' },
     //   { title: 'event 1', date: '2021-03-20 12:00:00' },
@@ -75,9 +77,7 @@ export class ScheduleFoodComponent implements OnInit {
       alert('Event: ' + info.event.title);
     }
   };
-  handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr)
-  }
+
   userProfiles$: Observable<UserProfileModel[]>;
   userProfileFormGroup: FormGroup;
   userId: string;
@@ -90,7 +90,8 @@ export class ScheduleFoodComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store<AppState>,
     private _formBuilder: FormBuilder,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private constantService: ConstantService) {
 
   }
 
@@ -111,10 +112,13 @@ export class ScheduleFoodComponent implements OnInit {
   addFood(): void {
     this.router.navigate(["food-schedular/dashboard/add-food"]);
   }
-  openAddFoodDialog(): void {
+  openAddFoodDialog(scheduleDate = null): void {
     this.dialog.open(AddFoodComponent, {
       width: '500px',
-      data: { userId: this.userId, profileId: this.userProfileFormGroup.get('userProfile').value.id }
+      data: { userId: this.userId,
+        profileId: this.userProfileFormGroup.get('userProfile').value.id,
+        scheduleDate: scheduleDate
+       }
     });
   }
 
@@ -144,7 +148,15 @@ export class ScheduleFoodComponent implements OnInit {
       });
 
   }
+  opendialogWithSelectedDate(): void{
+    debugger
+    this.calendarOptions.dateClick = (arg)=>{
+      const scheduleDate = this.constantService.getFormatedDateWithNoMinutes(arg.date)
+      this.openAddFoodDialog(scheduleDate);
+    }
+  }
   ngAfterViewInit() {
     this.bindDraftOrders();
+    this.opendialogWithSelectedDate();
   }
 }

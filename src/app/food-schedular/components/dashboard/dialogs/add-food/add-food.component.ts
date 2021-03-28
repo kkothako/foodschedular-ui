@@ -12,6 +12,7 @@ import * as selectors from './../../../../store/selector/food-shedular.selectors
 import * as orderActions from './../../../../store/action/order.action';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConstantService } from 'src/app/food-schedular/store/service/constant.service';
 
 @Component({
   selector: 'app-add-food',
@@ -36,8 +37,9 @@ export class AddFoodComponent implements OnInit {
   hasOrderClick = false;
 
   constructor(private store: Store<AppState>,
-    @Inject(MAT_DIALOG_DATA) public data: { userId: string, profileId: string },
-    private _snackBar: MatSnackBar) {
+    @Inject(MAT_DIALOG_DATA) public data: { userId: string, profileId: string, scheduleDate: string },
+    private _snackBar: MatSnackBar,
+    private constantService: ConstantService) {
     this.bindDropdowns();
     this.load$ = this.store.pipe(select(selectors.selectLoad));
 
@@ -81,8 +83,8 @@ export class AddFoodComponent implements OnInit {
 
 
   createDraftOrder(cusine: CuisineModel, protien: ProtienModel, date: any): void {
-
-    const selectedDate = this.getFormatedDate(date);
+debugger
+    const selectedDate = this.data.scheduleDate ? this.data.scheduleDate : this.constantService.getFormatedDate(date);
 
     const order = <OrderModel>{
       scheduledDate: selectedDate,
@@ -96,13 +98,7 @@ export class AddFoodComponent implements OnInit {
     this.store.dispatch(orderActions.createDraftOrder({ payload: order }));
     this.hasOrderClick = true;
   }
-  getFormatedDate(date: any): string {
-    return + date.getFullYear() + '-' + ("00" + (date.getMonth() + 1)).slice(-2)
-      + "-" + ("00" + date.getDate()).slice(-2) + " "
-      + ("00" + date.getHours()).slice(-2) + ":"
-      + ("00" + date.getMinutes()).slice(-2)
-      + ":" + ("00" + date.getSeconds()).slice(-2)
-  }
+
   openSnackBar(message: string, action: string, duration = 5000) {
     this._snackBar.dismiss();
     this._snackBar.open(message, action, {
