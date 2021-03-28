@@ -133,10 +133,11 @@ export class ScheduleFoodComponent implements OnInit {
     this.store.pipe(select(foodSelectors.selectDraftOrders))
       .subscribe(draftOders => {
         if (draftOders) {
-          this.draftOrdersEvents =[];
+          this.draftOrdersEvents = [];
           draftOders.forEach(order => {
             this.draftOrdersEvents.push({ title: `${order.cuisineName}, ${order.proteinName}`, date: order.scheduledDate })
           });
+          this.calendarOptions.eventBackgroundColor = '#ff4081';
           this.calendarOptions.events = this.draftOrdersEvents;
           //this.ch.detectChanges();
         }
