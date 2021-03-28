@@ -16,7 +16,7 @@
 
     </div>
     <div class="col-sm-4 col-md-4">
-      <button
+      <!-- <button
         class="mat-raised-button-width-reg"
         mat-raised-button
         color="warn"
@@ -24,9 +24,24 @@
       >
         <mat-icon>add_alarm</mat-icon>
         Add Food
-        <span class="material-icons"> restaurant</span>
-      </button>
+        <span class="material-icons" size="16"> restaurant</span>
+      </button> &nbsp;&nbsp; -->
+      <div class="example-button-container" >
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon"
+        (click)="openAddFoodDialog()">
+          <mat-icon>alarm_add</mat-icon>
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-mini-fab color="accent" aria-label="Example icon button with a home icon"
+         matBadge="{{draftOrdersEvents.length}}">
+          <mat-icon  size="16">delivery_dining</mat-icon>
+        </button>
+      </div>
+      <!-- <mat-icon matBadge="15" matBadgeColor="warn">add_shopping_cart</mat-icon>
+      <span class="cdk-visually-hidden">
+        Example with a home icon with overlaid badge showing the number 15
+      </span> -->
     </div>
+
   </div>
   <div class="row">
     <div class="col-sm-12 col-md-12">

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CalendarApi, CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
 import { select, Store } from '@ngrx/store';
@@ -149,14 +149,15 @@ export class ScheduleFoodComponent implements OnInit {
 
   }
   opendialogWithSelectedDate(): void{
-    debugger
     this.calendarOptions.dateClick = (arg)=>{
       const scheduleDate = this.constantService.getFormatedDateWithNoMinutes(arg.date)
       this.openAddFoodDialog(scheduleDate);
     }
   }
+
   ngAfterViewInit() {
     this.bindDraftOrders();
     this.opendialogWithSelectedDate();
   }
+
 }

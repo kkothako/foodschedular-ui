@@ -10,7 +10,7 @@ import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import * as actions from './../../../../store/action/food-schedular.action';
 import * as selectors from './../../../../store/selector/food-shedular.selectors';
 import * as orderActions from './../../../../store/action/order.action';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConstantService } from 'src/app/food-schedular/store/service/constant.service';
 
@@ -39,13 +39,15 @@ export class AddFoodComponent implements OnInit {
   constructor(private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: { userId: string, profileId: string, scheduleDate: string },
     private _snackBar: MatSnackBar,
-    private constantService: ConstantService) {
+    private constantService: ConstantService,
+    public dialogRef: MatDialogRef<AddFoodComponent>) {
     this.bindDropdowns();
     this.load$ = this.store.pipe(select(selectors.selectLoad));
 
     this.store.pipe(select(selectors.selectOrderStatus))
       .subscribe(response => {
         if (this.hasOrderClick && response && response.status) {
+          this.closeDialog();
           this.openSnackBar('Order draft saved successfully', 'Hurrey');
           this.hasOrderClick = false;
 
@@ -83,7 +85,7 @@ export class AddFoodComponent implements OnInit {
 
 
   createDraftOrder(cusine: CuisineModel, protien: ProtienModel, date: any): void {
-debugger
+
     const selectedDate = this.data.scheduleDate ? this.data.scheduleDate : this.constantService.getFormatedDate(date);
 
     const order = <OrderModel>{
@@ -105,5 +107,8 @@ debugger
       duration: duration,
     });
 
+  }
+  closeDialog() {
+    this.dialogRef.close();
   }
 }
