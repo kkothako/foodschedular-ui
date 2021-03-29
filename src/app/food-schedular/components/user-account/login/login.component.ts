@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   load$: Observable<boolean>;
   handleClick: boolean;
 userId:string;
+profileId: string;
 
   constructor(private router: Router,
     public dialog: MatDialog,
@@ -105,9 +106,25 @@ userId:string;
       .subscribe(response => {
         if (response) {
           const userProfile = response.find(dr => dr.userId === this.userId);
-          this.router.navigate(['food-schedular/dashboard/schedule-food',this.userId, userProfile.id]);
+          this.profileId = userProfile.id;
+          this.router.navigate(['food-schedular/dashboard/schedule-food',this.userId, this.profileId]);
         }
-
       });
   }
+
+
+  // // GetuserPrefences
+  //  getUserPreferences(): void {
+  //   this.store.pipe(select(userAccountSelectors.selectUserPreferences))
+  //   .subscribe(response => {
+  //     if (response != null) {
+
+  //       // if rresponse is null the
+  //       this.router.navigate(['food-schedular/dashboard/schedule-food',this.userId, this.profileId]);
+  //     }
+  //     else
+  //     {
+  //       this.router.navigate(['food-schedular/useraccount/preferences',this.userId, this.profileId]);
+  //     }
+  //  }
 }

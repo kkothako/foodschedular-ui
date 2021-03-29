@@ -1,5 +1,5 @@
 import { Component, KeyValueDiffers, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, EMPTY, merge, Observable, of, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -12,6 +12,9 @@ import * as preferenceActions from './../../../store/action/user-preferences.act
 
 import * as userAccountActions from './../../../store/action/user-account.action';
 import * as userAccountSelectors from './../../../store/selector/user-account.selector'
+import { ActivatedRoute } from '@angular/router';
+import * as accountSelectors from './../../../store/selector/user-account.selector';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-preferences',
@@ -21,7 +24,7 @@ import * as userAccountSelectors from './../../../store/selector/user-account.se
 
 export class PreferencesComponent implements OnInit {
 
-  FormGroup: FormGroup;
+  formGroup: FormGroup;
 
   selectedCuisine: KeyValueModel[] = [];
   selectedProtein: KeyValueModel[] = [];
@@ -31,9 +34,27 @@ export class PreferencesComponent implements OnInit {
   proteins$: Observable<ProtienModel[]>;
   allergys$: Observable<AllergyModel[]>;
   viewModel$: Observable<any>;
-userId : string;
-  constructor(private store: Store<AppState>) {
+
+  userId: string;
+  profileId: string;
+
+  load$: Observable<boolean>;
+  hasPreferenceSaveClick = false;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar,) {
     this.bindDropdowns();
+    this.bindShowHideLoad();
+    this.store.pipe(select(accountSelectors.selectHasProfileCreated))
+      .subscribe(response => {
+        if (response && this.hasPreferenceSaveClick) {
+          this.hasPreferenceSaveClick = false;
+          this.openSnackBar('User Preferences Successfully Created', 'Success');
+        }
+      })
   }
 
   bindDropdowns(): void {
@@ -63,42 +84,52 @@ userId : string;
 
   ngOnInit(): void {
 
+
     this.store.dispatch(actions.getAllCuisines());
     this.store.dispatch(actions.getAllProtiens());
     this.store.dispatch(actions.getAllAllergys());
 
-    this.bindUserId();
-  }
+    this.route.params.subscribe(param => {
+      this.userId = param["userId"];
+      this.profileId = param["profileId"];
+    });
 
-  bindUserId(): void {
-    this.store.pipe(select(userAccountSelectors.selectLoggedInUser))
-      .subscribe(user => {
-        this.userId = user.id;
-      });
+       this.formGroup = this._formBuilder.group({
+      cuisines: ['', Validators.required],
+      proteins: ['', Validators.required],
+      allergys: ['', Validators.required]
+    });
+
   }
-  // bindUserProfiles(): void {
-  //   this.userProfiles$ = this.store.pipe(select(userAccountSelectors.selectUserProfiles));
-  //   this.userProfiles$.subscribe(response => {
-  //     if (response && this.userProfileFormGroup.get('userProfile')) {
-  //       this.userProfiles = response;
-  //       const userProfile = response.find(dr => dr.userId === this.userId);
-  //       this.userProfileFormGroup.get('userProfile').setValue(userProfile);
-  //     }
-  //   });
-  // }
 
   createPreferences():void{
 
-    const preferences = <PreferencesModel>this.FormGroup.value;
+    const preferences = <PreferencesModel>this.formGroup.value;
     preferences.cuisines = this.selectedCuisine;
     preferences.proteins = this.selectedProtein;
     preferences.allergys = this.selectedAllergy;
 
     preferences.userId  = this.userId;
-    preferences.profileId  = "";
+    preferences.profileId  = this.profileId;
 
     //preferences
     this.store.dispatch(preferenceActions.createPreferences({ payload: preferences }));
+    this.hasPreferenceSaveClick = true;
+  }
+
+  bindShowHideLoad(): void {
+    this.load$ = this.store.pipe(select(accountSelectors.load))
+      .pipe(catchError((error) => {
+        return EMPTY;
+      }))
+  }
+
+  openSnackBar(message: string, action: string, duration = 5000) {
+    this._snackBar.dismiss();
+    this._snackBar.open(message, action, {
+      duration: duration,
+    });
+
   }
 
 }

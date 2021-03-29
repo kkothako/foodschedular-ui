@@ -14,27 +14,37 @@
   <br />
   <div class="row" *ngIf="viewModel$ | async as vm">
     <div class="offset-sm-3 offset-md-3 col-sm-9 col-md-9">
-      <form [formGroup]="FormGroup" autosize>
+      <form [formGroup]="formGroup" autosize>
         <div class="form-group">
-          <p-multiSelect [options]="vm.cuisines" [(ngModel)]="selectedCuisine" defaultLabel="Select Cuisine"
-            optionLabel="cuisineName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+          <p-multiSelect formControlName="cuisines" [options]="vm.cuisines" [(ngModel)]="selectedCuisine" defaultLabel="Select Cuisine"
+            optionLabel="cuisineName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}" required></p-multiSelect>
         </div>
         <div class="form-group">
-          <p-multiSelect [options]="vm.proteins" [(ngModel)]="selectedProtein" defaultLabel="Select Protein"
-            optionLabel="proteinName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+          <p-multiSelect formControlName="proteins" [options]="vm.proteins" [(ngModel)]="selectedProtein" defaultLabel="Select Protein"
+            optionLabel="proteinName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}" required></p-multiSelect>
         </div>
         <div class="form-group">
-          <p-multiSelect [options]="vm.allergys" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
-            optionLabel="allergyName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}"></p-multiSelect>
+          <p-multiSelect formControlName="allergys" [options]="vm.allergys" [(ngModel)]="selectedAllergy" defaultLabel="Select Allergy"
+            optionLabel="allergyName" [style]="{'width':'40%'}" [ngModelOptions]="{standalone: true}" required></p-multiSelect>
         </div>
         <div class="form-group" hidden>
           <textarea rows="3" cols="80" pInputTextarea autoResize="autoResize" class="form-control"
             placeholder="Enter your allergies" [style]="{'width':'40%'}"></textarea>
         </div>
         <div class="form-group">
-          <button class="mat-raised-button-width-reg" mat-raised-button color="warn" (click)="createPreferences()">
+          <button class="mat-raised-button-width-reg" mat-raised-button color="warn" (click)="createPreferences()"
+          [disabled]="formGroup.invalid">
             Save
             <span class="material-icons"> save </span>
+            <span *ngIf="load$ | async as load">
+              <p-progressSpinner
+                [style]="{ width: '50px', height: '50px' }"
+                styleClass="custom-spinner"
+                strokeWidth="8"
+                fill="#EEEEEE"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
           </button>
         </div>
       </form>

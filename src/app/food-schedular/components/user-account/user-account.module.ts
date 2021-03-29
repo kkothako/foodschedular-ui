@@ -19,7 +19,7 @@ const routes: Routes = [
       { path: 'signin', component: LoginComponent },
       { path: 'signup/:type', component: RegistrationComponent },
       { path: 'forgotpassword', component: ForgotPassowrdComponent },
-      { path: 'preferences', component: PreferencesComponent },
+      { path: 'preferences/:userId/:profileId', component: PreferencesComponent },
       { path: 'terms-conditions', component: TermsConditionsComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'confirm-email', component: ConfirmEmailComponent },
