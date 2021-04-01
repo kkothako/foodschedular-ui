@@ -56,3 +56,13 @@ export const createUserProfileError = createAction(
   '[app-profile] Create user profile error',
   props<{ error: any }>()
 );
+
+export const getAddress = createAction(
+  '[app-profile] Get address by zipcode',
+  props<{zipCode: string}>()
+);
+
+export const getAddressSuccess = createAction(
+  '[app-profile] Get address by zipcode success',
+  props<{response: model.AddressModel}>()
+);

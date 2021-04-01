@@ -53,8 +53,8 @@ export class UserAccountEffect {
     () => this.actions.pipe(
       ofType(loginActions.validateLogin),
       mergeMap(({ payload }) => this.userAccountService.validateLogin(payload).pipe(
-        map((result:any) => result?.status ? loginActions.validateLoginSuccess({ response: result?.data }) : loginActions.validateLoginError({ error: result.error }),
-        catchError((result: any) => of(loginActions.validateLoginError({ error: result.error }))),
+        map((result: any) => result?.status ? loginActions.validateLoginSuccess({ response: result?.data }) : loginActions.validateLoginError({ error: result.error }),
+          catchError((result: any) => of(loginActions.validateLoginError({ error: result.error }))),
         )
       ))
     )
@@ -64,8 +64,8 @@ export class UserAccountEffect {
     () => this.actions.pipe(
       ofType(action.createUserProfile),
       mergeMap(({ payload }) => this.userAccountService.createUserProfile(payload).pipe(
-        map((result:any) => result?.status ? action.createUserProfileSuccess({ response: result?.data }) : action.createUserProfileError({ error: result.error }),
-        catchError((result: any) => of(action.createUserProfileError({ error: result.error }))),
+        map((result: any) => result?.status ? action.createUserProfileSuccess({ response: result?.data }) : action.createUserProfileError({ error: result.error }),
+          catchError((result: any) => of(action.createUserProfileError({ error: result.error }))),
         )
       ))
     )
@@ -79,6 +79,18 @@ export class UserAccountEffect {
           response: result.data
         }) : preferencesAction.createPreferencesError({ error: result.error })),
         catchError((result: any) => of(preferencesAction.createPreferencesError({ error: result.error }))
+        ))
+      )
+    ));
+
+  getAddressEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(action.getAddress),
+      mergeMap(({ zipCode }) => this.userAccountService.getAdrressByZipCode(zipCode).pipe(
+        map((result: any) => action.getAddressSuccess({
+          response: result
+        })),
+        catchError((error: any) => of(preferencesAction.createPreferencesError({ error: error }))
         ))
       )
     ));

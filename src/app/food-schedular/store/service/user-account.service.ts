@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { UserAccountRegistrationModel } from '../models/user-account.model';
+import { AddressModel, UserAccountRegistrationModel } from '../models/user-account.model';
 import { UserProfileModel } from '../models/user-profile.model';
 
 @Injectable()
@@ -33,6 +33,12 @@ export class UserAccountService {
   }
   createUserProfile(profile: UserProfileModel): Observable<any> {
     return this.httpClient.post<any>(`${environment.baseUrl}/userprofiles`, profile)
+      .pipe(
+        catchError(error => of(error))
+      );
+  }
+  getAdrressByZipCode(zipCode: string): Observable<AddressModel> {
+    return this.httpClient.get<any>(`http://ziptasticapi.com/${zipCode}`)
       .pipe(
         catchError(error => of(error))
       );

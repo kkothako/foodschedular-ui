@@ -43,3 +43,8 @@ export const selectHasProfileCreated =  createSelector(
   accountState,
   state => state.hasSavedSuccess
 );
+
+export const selectAddress =  createSelector(
+  accountState,
+  state => state.address
+);

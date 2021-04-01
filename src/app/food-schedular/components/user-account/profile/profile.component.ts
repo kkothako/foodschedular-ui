@@ -1,12 +1,12 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { EMPTY, fromEvent, Observable } from 'rxjs';
+import { catchError, debounce, debounceTime, distinctUntilChanged, filter, map, pluck } from 'rxjs/operators';
 import { AddressModel, UserAccountRegistrationModel } from 'src/app/food-schedular/store/models/user-account.model';
 import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   load$: Observable<boolean>;
   newUser: UserAccountRegistrationModel;
   hasSaveClicked = false;
+  @ViewChild('input') zipCodeElement: ElementRef;
 
   constructor(private _formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
@@ -48,12 +49,12 @@ export class ProfileComponent implements OnInit {
           this.openSnackBar("User profile created", "success")
           this.router.navigate(['food-schedular/useraccount/preferences']);
         }
-         if (this.hasSaveClicked && !response) {
+        if (this.hasSaveClicked && !response) {
           this.openSnackBar("Opps!, Error while creating user profile", "error")
           this.hasSaveClicked = false;
         }
       });
-
+    this.bindAddress();
   }
 
   ngOnInit() {
@@ -72,11 +73,11 @@ export class ProfileComponent implements OnInit {
     });
     this.secondFormGroup = this._formBuilder.group({
       addressLine1: ['', Validators.required],
-      addressLine2: ['', Validators.required],
+      addressLine2: [''],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipCode: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['']
     });
 
 
@@ -103,5 +104,31 @@ export class ProfileComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: duration,
     });
+  }
+  ngAfterViewInit(): void {
+    this.searchAddressByZipCode();
+  }
+  searchAddressByZipCode(): void {
+    fromEvent(this.zipCodeElement.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(500),
+        pluck('target', 'value'),
+        distinctUntilChanged(),
+        filter((value: string) => (value.length > 3)),
+        map(value => value)
+      )
+      .subscribe(result => {
+        this.store.dispatch(actions.getAddress({ zipCode: result }));
+      });
+  }
+  bindAddress(): void {
+    this.store.pipe(select(selectors.selectAddress))
+      .subscribe(response => {
+        if (response) {
+          this.secondFormGroup.get('city').setValue(response.city);
+          this.secondFormGroup.get('state').setValue(response.state);
+          this.secondFormGroup.get('country').setValue(response.country);
+        }
+      });
   }
 }

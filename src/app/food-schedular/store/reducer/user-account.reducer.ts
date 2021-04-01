@@ -65,5 +65,11 @@ const reducer = createReducer(initialState,
   }),
   on(preferenceActions.createPreferencesError, (state, { error }) => {
     return { ...state, load: false, error: error, loggedInUser: null, hasSavedSuccess: false };
+  }),
+  on(actions.getAddress, (state) => {
+    return { ...state, load: true, address: null }
+  }),
+  on(actions.getAddressSuccess, (state, { response }) => {
+    return { ...state, load: false, address: response }
   })
 );
