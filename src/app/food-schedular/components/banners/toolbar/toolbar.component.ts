@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common'
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UserAccountRegistrationModel } from 'src/app/food-schedular/store/models/user-account.model';
@@ -23,12 +24,16 @@ export class ToolbarComponent implements OnInit {
   @Output() changeTheame = new EventEmitter<void>();
   loggedInUser$: Observable<UserAccountRegistrationModel>;
   draftOrders$: Observable<OrderModel[]>;
+  userId: string;
+  profileId: string;
 
   constructor(private breakpointObserver: BreakpointObserver,
     private store: Store<AppState>,
-    private router: Router) {
-      this.bindDraftOrders();
-    }
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location) {
+    this.bindDraftOrders();
+  }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([Breakpoints.XSmall])
@@ -47,5 +52,13 @@ export class ToolbarComponent implements OnInit {
   }
   bindDraftOrders(): void {
     this.draftOrders$ = this.store.pipe(select(foodSelectors.selectDraftOrders));
-   }
+  }
+  navigateReviewOrder(): void {
+    this.router.navigate(['food-schedular/dashboard/schedule-food/review-order-cart']);
+  }
+  back(): void {
+    debugger
+
+    this.location.back()
+  }
 }

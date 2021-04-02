@@ -13,12 +13,21 @@
       </span>
     </mat-toolbar>
     <mat-selection-list #shoes [multiple]="false">
-      <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-        <mat-icon mat-list-icon> <mat-icon svgIcon="unicorn"></mat-icon></mat-icon>
+      <mat-list-option  (click)="navigateLoginOrLogOut()">
+        <mat-icon mat-list-icon >
+          <p-avatar icon= "pi {{!loggedInUser$?.id? 'pi-sign-in':'pi-sign-out'}}" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>
+        </mat-icon>
+        <div class="mat-list-text"  (click)="navigateLoginOrLogOut()" > {{!loggedInUser$?.id? 'Sign In':'Sign Out'}}</div>
+      </mat-list-option>
 
-        <div class="mat-list-text"  (click)="navigateLoginOrLogOut()"> {{ shoe }}</div>
+      <mat-list-option (click)="navigateToDashboard()">
+        <mat-icon mat-list-icon>
+          <p-avatar icon="pi pi-home" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>
+        </mat-icon>
+        <div class="mat-list-text"  (click)="navigateLoginOrLogOut()" > Dashboard</div>
       </mat-list-option>
     </mat-selection-list>
+
   </mat-drawer>
 
   <div class="example-sidenav-content">

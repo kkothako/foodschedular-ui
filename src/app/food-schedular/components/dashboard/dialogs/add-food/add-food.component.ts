@@ -37,10 +37,12 @@ export class AddFoodComponent implements OnInit {
   hasOrderClick = false;
 
   constructor(private store: Store<AppState>,
-    @Inject(MAT_DIALOG_DATA) public data: { userId: string, profileId: string, scheduleDate: string },
+    @Inject(MAT_DIALOG_DATA) public data:
+     { userId: string, selectedProfileName: string, profileId: string, scheduleDate: string },
     private _snackBar: MatSnackBar,
     private constantService: ConstantService,
     public dialogRef: MatDialogRef<AddFoodComponent>) {
+
     this.bindDropdowns();
     this.load$ = this.store.pipe(select(selectors.selectLoad));
 

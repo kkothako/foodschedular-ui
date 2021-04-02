@@ -17,8 +17,10 @@ import { Observable } from 'rxjs';
 export class SidenavComponent implements OnInit {
   isSmallScreen: boolean;
   isAlternateColor: boolean;
-  typesOfShoes: string[] = ['Sign In'];
+
   loggedInUser$: UserAccountRegistrationModel;
+  hasLogin = false;
+  profileId: string;
 
   constructor(private breakPointObserver: BreakpointObserver,
     private router: Router,
@@ -33,7 +35,23 @@ export class SidenavComponent implements OnInit {
       })
     this.store.pipe(select(selectors.selectLoggedInUser))
       .subscribe(response => {
-        this.loggedInUser$ = response;
+        if (response) {
+          this.hasLogin = true;
+          this.loggedInUser$ = response;
+          this.store.pipe(select(selectors.selectUserProfiles))
+            .subscribe(profiles => {
+              if (profiles && response.id) {
+                const profile = profiles.find(dr => dr.userId === response.id);
+                if (profiles) {
+                  this.profileId = profile.id;
+                }
+              }
+            })
+        } else {
+          this.hasLogin = false;
+        }
+
+
       });
 
 
@@ -42,10 +60,18 @@ export class SidenavComponent implements OnInit {
     this.store.dispatch(loginActions.logoutAction());
     this.router.navigate(['food-schedular/useraccount/signin']);
   }
-
+  navigateToDashboard(): void {
+    debugger
+    if ( this.loggedInUser$.id && this.profileId) {
+      this.router.navigate(['food-schedular/dashboard/schedule-food', this.loggedInUser$.id, this.profileId]);
+    } else {
+      this.router.navigate(['food-schedular/useraccount/signin']);
+    }
+  }
   changeColor(): void {
     this.isAlternateColor = !this.isAlternateColor;
   }
+
 
 
 

@@ -118,6 +118,7 @@ export class ScheduleFoodComponent implements OnInit {
     this.dialog.open(AddFoodComponent, {
       width: '500px',
       data: { userId: this.userId,
+        selectedProfileName:  this.userProfileFormGroup.get('userProfile').value.nickName,
         profileId: this.userProfileFormGroup.get('userProfile').value.id,
         scheduleDate: scheduleDate
        }
@@ -165,6 +166,7 @@ export class ScheduleFoodComponent implements OnInit {
     this.dialog.open(ViewOrderComponent, {
       width: '500px',
       data: { userId: this.userId,
+        selectedProfileName:  this.userProfileFormGroup.get('userProfile').value.nickName,
         profileId: this.userProfileFormGroup.get('userProfile').value.id,
         scheduleDate: scheduleDate,
         title: title

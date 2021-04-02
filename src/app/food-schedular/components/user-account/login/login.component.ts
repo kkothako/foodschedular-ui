@@ -104,7 +104,7 @@ profileId: string;
   bindUserProfiles(): void {
     this.store.pipe(select(userAccountSelectors.selectUserProfiles))
       .subscribe(response => {
-        if (response) {
+        if (response && this.userId) {
           const userProfile = response.find(dr => dr.userId === this.userId);
           this.profileId = userProfile.id;
           this.router.navigate(['food-schedular/dashboard/schedule-food',this.userId, this.profileId]);

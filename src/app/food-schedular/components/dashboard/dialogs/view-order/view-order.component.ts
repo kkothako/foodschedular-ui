@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ViewOrderComponent implements OnInit {
 
   constructor( @Inject(MAT_DIALOG_DATA) public data:
-  { userId: string, profileId: string, scheduleDate: string, title: string },
+  { userId: string, profileId: string,selectedProfileName: string, scheduleDate: string, title: string },
   private _snackBar: MatSnackBar,
   public dialogRef: MatDialogRef<ViewOrderComponent>) { }
 

@@ -8,11 +8,13 @@ import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-m
 import { FormsModule } from '@angular/forms';
 import { AddFoodComponent } from './dialogs/add-food/add-food.component';
 import { ViewOrderComponent } from './dialogs/view-order/view-order.component';
+import { ReviewOrderCartComponent } from './components/review-order-cart/review-order-cart.component';
 
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
-      { path: 'schedule-food/:userId/:profileId', component: ScheduleFoodComponent }
+      { path: 'schedule-food/:userId/:profileId', component: ScheduleFoodComponent },
+      { path: 'schedule-food/review-order-cart', component: ReviewOrderCartComponent },
     ]
   }
 ]
@@ -21,7 +23,8 @@ const routes: Routes = [
     DashboardComponent,
     ScheduleFoodComponent,
     AddFoodComponent,
-    ViewOrderComponent
+    ViewOrderComponent,
+    ReviewOrderCartComponent
   ],
   imports: [
     CommonModule,

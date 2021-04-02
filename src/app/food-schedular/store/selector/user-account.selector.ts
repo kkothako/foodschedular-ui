@@ -48,3 +48,12 @@ export const selectAddress =  createSelector(
   accountState,
   state => state.address
 );
+
+export const selectUserProfileNickNameByUserId = createSelector(
+  accountState,
+  selectLoggedInUser,
+  (state, logedInUser) => {
+    const profile  =state.userProfiles.find(dr=>dr.userId === logedInUser.id);
+    return profile?.nickName;
+  }
+);

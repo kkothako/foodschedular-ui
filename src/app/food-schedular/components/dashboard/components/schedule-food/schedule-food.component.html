@@ -24,7 +24,13 @@
         </button>
 
       </div> -->
+      <div class="food-button-container">
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon"
+        (click)="openAddFoodDialog()">
+          <mat-icon>add_circle</mat-icon>
+        </button>
 
+      </div>
     </div>
 
   </div>
@@ -45,12 +51,6 @@
 </div>
 <br />
 <div *ngIf="this.draftOrdersEvents">
-  <div class="food-button-container">
-    <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon"
-    (click)="openAddFoodDialog()">
-      <mat-icon>alarm_add</mat-icon>
-    </button>
 
-  </div>
   <full-calendar  [options]="calendarOptions" id="mycal" #mycal></full-calendar>
 </div>
