@@ -61,7 +61,6 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['food-schedular/useraccount/signin']);
   }
   navigateToDashboard(): void {
-    debugger
     if ( this.loggedInUser$.id && this.profileId) {
       this.router.navigate(['food-schedular/dashboard/schedule-food', this.loggedInUser$.id, this.profileId]);
     } else {

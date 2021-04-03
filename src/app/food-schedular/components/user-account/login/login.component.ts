@@ -123,7 +123,6 @@ export class LoginComponent implements OnInit {
   getUserPreferences(): void {
     this.store.pipe(select(userAccountSelectors.selectGetPreferencesByUserId))
       .subscribe(response => {
-        debugger
         if (response && response.length > 0) {
           this.router.navigate(['food-schedular/dashboard/schedule-food', this.userId, this.profileId]);
         }

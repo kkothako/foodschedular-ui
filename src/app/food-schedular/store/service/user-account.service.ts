@@ -38,7 +38,7 @@ export class UserAccountService {
       );
   }
   getAdrressByZipCode(zipCode: string): Observable<AddressModel> {
-    return this.httpClient.get<any>(`http://ziptasticapi.com/${zipCode}`)
+    return this.httpClient.get<any>(`https://ziptasticapi.com/${zipCode}`)
       .pipe(
         catchError(error => of(error))
       );

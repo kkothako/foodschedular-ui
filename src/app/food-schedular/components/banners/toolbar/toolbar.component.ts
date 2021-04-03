@@ -57,8 +57,6 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['food-schedular/dashboard/schedule-food/review-order-cart']);
   }
   back(): void {
-    debugger
-
     this.location.back()
   }
 }

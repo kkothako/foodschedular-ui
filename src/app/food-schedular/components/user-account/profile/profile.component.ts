@@ -47,8 +47,7 @@ export class ProfileComponent implements OnInit {
 
     this.store.pipe(select(selectors.selectUserProfiles))
       .subscribe(response => {
-        debugger
-        if (response && response.length > 0) {
+        if (response) {
           this.openSnackBar("User profile created", "success")
           this.router.navigate(['food-schedular/useraccount/preferences', response[0].userId, response[0].id]);
         }
@@ -68,9 +67,9 @@ export class ProfileComponent implements OnInit {
 
       })
 
-      this.route.params.subscribe(param => {
-        this.userId = param["userId"];
-      });
+    this.route.params.subscribe(param => {
+      this.userId = param["userId"];
+    });
 
     this.nameFormGroup = this._formBuilder.group({
       nickName: ['', Validators.required],
