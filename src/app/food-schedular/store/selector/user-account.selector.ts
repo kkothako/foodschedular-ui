@@ -57,3 +57,8 @@ export const selectUserProfileNickNameByUserId = createSelector(
     return profile?.nickName;
   }
 );
+
+export const selectGetPreferencesByUserId = createSelector(
+  accountState,
+  state => state.preferencens
+);

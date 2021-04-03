@@ -42,7 +42,7 @@ export class SidenavComponent implements OnInit {
             .subscribe(profiles => {
               if (profiles && response.id) {
                 const profile = profiles.find(dr => dr.userId === response.id);
-                if (profiles) {
+                if (profile) {
                   this.profileId = profile.id;
                 }
               }

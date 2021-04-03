@@ -8,9 +8,22 @@ export const createPreferences = createAction(
   );
   export const createPreferencesSuccess = createAction(
     '[user-preferences] Create Preferences success',
-    props<{ response: boolean }>()
+    props<{ response: model.PreferencesModel[] }>()
   );
   export const createPreferencesError = createAction(
     '[user-preferences] Create Preferences error',
+    props<{ error: any }>()
+  );
+
+  export const getPreferences = createAction(
+    '[user-preferences] Get Preferences',
+    props<{ userId: string }>()
+  );
+  export const getPreferencesSuccess = createAction(
+    '[user-preferences] Get Preferences success',
+    props<{ response: model.PreferencesModel[] }>()
+  );
+  export const getPreferencesError = createAction(
+    '[user-preferences] Get Preferences error',
     props<{ error: any }>()
   );

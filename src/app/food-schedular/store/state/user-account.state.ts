@@ -4,6 +4,7 @@ import { OrderModel } from '../models/order.model';
 import { UserAccountModel } from '../models/user-account.model';
 import { UserProfileModel } from '../models/user-profile.model';
 import * as model from './../models/user-account.model';
+import * as preferencesModel from './../models/preferences.model';
 
 export interface UserAccountState extends EntityState<UserAccountModel> {
   load: boolean,
@@ -13,7 +14,8 @@ export interface UserAccountState extends EntityState<UserAccountModel> {
   userProfiles: UserProfileModel[],
   loggedInUser: model.UserAccountRegistrationModel,
   hasSavedSuccess: boolean,
-  address: model.AddressModel
+  address: model.AddressModel,
+  preferencens: preferencesModel.PreferencesModel[]
 }
 
 export const defaultState: UserAccountState = {
@@ -26,7 +28,8 @@ export const defaultState: UserAccountState = {
   userProfiles: null,
   loggedInUser: null,
   hasSavedSuccess: false,
-  address: null
+  address: null,
+  preferencens: null
 };
 
 export const initialState = userAccountEntity.getInitialState(defaultState);

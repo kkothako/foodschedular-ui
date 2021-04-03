@@ -12,7 +12,7 @@ import * as preferenceActions from './../../../store/action/user-preferences.act
 
 import * as userAccountActions from './../../../store/action/user-account.action';
 import * as userAccountSelectors from './../../../store/selector/user-account.selector'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as accountSelectors from './../../../store/selector/user-account.selector';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -45,7 +45,8 @@ export class PreferencesComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private store: Store<AppState>,
     private route: ActivatedRoute,
-    private _snackBar: MatSnackBar,) {
+    private _snackBar: MatSnackBar,
+    private router: Router) {
     this.bindDropdowns();
     this.bindShowHideLoad();
     this.store.pipe(select(accountSelectors.selectHasProfileCreated))
@@ -53,6 +54,7 @@ export class PreferencesComponent implements OnInit {
         if (response && this.hasPreferenceSaveClick) {
           this.hasPreferenceSaveClick = false;
           this.openSnackBar('User Preferences Successfully Created', 'Success');
+          this.router.navigate(['food-schedular/dashboard/schedule-food', response[0].userId, response[0].profielId]);
         }
       })
   }
@@ -131,5 +133,7 @@ export class PreferencesComponent implements OnInit {
     });
 
   }
+
+
 
 }

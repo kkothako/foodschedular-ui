@@ -48,7 +48,7 @@ export class ConfirmEmailComponent implements OnInit {
       .subscribe(([status, profiles]) => {
         if (this.handleClick && status) {
           this.openSnackBar('Validated activation key successfully!', 'Activation Key');
-          this.router.navigate(['food-schedular/useraccount/profile']);
+          this.router.navigate(['food-schedular/useraccount/profile', null]);
           this.handleClick = false;
         } else if (this.handleClick && !status) {
           this.openSnackBar('OOPs, activation key does not exist. Please try again!', 'Activation Key');

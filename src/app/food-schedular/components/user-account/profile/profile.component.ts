@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { EMPTY, fromEvent, Observable } from 'rxjs';
 import { catchError, debounce, debounceTime, distinctUntilChanged, filter, map, pluck } from 'rxjs/operators';
@@ -30,12 +30,14 @@ export class ProfileComponent implements OnInit {
   newUser: UserAccountRegistrationModel;
   hasSaveClicked = false;
   @ViewChild('input') zipCodeElement: ElementRef;
+  userId: string;
 
   constructor(private _formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
     private store: Store<AppState>,
     private router: Router,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute) {
     this.load$ = this.store.pipe(select(selectors.load));
 
     this.store.pipe(select(selectors.selectNewlyCreatedUser))
@@ -43,11 +45,12 @@ export class ProfileComponent implements OnInit {
         this.newUser = response;
       });
 
-    this.store.pipe(select(selectors.selectHasProfileCreated))
+    this.store.pipe(select(selectors.selectUserProfiles))
       .subscribe(response => {
-        if (response) {
+        debugger
+        if (response && response.length > 0) {
           this.openSnackBar("User profile created", "success")
-          this.router.navigate(['food-schedular/useraccount/preferences']);
+          this.router.navigate(['food-schedular/useraccount/preferences', response[0].userId, response[0].id]);
         }
         if (this.hasSaveClicked && !response) {
           this.openSnackBar("Opps!, Error while creating user profile", "error")
@@ -64,6 +67,10 @@ export class ProfileComponent implements OnInit {
         this.isSmallScreen = state.matches;
 
       })
+
+      this.route.params.subscribe(param => {
+        this.userId = param["userId"];
+      });
 
     this.nameFormGroup = this._formBuilder.group({
       nickName: ['', Validators.required],
@@ -95,7 +102,7 @@ export class ProfileComponent implements OnInit {
     this.hasSaveClicked = true;
     const profile = <UserProfileModel>this.nameFormGroup.value;
     profile.address = <AddressModel>this.secondFormGroup.value;
-    profile.userId = this.newUser.id;
+    profile.userId = this.userId != null ? this.userId : this.newUser.id;
 
     this.store.dispatch(actions.createUserProfile({ payload: profile }));
 

@@ -11,9 +11,9 @@ import { UserAccountRegistrationModel } from 'src/app/food-schedular/store/model
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import { SignupTypeComponent } from '../signup-type/signup-type.component';
 import * as loginActions from './../../../store/action/user-account-login';
-import * as selectors from './../../../store/selector/user-account.selector';
-import * as userAccountSelectors from './../../../store/selector/user-account.selector'
+import * as userAccountSelectors from './../../../store/selector/user-account.selector';
 import * as userAccountActions from './../../../store/action/user-account.action';
+import * as preferenceActions from './../../../store/action/user-preferences.action';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,16 +24,17 @@ export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup;
   load$: Observable<boolean>;
   handleClick: boolean;
-userId:string;
-profileId: string;
+  userId: string;
+  profileId: string;
 
   constructor(private router: Router,
     public dialog: MatDialog,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private store: Store<AppState>) {
-      this.bindUserProfiles();
-    }
+    this.bindUserProfiles();
+    this.getUserPreferences();
+  }
 
 
   ngOnInit(): void {
@@ -51,23 +52,23 @@ profileId: string;
     });
     this.bindShowHideLoad();
     this.bindErrors();
-    this.store.pipe(select(selectors.selectLoggedInUser))
+    this.store.pipe(select(userAccountSelectors.selectLoggedInUser))
       .subscribe(response => {
         if (this.handleClick && response) {
-          this.userId= response.id;
+          this.userId = response.id;
           this.store.dispatch(userAccountActions.getUserProfiles({ userId: response.id }));
         }
       });
   }
   bindShowHideLoad(): void {
-    this.load$ = this.store.pipe(select(selectors.load))
+    this.load$ = this.store.pipe(select(userAccountSelectors.load))
       .pipe(catchError((error) => {
         this.openSnackBar('Opps! something went wrong' + error, "Error")
         return EMPTY;
       }))
   }
   bindErrors(): void {
-    this.store.pipe(select(selectors.selectError))
+    this.store.pipe(select(userAccountSelectors.selectError))
       .subscribe(error => {
         if (error) {
           this.openSnackBar(error, 'Error');
@@ -105,26 +106,30 @@ profileId: string;
     this.store.pipe(select(userAccountSelectors.selectUserProfiles))
       .subscribe(response => {
         if (response && this.userId) {
-          const userProfile = response.find(dr => dr.userId === this.userId);
-          this.profileId = userProfile.id;
-          this.router.navigate(['food-schedular/dashboard/schedule-food',this.userId, this.profileId]);
+          if (response.length > 0) {
+            const userProfile = response.find(dr => dr.userId === this.userId);
+            this.profileId = userProfile.id;
+            this.store.dispatch(preferenceActions.getPreferences({ userId: this.userId }));
+          }
+          else {
+            this.router.navigate(['food-schedular/useraccount/profile', this.userId]);
+          }
         }
       });
   }
 
 
-  // // GetuserPrefences
-  //  getUserPreferences(): void {
-  //   this.store.pipe(select(userAccountSelectors.selectUserPreferences))
-  //   .subscribe(response => {
-  //     if (response != null) {
-
-  //       // if rresponse is null the
-  //       this.router.navigate(['food-schedular/dashboard/schedule-food',this.userId, this.profileId]);
-  //     }
-  //     else
-  //     {
-  //       this.router.navigate(['food-schedular/useraccount/preferences',this.userId, this.profileId]);
-  //     }
-  //  }
+  //GetuserPrefences
+  getUserPreferences(): void {
+    this.store.pipe(select(userAccountSelectors.selectGetPreferencesByUserId))
+      .subscribe(response => {
+        debugger
+        if (response && response.length > 0) {
+          this.router.navigate(['food-schedular/dashboard/schedule-food', this.userId, this.profileId]);
+        }
+        else if (this.userId && this.profileId) {
+          this.router.navigate(['food-schedular/useraccount/preferences', this.userId, this.profileId]);
+        }
+      })
+  }
 }

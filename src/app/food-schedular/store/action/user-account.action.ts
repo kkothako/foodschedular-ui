@@ -49,7 +49,7 @@ export const createUserProfile = createAction(
 
 export const createUserProfileSuccess = createAction(
   '[app-profile] Create user profile success',
-  props<{ response: boolean }>()
+  props<{ response: UserProfileModel[] }>()
 );
 
 export const createUserProfileError = createAction(
