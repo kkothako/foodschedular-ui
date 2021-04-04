@@ -61,7 +61,7 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['food-schedular/useraccount/signin']);
   }
   navigateToDashboard(): void {
-    if ( this.loggedInUser$.id && this.profileId) {
+    if (this.loggedInUser$.id && this.profileId) {
       this.router.navigate(['food-schedular/dashboard/schedule-food', this.loggedInUser$.id, this.profileId]);
     } else {
       this.router.navigate(['food-schedular/useraccount/signin']);
@@ -71,7 +71,12 @@ export class SidenavComponent implements OnInit {
     this.isAlternateColor = !this.isAlternateColor;
   }
 
-
-
+  navigateToManageProfile(): void {
+    if (this.loggedInUser$.id) {
+      this.router.navigate(['food-schedular/useraccount/manage-profile', this.loggedInUser$.id]);
+    } else {
+      this.router.navigate(['food-schedular/useraccount/signin']);
+    }
+  }
 
 }

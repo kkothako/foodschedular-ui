@@ -1,0 +1,33 @@
+<div class="example-container">
+  <div class="row">
+    <div class="col-sm-4 col-md-4">
+      <h2 class="mt-0 mb-1">
+        <p-avatar icon="pi pi-user" styleClass="p-mr-2" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"
+          shape="circle"></p-avatar>&nbsp; Manage Profile&nbsp;
+      </h2>
+    </div>
+    <div class="col-sm-4 col-md-4"></div>
+    <div class="col-sm-4 col-md-4"></div>
+  </div>
+<br/>
+  <div class="row">
+
+    <div
+      class="col-sm-4 col-md-4 col-xs-12"
+      *ngFor="let item of profiles; index as i"
+    >
+      <div style="padding-left: 30px; cursor: pointer">
+        <p-avatar
+          (click)="redirectToProfile(item)"
+          icon="pi pi-user"
+          styleClass="p-mr-2"
+          size="xlarge"
+          [style]="{ 'background-color': '#ff4081', color: '#ffffff' }"
+          shape="circle"
+          [mat-dialog-close]="true"></p-avatar>
+      </div>
+      <p class="font-weight-bold font-italic text-danger" style="padding-left:40px;">{{ item.nickName }}</p>
+    </div>
+  </div>
+
+</div>

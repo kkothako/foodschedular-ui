@@ -12,6 +12,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { ProfileComponent } from './profile/profile.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { SignupTypeComponent } from './signup-type/signup-type.component';
+import { ManageProfileComponent } from './manage-profile/manage-profile.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'terms-conditions', component: TermsConditionsComponent },
       { path: 'profile/:userId', component: ProfileComponent },
       { path: 'confirm-email', component: ConfirmEmailComponent },
+      { path: 'manage-profile/:userId', component: ManageProfileComponent },
     ]
   }
 ];
@@ -37,7 +39,8 @@ const routes: Routes = [
     TermsConditionsComponent,
     ProfileComponent,
     ConfirmEmailComponent,
-    SignupTypeComponent
+    SignupTypeComponent,
+    ManageProfileComponent
   ],
   exports: [
     LoginComponent,

@@ -26,6 +26,14 @@
         </mat-icon>
         <div class="mat-list-text"  (click)="navigateLoginOrLogOut()" > Dashboard</div>
       </mat-list-option>
+
+      <mat-list-option  (click)="navigateToManageProfile()" >
+        <mat-icon mat-list-icon>
+          <p-avatar icon="pi pi-users" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>
+        </mat-icon>
+        <div class="mat-list-text"  (click)="navigateLoginOrLogOut()" > Manage Profile</div>
+      </mat-list-option>
+
     </mat-selection-list>
 
   </mat-drawer>
