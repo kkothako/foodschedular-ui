@@ -41,7 +41,7 @@ export const selectError = createSelector(
 
 export const selectHasProfileCreated =  createSelector(
   accountState,
-  state => state.hasSavedSuccess
+  state => state.preferencens
 );
 
 export const selectAddress =  createSelector(

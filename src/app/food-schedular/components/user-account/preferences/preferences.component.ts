@@ -47,6 +47,11 @@ export class PreferencesComponent implements OnInit {
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private router: Router) {
+    this.route.params.subscribe(param => {
+      this.userId = param.userId;
+      this.profileId = param.profileId;
+    });
+
     this.bindDropdowns();
     this.bindShowHideLoad();
     this.store.pipe(select(accountSelectors.selectHasProfileCreated))
@@ -54,7 +59,7 @@ export class PreferencesComponent implements OnInit {
         if (response && this.hasPreferenceSaveClick) {
           this.hasPreferenceSaveClick = false;
           this.openSnackBar('User Preferences Successfully Created', 'Success');
-          this.router.navigate(['food-schedular/dashboard/schedule-food', response[0].userId, response[0].profielId]);
+          this.router.navigate(['food-schedular/dashboard/schedule-food', this.userId, this.profileId]);
         }
       })
   }
@@ -73,7 +78,7 @@ export class PreferencesComponent implements OnInit {
         return EMPTY;
       }));
 
-      this.allergys$ = this.store.pipe(select(selectors.selectAllAllergys))
+    this.allergys$ = this.store.pipe(select(selectors.selectAllAllergys))
       .pipe(catchError((error) => {
         console.log(error);
         return EMPTY;
@@ -96,7 +101,7 @@ export class PreferencesComponent implements OnInit {
       this.profileId = param["profileId"];
     });
 
-       this.formGroup = this._formBuilder.group({
+    this.formGroup = this._formBuilder.group({
       cuisines: ['', Validators.required],
       proteins: ['', Validators.required],
       allergys: ['', Validators.required]
@@ -104,15 +109,15 @@ export class PreferencesComponent implements OnInit {
 
   }
 
-  createPreferences():void{
+  createPreferences(): void {
 
     const preferences = <PreferencesModel>this.formGroup.value;
     preferences.cuisines = this.selectedCuisine;
     preferences.proteins = this.selectedProtein;
     preferences.allergys = this.selectedAllergy;
 
-    preferences.userId  = this.userId;
-    preferences.profileId  = this.profileId;
+    preferences.userId = this.userId;
+    preferences.profileId = this.profileId;
 
     //preferences
     this.store.dispatch(preferenceActions.createPreferences({ payload: preferences }));

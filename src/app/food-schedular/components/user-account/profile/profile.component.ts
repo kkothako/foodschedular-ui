@@ -47,7 +47,8 @@ export class ProfileComponent implements OnInit {
 
     this.store.pipe(select(selectors.selectUserProfiles))
       .subscribe(response => {
-        if (response) {
+        if (response && this.hasSaveClicked) {
+          this.hasSaveClicked = false;
           this.openSnackBar("User profile created", "success")
           this.router.navigate(['food-schedular/useraccount/preferences', response[0].userId, response[0].id]);
         }

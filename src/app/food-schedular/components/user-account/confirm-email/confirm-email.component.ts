@@ -44,11 +44,11 @@ export class ConfirmEmailComponent implements OnInit {
         console.log(error);
         return EMPTY;
       }));
-    combineLatest(this.validateActivationStatus$, this.userProfiles$)
-      .subscribe(([status, profiles]) => {
+    combineLatest(this.validateActivationStatus$)
+      .subscribe(([status]) => {
         if (this.handleClick && status) {
           this.openSnackBar('Validated activation key successfully!', 'Activation Key');
-          this.router.navigate(['food-schedular/useraccount/profile', null]);
+          this.router.navigate(['food-schedular/useraccount/profile']);
           this.handleClick = false;
         } else if (this.handleClick && !status) {
           this.openSnackBar('OOPs, activation key does not exist. Please try again!', 'Activation Key');

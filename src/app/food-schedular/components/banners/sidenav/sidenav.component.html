@@ -20,18 +20,18 @@
         <div class="mat-list-text"  (click)="navigateLoginOrLogOut()" > {{!loggedInUser$?.id? 'Sign In':'Sign Out'}}</div>
       </mat-list-option>
 
-      <mat-list-option (click)="navigateToDashboard()">
+      <!-- <mat-list-option (click)="navigateToDashboard()" *ngIf="loggedInUser$?.id">
         <mat-icon mat-list-icon>
           <p-avatar icon="pi pi-home" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>
         </mat-icon>
-        <div class="mat-list-text"  (click)="navigateLoginOrLogOut()" > Dashboard</div>
-      </mat-list-option>
+        <div class="mat-list-text" > Dashboard</div>
+      </mat-list-option> -->
 
-      <mat-list-option  (click)="navigateToManageProfile()" >
+      <mat-list-option  (click)="navigateToManageProfile()" *ngIf="loggedInUser$?.id">
         <mat-icon mat-list-icon>
           <p-avatar icon="pi pi-users" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>
         </mat-icon>
-        <div class="mat-list-text"  (click)="navigateLoginOrLogOut()" > Manage Profile</div>
+        <div class="mat-list-text"   > Manage Profile</div>
       </mat-list-option>
 
     </mat-selection-list>
