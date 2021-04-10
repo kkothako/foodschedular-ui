@@ -49,22 +49,22 @@ const reducer = createReducer(initialState,
     return { ...state, load: false, error: null, loggedInUser: null };
   }),
   on(actions.createUserProfile, (state) => {
-    return { ...state, load: true, error: null, loggedInUser: null };
+    return { ...state, load: true, error: null };
   }),
   on(actions.createUserProfileSuccess, (state, { response }) => {
     return { ...state, load: false, userProfiles: [response], hasSavedSuccess: true, error: null };
   }),
   on(actions.createUserProfileError, (state, { error }) => {
-    return { ...state, load: false, error: error, loggedInUser: null, hasSavedSuccess: false };
+    return { ...state, load: false, error: error, hasSavedSuccess: false };
   }),
   on(preferenceActions.createPreferences, (state) => {
-    return { ...state, load: true, error: null, loggedInUser: null };
+    return { ...state, load: true, error: null };
   }),
   on(preferenceActions.createPreferencesSuccess, (state, { response }) => {
-    return { ...state, load: false, preferencens: [response],  hasSavedSuccess: true, error: null };
+    return { ...state, load: false, preferencens: [response], hasSavedSuccess: true, error: null };
   }),
   on(preferenceActions.createPreferencesError, (state, { error }) => {
-    return { ...state, load: false, error: error, loggedInUser: null, hasSavedSuccess: false };
+    return { ...state, load: false, error: error, hasSavedSuccess: false };
   }),
   on(actions.getAddress, (state) => {
     return { ...state, load: true, address: null }
@@ -73,12 +73,15 @@ const reducer = createReducer(initialState,
     return { ...state, load: false, address: response }
   }),
   on(preferenceActions.getPreferences, (state) => {
-    return { ...state, load: true, error: null, loggedInUser: null };
+    return { ...state, load: true, error: null };
   }),
   on(preferenceActions.getPreferencesSuccess, (state, { response }) => {
     return { ...state, load: false, preferencens: response, error: null };
   }),
   on(preferenceActions.getPreferencesError, (state, { error }) => {
-    return { ...state, load: false, error: error, loggedInUser: null, hasSavedSuccess: false };
+    return { ...state, load: false, error: error, hasSavedSuccess: false };
   }),
+  on(actions.setUserIdAndProfileId, (state, { payload }) => {
+    return { ...state, load: false, selectedProfile: payload };
+  })
 );

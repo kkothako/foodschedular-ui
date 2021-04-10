@@ -1,19 +1,38 @@
 <div class="example-container">
   <div class="row">
-    <div class="col-sm-4 col-md-4">
-      <h2 class="mt-0 mb-1">
-        <p-avatar icon="pi pi-user" styleClass="p-mr-2" [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"
-          shape="circle"></p-avatar>&nbsp; Manage Profile&nbsp;
-      </h2>
+    <div class="col-sm-11 col-md-11">
+      <h2 class="mt-0 mb-1"><mat-icon aria-hidden="false" color='warn' aria-label="Example home icon">home</mat-icon>&nbsp;Manage Profile</h2>
     </div>
-    <div class="col-sm-4 col-md-4"></div>
-    <div class="col-sm-4 col-md-4"></div>
+
+    <div class="col-sm-1 col-md-1">
+
+
+      <div class="food-button-container">
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a home icon"
+       >
+          <mat-icon>add_circle</mat-icon>
+        </button>
+
+      </div>
+    </div>
+
   </div>
-<br/>
+
+  <mat-divider></mat-divider>
+  <br/>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+      ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
+      viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+      lacinia congue felis in faucibus.
+      <br/>
+    </div>
+  </div>
   <div class="row">
 
     <div
-      class="col-sm-4 col-md-4 col-xs-12"
+      class="col-sm-1 col-md-1 col-xs-6"
       *ngFor="let item of profiles; index as i"
     >
       <div style="padding-left: 30px; cursor: pointer">

@@ -11,6 +11,7 @@ import * as loginActions from './../../../store/action/user-account-login';
 import * as foodSelectors from './../../../store/selector/food-shedular.selectors';
 import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
 import * as orderActions from './../../../store/action/order.action';
+import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
 
 @Component({
   selector: 'app-toolbar',
@@ -25,13 +26,18 @@ export class ToolbarComponent implements OnInit {
   loggedInUser$: Observable<UserAccountRegistrationModel>;
   draftOrders$: Observable<OrderModel[]>;
   userId: string;
-  profileId: string;
+  selectedUserProfile: UserProfileModel;
 
   constructor(private breakpointObserver: BreakpointObserver,
     private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location) {
+
+    this.store.pipe(select(selectors.selectSelectedUserProfile))
+      .subscribe(profile => {
+        this.selectedUserProfile = profile;
+      });
     this.bindDraftOrders();
   }
 
@@ -57,6 +63,8 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['food-schedular/dashboard/schedule-food/review-order-cart']);
   }
   back(): void {
-    this.location.back()
+    if(this.selectedUserProfile && this.selectedUserProfile.userId){
+      this.router.navigate(['food-schedular/dashboard/schedule-food',  this.selectedUserProfile.userId,  this.selectedUserProfile.id]);
+    }
   }
 }

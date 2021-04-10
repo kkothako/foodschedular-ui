@@ -87,6 +87,7 @@ export class ScheduleFoodComponent implements OnInit {
   hasActionDisapactched = false;
   draftOrdersEvents: any[] = [];
   profileId: string;
+  selectedUserProfile: UserProfileModel;
 
   constructor(private router: Router,
     public dialog: MatDialog,
@@ -117,11 +118,12 @@ export class ScheduleFoodComponent implements OnInit {
   openAddFoodDialog(scheduleDate = null): void {
     this.dialog.open(AddFoodComponent, {
       width: '500px',
-      data: { userId: this.userId,
-        selectedProfileName:  this.userProfileFormGroup.get('userProfile').value.nickName,
+      data: {
+        userId: this.userId,
+        selectedProfileName: this.userProfileFormGroup.get('userProfile').value.nickName,
         profileId: this.userProfileFormGroup.get('userProfile').value.id,
         scheduleDate: scheduleDate
-       }
+      }
     });
   }
 
@@ -132,6 +134,8 @@ export class ScheduleFoodComponent implements OnInit {
         this.userProfiles = response;
         const userProfile = response.find(dr => dr.userId === this.userId);
         this.userProfileFormGroup.get('userProfile').setValue(userProfile);
+        this.store.dispatch(userAccountActions.setUserIdAndProfileId({ payload: userProfile }));
+        this.selectedUserProfile = userProfile;
       }
     });
   }
@@ -151,31 +155,35 @@ export class ScheduleFoodComponent implements OnInit {
       });
 
   }
-  initializeCalendarClickEvents(): void{
-    this.calendarOptions.dateClick = (arg)=>{
+  initializeCalendarClickEvents(): void {
+    this.calendarOptions.dateClick = (arg) => {
       const scheduleDate = this.constantService.getFormatedDateWithNoMinutes(arg.date)
       this.openAddFoodDialog(scheduleDate);
     }
 
-    this.calendarOptions.eventClick = (info)=>{
+    this.calendarOptions.eventClick = (info) => {
       const scheduleDate = this.constantService.getFormatedDateWithNoMinutes(info.event.start)
-     this.openViewOrderFoodDialog(scheduleDate, info.event.title)
+      this.openViewOrderFoodDialog(scheduleDate, info.event.title)
     }
   }
-  openViewOrderFoodDialog(scheduleDate:string, title: string): void {
+  openViewOrderFoodDialog(scheduleDate: string, title: string): void {
     this.dialog.open(ViewOrderComponent, {
       width: '500px',
-      data: { userId: this.userId,
-        selectedProfileName:  this.userProfileFormGroup.get('userProfile').value.nickName,
+      data: {
+        userId: this.userId,
+        selectedProfileName: this.userProfileFormGroup.get('userProfile').value.nickName,
         profileId: this.userProfileFormGroup.get('userProfile').value.id,
         scheduleDate: scheduleDate,
         title: title
-       }
+      }
     });
   }
   ngAfterViewInit() {
     this.bindDraftOrders();
     this.initializeCalendarClickEvents();
   }
-
+  changeSelectedProfile(profile: any): void {
+    this.store.dispatch(userAccountActions.setUserIdAndProfileId({ payload: profile.value }));
+    this.store.dispatch(orderActions.getDraftOrders({ userId: profile.value.userId, profileId: profile.value.id }));
+  }
 }

@@ -59,10 +59,15 @@ export const createUserProfileError = createAction(
 
 export const getAddress = createAction(
   '[app-profile] Get address by zipcode',
-  props<{zipCode: string}>()
+  props<{ zipCode: string }>()
 );
 
 export const getAddressSuccess = createAction(
   '[app-profile] Get address by zipcode success',
-  props<{response: model.AddressModel}>()
+  props<{ response: model.AddressModel }>()
+);
+
+export const setUserIdAndProfileId = createAction(
+  '[app-schedule-food] Set UserId and ProfileId',
+  props<{ payload:UserProfileModel }>()
 );

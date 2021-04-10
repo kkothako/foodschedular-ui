@@ -62,3 +62,8 @@ export const selectGetPreferencesByUserId = createSelector(
   accountState,
   state => state.preferencens
 );
+
+export const selectSelectedUserProfile = createSelector(
+  accountState,
+  state => state.selectedProfile
+);
