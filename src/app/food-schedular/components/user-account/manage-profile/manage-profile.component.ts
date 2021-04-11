@@ -15,7 +15,8 @@ import * as userAccountActions from './../../../store/action/user-account.action
 export class ManageProfileComponent implements OnInit {
   userId: string;
   profiles: UserProfileModel[] = [];
-
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'action'];
+  dataSource = null;
   constructor(private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>) { }
@@ -42,7 +43,7 @@ export class ManageProfileComponent implements OnInit {
       });
   }
 
-  redirectToProfile(selectedProfile: UserProfileModel): void {
+  redirectToProfile(): void {
     this.router.navigate(["food-schedular/useraccount/profile", this.userId]);
   }
 

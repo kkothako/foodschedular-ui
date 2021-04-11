@@ -130,6 +130,7 @@ export class ScheduleFoodComponent implements OnInit {
   bindUserProfiles(): void {
     this.userProfiles$ = this.store.pipe(select(userAccountSelectors.selectUserProfiles));
     this.userProfiles$.subscribe(response => {
+      debugger
       if (response && this.userProfileFormGroup.get('userProfile')) {
         this.userProfiles = response;
         const userProfile = response.find(dr => dr.userId === this.userId);

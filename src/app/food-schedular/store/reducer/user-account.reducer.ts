@@ -52,7 +52,7 @@ const reducer = createReducer(initialState,
     return { ...state, load: true, error: null };
   }),
   on(actions.createUserProfileSuccess, (state, { response }) => {
-    return { ...state, load: false, userProfiles: [response], hasSavedSuccess: true, error: null };
+    return { ...state, load: false, userProfiles: [...state.userProfiles, response], hasSavedSuccess: true, error: null };
   }),
   on(actions.createUserProfileError, (state, { error }) => {
     return { ...state, load: false, error: error, hasSavedSuccess: false };
