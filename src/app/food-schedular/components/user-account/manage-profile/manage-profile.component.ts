@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AddressModel } from 'src/app/food-schedular/store/models/user-account.model';
@@ -12,10 +12,10 @@ import * as userAccountActions from './../../../store/action/user-account.action
   templateUrl: './manage-profile.component.html',
   styleUrls: ['./manage-profile.component.scss']
 })
-export class ManageProfileComponent implements OnInit {
+export class ManageProfileComponent implements OnInit, AfterViewInit {
   userId: string;
   profiles: UserProfileModel[] = [];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'action'];
+  displayedColumns: string[] = [ 'nickName', 'name', 'mobile'];
   dataSource = null;
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -34,17 +34,18 @@ export class ManageProfileComponent implements OnInit {
   getProfiles(): void {
 
     this.store.dispatch(userAccountActions.getUserProfiles({ userId: this.userId }));
-
-    this.store.pipe(select(userAccountSelectors.selectUserProfiles))
-      .subscribe(response => {
-        if (response) {
-          this.profiles = response;
-        }
-      });
   }
 
   redirectToProfile(): void {
     this.router.navigate(["food-schedular/useraccount/profile", this.userId]);
   }
-
+  ngAfterViewInit(): void {
+    this.store.pipe(select(userAccountSelectors.selectUserProfiles))
+      .subscribe(response => {
+        if (response) {
+          this.profiles = response;
+          this.dataSource = response;
+        }
+      });
+  }
 }

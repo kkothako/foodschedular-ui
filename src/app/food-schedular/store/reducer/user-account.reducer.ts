@@ -46,7 +46,18 @@ const reducer = createReducer(initialState,
     return { ...state, load: false, error: error, loggedInUser: null };
   }),
   on(loginActions.logoutAction, (state) => {
-    return { ...state, load: false, error: null, loggedInUser: null };
+    debugger
+    return {
+      ...state,
+      loggedInUser: null,
+      load: false, error: null,
+      validateActivationStatus: false,
+      userProfiles: null,
+      hasSavedSuccess: false,
+      address: null,
+      preferencens: null,
+      selectedProfile: null
+    };
   }),
   on(actions.createUserProfile, (state) => {
     return { ...state, load: true, error: null };

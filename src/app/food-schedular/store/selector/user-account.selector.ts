@@ -39,12 +39,12 @@ export const selectError = createSelector(
   state => state.error
 );
 
-export const selectHasProfileCreated =  createSelector(
+export const selectHasProfileCreated = createSelector(
   accountState,
   state => state.preferencens
 );
 
-export const selectAddress =  createSelector(
+export const selectAddress = createSelector(
   accountState,
   state => state.address
 );
@@ -53,8 +53,11 @@ export const selectUserProfileNickNameByUserId = createSelector(
   accountState,
   selectLoggedInUser,
   (state, logedInUser) => {
-    const profile  =state.userProfiles.find(dr=>dr.userId === logedInUser.id);
-    return profile?.nickName;
+    if(logedInUser){
+      const profile = state.userProfiles.find(dr => dr.userId === logedInUser.id);
+      return profile?.nickName;
+    }
+    return null;
   }
 );
 

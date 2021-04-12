@@ -25,14 +25,6 @@ export class SidenavComponent implements OnInit {
   constructor(private breakPointObserver: BreakpointObserver,
     private router: Router,
     private store: Store<AppState>) {
-
-  }
-
-  ngOnInit(): void {
-    this.breakPointObserver.observe([Breakpoints.XSmall])
-      .subscribe(state => {
-        this.isSmallScreen = state.matches;
-      })
     this.store.pipe(select(selectors.selectLoggedInUser))
       .subscribe(response => {
         if (response) {
@@ -48,11 +40,18 @@ export class SidenavComponent implements OnInit {
               }
             })
         } else {
+          this.loggedInUser$ = null;
           this.hasLogin = false;
         }
-
-
       });
+
+  }
+
+  ngOnInit(): void {
+    this.breakPointObserver.observe([Breakpoints.XSmall])
+      .subscribe(state => {
+        this.isSmallScreen = state.matches;
+      })
 
 
   }
