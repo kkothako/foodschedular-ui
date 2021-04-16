@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AddressModel } from 'src/app/food-schedular/store/models/user-account.model';
@@ -6,6 +6,9 @@ import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profi
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import * as userAccountSelectors from './../../../store/selector/user-account.selector';
 import * as userAccountActions from './../../../store/action/user-account.action';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manage-profile',
@@ -14,12 +17,17 @@ import * as userAccountActions from './../../../store/action/user-account.action
 })
 export class ManageProfileComponent implements OnInit, AfterViewInit {
   userId: string;
-  profiles: UserProfileModel[] = [];
-  displayedColumns: string[] = [ 'nickName', 'name', 'mobile'];
-  dataSource = null;
+  profiles: UserProfileModel[] = [];;
+  displayedColumns: string[] = ['nickName', 'name', 'mobile'];
+  dataSource: MatTableDataSource<UserProfileModel>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('address') address: TemplateRef<any>;
+  selectedProfile: UserProfileModel;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -39,13 +47,25 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
   redirectToProfile(): void {
     this.router.navigate(["food-schedular/useraccount/profile", this.userId]);
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   ngAfterViewInit(): void {
     this.store.pipe(select(userAccountSelectors.selectUserProfiles))
       .subscribe(response => {
         if (response) {
           this.profiles = response;
-          this.dataSource = response;
+          this.dataSource = new MatTableDataSource<UserProfileModel>(response);;
+          this.dataSource.sort = this.sort;
         }
       });
+
+  }
+  openDiaAddress(userProfile: UserProfileModel) {
+    debugger
+    this.selectedProfile = userProfile;
+
+    this.dialog.open(this.address);
   }
 }
