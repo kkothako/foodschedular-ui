@@ -76,12 +76,12 @@
 
               icon="pi pi-user"
               styleClass="p-mr-2"
-              size="large"
+              size="small"
               [style]="{ 'background-color': '#ff4081', color: '#ffffff' }"
               shape="circle"
               [mat-dialog-close]="true"></p-avatar>
           </div>
-          <p class="font-weight-bold font-italic text-warning" >  {{element.nickName}} </p>
+          <p class=" font-italic text-warning" >  {{element.nickName}} </p>
 
         </td>
       </ng-container>
@@ -97,10 +97,17 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile# </th>
         <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
       </ng-container>
-      <!-- <ng-container matColumnDef="action">
+      <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element"> {{element.details}} </td>
-      </ng-container> -->
+        <td mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+            <mat-icon>edit</mat-icon>
+          </button>&nbsp;
+          <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
@@ -117,15 +124,15 @@
   <div mat-dialog-content>
     <mat-list role="list">
 
-      <mat-list-item role="listitem"><i class="pi pi pi-check text-danger" ></i> Adderess: &nbsp;{{selectedProfile.address.addressLine1}}</mat-list-item>
-      <mat-list-item role="listitem"><i class="pi pi pi-check text-danger" ></i> City:  &nbsp;{{selectedProfile.address.city}}</mat-list-item>
-      <mat-list-item role="listitem"><i class="pi pi pi-check text-danger" ></i> State:  &nbsp;{{selectedProfile.address.state}}</mat-list-item>
-      <mat-list-item role="listitem"><i class="pi pi pi-check text-danger" ></i> Country: &nbsp;{{selectedProfile.address.country}}</mat-list-item>
-      <mat-list-item role="listitem"><i class="pi pi pi-check text-danger" ></i> ZipCode:  &nbsp;{{selectedProfile.address.zipCode}}</mat-list-item>
+      <mat-list-item role="listitem"><i class="pi pi pi-circle-on text-danger" style="font-size: 0.8rem"></i>&nbsp; Adderess: &nbsp;{{selectedProfile.address.addressLine1}}</mat-list-item>
+      <mat-list-item role="listitem"><i class="pi pi pi-circle-on text-danger" style="font-size: 0.8rem"></i>&nbsp; City:  &nbsp;{{selectedProfile.address.city}}</mat-list-item>
+      <mat-list-item role="listitem"><i class="pi pi pi-circle-on text-danger" style="font-size: 0.8rem"></i>&nbsp; State:  &nbsp;{{selectedProfile.address.state}}</mat-list-item>
+      <mat-list-item role="listitem"><i class="pi pi pi-circle-on text-danger" style="font-size: 0.8rem"></i>&nbsp; Country: &nbsp;{{selectedProfile.address.country}}</mat-list-item>
+      <mat-list-item role="listitem"><i class="pi pi pi-circle-on text-danger" style="font-size: 0.8rem"></i>&nbsp; ZipCode:  &nbsp;{{selectedProfile.address.zipCode}}</mat-list-item>
 
     </mat-list>
   </div>
-  <div mat-dialog-actions>
+  <div mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Close</button>
   </div>
 </ng-template>

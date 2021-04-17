@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ManageProfileComponent implements OnInit, AfterViewInit {
   userId: string;
   profiles: UserProfileModel[] = [];;
-  displayedColumns: string[] = ['nickName', 'name', 'mobile'];
+  displayedColumns: string[] = ['nickName', 'name', 'mobile', 'actions'];
   dataSource: MatTableDataSource<UserProfileModel>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('address') address: TemplateRef<any>;
@@ -63,7 +63,6 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
 
   }
   openDiaAddress(userProfile: UserProfileModel) {
-    debugger
     this.selectedProfile = userProfile;
 
     this.dialog.open(this.address);

@@ -46,7 +46,6 @@ const reducer = createReducer(initialState,
     return { ...state, load: false, error: error, loggedInUser: null };
   }),
   on(loginActions.logoutAction, (state) => {
-    debugger
     return {
       ...state,
       loggedInUser: null,
