@@ -103,7 +103,8 @@
           <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
             <mat-icon>edit</mat-icon>
           </button>&nbsp;
-          <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+          <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon"
+          (click)="confirmDeleteDialog(element.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
@@ -137,3 +138,14 @@
   </div>
 </ng-template>
 
+<ng-template #confirmDelete>
+  <h1 mat-dialog-title><mat-icon aria-hidden="false" aria-label="Example home icon">warning</mat-icon>&nbsp;Warning</h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    Are you sure want to delete ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close  (click)="deleteProfileById()">Yes</button>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</ng-template>

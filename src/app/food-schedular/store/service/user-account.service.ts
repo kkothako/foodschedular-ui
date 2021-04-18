@@ -43,4 +43,10 @@ export class UserAccountService {
         catchError(error => of(error))
       );
   }
+  deleteProfileById(profileID: string): Observable<any> {
+    return this.httpClient.post<any>(`${environment.baseUrl}/userprofiles/deleteProfileById`, {id: profileID})
+      .pipe(
+        catchError(error => of(error))
+      );
+  }
 }

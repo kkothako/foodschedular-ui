@@ -93,5 +93,14 @@ const reducer = createReducer(initialState,
   }),
   on(actions.setUserIdAndProfileId, (state, { payload }) => {
     return { ...state, load: false, selectedProfile: payload };
-  })
+  }),
+  on(actions.deleteProfileById, (state) => {
+    return { ...state, load: true, hasSavedSuccess: false };
+  }),
+  on(actions.deleteProfileByIdSucccess, (state, { response }) => {
+    return { ...state, load: false, hasSavedSuccess: true, userProfiles: state.userProfiles.filter(dr => dr.id !== response.id) };
+  }),
+  on(actions.deleteProfileByIdError, (state, { error }) => {
+    return { ...state, load: true, hasSavedSuccess: false, error: error };
+  }),
 );

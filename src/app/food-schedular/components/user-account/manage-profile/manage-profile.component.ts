@@ -22,7 +22,10 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<UserProfileModel>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('address') address: TemplateRef<any>;
+  @ViewChild('confirmDelete') confirmDelete: TemplateRef<any>;
+
   selectedProfile: UserProfileModel;
+  selectedProfileId: string;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -66,5 +69,12 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
     this.selectedProfile = userProfile;
 
     this.dialog.open(this.address);
+  }
+  confirmDeleteDialog(profileId: string): void {
+    this.selectedProfileId = profileId;
+    this.dialog.open(this.confirmDelete);
+  }
+  deleteProfileById(): void {
+    this.store.dispatch(userAccountActions.deleteProfileById({ profileId: this.selectedProfileId }));
   }
 }

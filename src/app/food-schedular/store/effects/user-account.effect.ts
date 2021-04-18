@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { Action, resultMemoize } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
@@ -83,14 +83,14 @@ export class UserAccountEffect {
       )
     ));
 
-    getUserPreferencesEffect$: Observable<Action> = createEffect(
-      () => this.actions.pipe(
-        ofType(preferencesAction.getPreferences),
-        mergeMap(({ userId }) => this.userPreferencesService.getPreferencesByUserId(userId).
-          pipe(map((result: any) => result?.status ? preferencesAction.getPreferencesSuccess({ response: result?.data }) :
+  getUserPreferencesEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(preferencesAction.getPreferences),
+      mergeMap(({ userId }) => this.userPreferencesService.getPreferencesByUserId(userId).
+        pipe(map((result: any) => result?.status ? preferencesAction.getPreferencesSuccess({ response: result?.data }) :
           preferencesAction.getPreferencesError({ error: result.error }),
-            catchError((result: any) => of(preferencesAction.getPreferencesError({ error: result?.error }))))))
-      ));
+          catchError((result: any) => of(preferencesAction.getPreferencesError({ error: result?.error }))))))
+    ));
 
   getAddressEffect$: Observable<Action> = createEffect(
     () => this.actions.pipe(
@@ -103,4 +103,16 @@ export class UserAccountEffect {
         ))
       )
     ));
+
+  deleteUserProfileById$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(action.deleteProfileById),
+      mergeMap(({ profileId }) => this.userAccountService.deleteProfileById(profileId).pipe(
+        map((result) => result?.status ? action.deleteProfileByIdSucccess({ response: result?.data }) :
+          action.deleteProfileByIdError({ error: result?.error }),
+          catchError((result) => of(action.deleteProfileByIdError({ error: result?.error })))
+        )
+      ))
+    )
+  );
 }

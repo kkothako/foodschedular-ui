@@ -71,3 +71,16 @@ export const setUserIdAndProfileId = createAction(
   '[app-schedule-food] Set UserId and ProfileId',
   props<{ payload:UserProfileModel }>()
 );
+
+export const deleteProfileById = createAction(
+  '[app-manage-profile] Delete Profile',
+  props<{ profileId: string }>()
+);
+export const deleteProfileByIdSucccess = createAction(
+  '[app-manage-profile] Delete Profile Success',
+  props<{ response: UserProfileModel }>()
+);
+export const deleteProfileByIdError = createAction(
+  '[app-manage-profile] Delete Profile Error',
+  props<{ error: any }>()
+);
