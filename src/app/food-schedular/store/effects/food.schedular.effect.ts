@@ -71,4 +71,15 @@ export class FoodSchedularEffect {
       ))
     )
   );
+
+  deleteDraftOrder$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(orderActions.deleteDraftOrder),
+      mergeMap(({ orderId }) => this.foodSchedularService.deleteDraftOrderByOrderId(orderId).pipe(
+        map((result) => result?.status ? orderActions.deleteDraftOrderSuccess({ response: result?.data }) : orderActions.orderError({ error: result?.error }),
+          catchError((result) => of(orderActions.orderError({ error: result?.error })))
+        )
+      ))
+    )
+  );
 }

@@ -146,7 +146,7 @@ export class ScheduleFoodComponent implements OnInit {
         if (draftOders) {
           this.draftOrdersEvents = [];
           draftOders.forEach(order => {
-            this.draftOrdersEvents.push({ title: `${order.cuisineName}, ${order.proteinName}`, date: order.scheduledDate })
+            this.draftOrdersEvents.push({orderId:`${order.id}`, title: `${order.cuisineName}, ${order.proteinName}`, date: order.scheduledDate })
           });
           this.calendarOptions.eventBackgroundColor = '#ff4081';
           this.calendarOptions.events = this.draftOrdersEvents;
@@ -163,10 +163,10 @@ export class ScheduleFoodComponent implements OnInit {
 
     this.calendarOptions.eventClick = (info) => {
       const scheduleDate = this.constantService.getFormatedDateWithNoMinutes(info.event.start)
-      this.openViewOrderFoodDialog(scheduleDate, info.event.title)
+      this.openViewOrderFoodDialog(scheduleDate, info.event.title, info.event.extendedProps.orderId)
     }
   }
-  openViewOrderFoodDialog(scheduleDate: string, title: string): void {
+  openViewOrderFoodDialog(scheduleDate: string, title: string, orderId:string): void {
     this.dialog.open(ViewOrderComponent, {
       width: '500px',
       data: {
@@ -174,7 +174,8 @@ export class ScheduleFoodComponent implements OnInit {
         selectedProfileName: this.userProfileFormGroup.get('userProfile').value.nickName,
         profileId: this.userProfileFormGroup.get('userProfile').value.id,
         scheduleDate: scheduleDate,
-        title: title
+        title: title,
+        orderId: orderId
       }
     });
   }
@@ -185,5 +186,9 @@ export class ScheduleFoodComponent implements OnInit {
   changeSelectedProfile(profile: any): void {
     this.store.dispatch(userAccountActions.setUserIdAndProfileId({ payload: profile.value }));
     this.store.dispatch(orderActions.getDraftOrders({ userId: profile.value.userId, profileId: profile.value.id }));
+  }
+
+  deleteDraftOrder(profileId: string): void{
+
   }
 }

@@ -28,3 +28,4 @@ export const getAllAllergysSuccess = createAction(
   '[app-add-food] Get all allergys success',
   props<{ response: AllergyModel[] }>()
 );
+

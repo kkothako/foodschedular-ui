@@ -48,5 +48,11 @@ const reducer = createReducer(initialState,
   }),
   on(orderAction.clearOrderStore, (state) => {
     return { ...state, load: false, draftOrders: null }
+  }),
+  on(orderAction.deleteDraftOrder, (state) => {
+    return { ...state, load: true }
+  }),
+  on(orderAction.deleteDraftOrderSuccess, (state, { response }) => {
+    return { ...state, load: true, draftOrders: state.draftOrders.filter(order => order.id !== response?.id) }
   })
 );

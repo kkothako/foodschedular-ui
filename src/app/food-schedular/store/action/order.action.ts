@@ -11,19 +11,26 @@ export const createDraftOrder = createAction(
 );
 export const createDraftOrderSuccess = createAction(
   '[app-schedule-food] Create a draft order success',
-  props<{ result:any }>()
+  props<{ result: any }>()
 );
 
 export const getDraftOrders = createAction(
   '[app-schedule-food] Get a draft order by UserId and ProfileId',
-  props<{ userId: string, profileId:string }>()
+  props<{ userId: string, profileId: string }>()
 );
 export const getDraftOrdersSuccess = createAction(
   '[app-schedule-food] Get a draft order by UserId and ProfileId success',
-  props<{ result:OrderModel[] }>()
+  props<{ result: OrderModel[] }>()
 );
 
 export const clearOrderStore = createAction(
   '[app-add-food] Clear order store',
 );
-
+export const deleteDraftOrder = createAction(
+  '[app-schedule-food] Delete draft order',
+  props<{ orderId: string }>()
+);
+export const deleteDraftOrderSuccess = createAction(
+  '[app-schedule-food] Delete draft order success',
+  props<{ response: OrderModel }>()
+);

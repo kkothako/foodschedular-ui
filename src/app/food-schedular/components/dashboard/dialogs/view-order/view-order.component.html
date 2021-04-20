@@ -1,7 +1,15 @@
 <div class="example-container">
   <div class="row">
     <div class="col-sm-12 col-md-12">
-      <h2 class="mt-0 mb-1">View /Delete Scheduled Food (<p-avatar icon="pi pi-user" styleClass="p-mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>&nbsp;{{data.selectedProfileName}})</h2>
+      <h2 class="mt-0 mb-1">
+        View /Delete Scheduled Food (<p-avatar
+          icon="pi pi-user"
+          styleClass="p-mr-2"
+          [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }"
+          shape="circle"
+        ></p-avatar
+        >&nbsp;{{ data.selectedProfileName }})
+      </h2>
       <mat-divider></mat-divider>
       <br />
       Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
@@ -19,39 +27,72 @@
         <div class="form-group">
           <mat-form-field appearance="fill" [style]="{ width: '240px' }">
             <mat-label>Cuisine</mat-label>
-            <input matInput readonly   [(ngModel)]="data?.title?.split(',')[0]"
-            [ngModelOptions]="{ standalone: true }">
+            <input
+              matInput
+              readonly
+              [(ngModel)]="data?.title?.split(',')[0]"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field appearance="fill" [style]="{ width: '240px' }">
             <mat-label>Protein</mat-label>
-            <input matInput readonly   [(ngModel)]="data?.title?.split(',')[1]"
-            [ngModelOptions]="{ standalone: true }">
+            <input
+              matInput
+              readonly
+              [(ngModel)]="data?.title?.split(',')[1]"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </mat-form-field>
         </div>
 
-        <div class="form-group" >
+        <div class="form-group">
           <mat-form-field appearance="fill" [style]="{ width: '240px' }">
             <mat-label>Schedule Date</mat-label>
-            <input matInput readonly   [(ngModel)]="data.scheduleDate"
-            [ngModelOptions]="{ standalone: true }">
+            <input
+              matInput
+              readonly
+              [(ngModel)]="data.scheduleDate"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </mat-form-field>
         </div>
-        <div class="form-group">
-
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div mat-dialog-actions align="end">
           <button
             mat-mini-fab
-            mat-button
+            color="warn"
+            aria-label="Example icon button with a filter list icon"
+            (click)="confirmDeleteDialog(data.orderId)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
             mat-dialog-close
-            color="primary"
+            color="accent"
             aria-label="Example icon button with a filter list icon"
           >
-            <mat-icon>cancel_schedule_send</mat-icon>
+            <mat-icon>close</mat-icon>
           </button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<ng-template #confirmDelete>
+  <h1 mat-dialog-title>
+    <mat-icon aria-hidden="false" aria-label="Example home icon"
+      >warning</mat-icon
+    >&nbsp;Warning
+  </h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>Are you sure want to delete ?</div>
+  <div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="deleteDraftOrder()">
+      Yes
+    </button>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</ng-template>

@@ -38,9 +38,14 @@ export class FoodSchedularService {
       .pipe(catchError(error => of(error)));
   }
   getDraftOrdersBy(userId: string, profileId: string): Observable<any> {
-    const filter ={userId:userId, profileId:profileId }
+    const filter = { userId: userId, profileId: profileId }
     const url = `${environment.baseUrl}/orderDraft/getOrderByProfileID`;
-    console.log(filter)
+    return this.httpClient.post<any>(url, filter)
+      .pipe(catchError(error => of(error)));
+  }
+  deleteDraftOrderByOrderId(orderId: string): Observable<any> {
+    const filter = { orderId: orderId };
+    const url = `${environment.baseUrl}/orderDraft/deleteDraftOrderByOrderId`;
     return this.httpClient.post<any>(url, filter)
       .pipe(catchError(error => of(error)));
   }
