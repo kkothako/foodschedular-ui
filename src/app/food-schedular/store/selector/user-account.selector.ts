@@ -53,7 +53,7 @@ export const selectUserProfileNickNameByUserId = createSelector(
   accountState,
   selectLoggedInUser,
   (state, logedInUser) => {
-    if(logedInUser){
+    if (logedInUser) {
       const profile = state.userProfiles.find(dr => dr.userId === logedInUser.id);
       return profile?.nickName;
     }
@@ -69,4 +69,9 @@ export const selectGetPreferencesByUserId = createSelector(
 export const selectSelectedUserProfile = createSelector(
   accountState,
   state => state.selectedProfile
+);
+
+export const selectSaveOrUpdate = createSelector(
+  accountState,
+  state => state.saveOrdUpdate
 );

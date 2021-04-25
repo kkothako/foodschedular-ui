@@ -84,3 +84,12 @@ export const deleteProfileByIdError = createAction(
   '[app-manage-profile] Delete Profile Error',
   props<{ error: any }>()
 );
+
+export const forGotPassword = createAction(
+  '[app-forgot-passowrd] Forgot password',
+  props<{emailId:string}>()
+);
+export const forGotPasswordSuccess = createAction(
+  '[app-forgot-passowrd] Forgot password Success',
+  props<{response:any}>()
+);

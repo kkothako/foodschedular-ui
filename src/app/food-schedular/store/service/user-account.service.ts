@@ -49,4 +49,10 @@ export class UserAccountService {
         catchError(error => of(error))
       );
   }
+  forGotPasswordByEmailId(email: string): Observable<any> {
+    return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts/resendPassword`, {email: email})
+      .pipe(
+        catchError(error => of(error))
+      );
+  }
 }

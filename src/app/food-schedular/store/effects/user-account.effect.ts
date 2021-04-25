@@ -115,4 +115,15 @@ export class UserAccountEffect {
       ))
     )
   );
+
+  forGotPasswordEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(action.forGotPassword),
+      mergeMap(({ emailId }) => this.userAccountService.forGotPasswordByEmailId(emailId).pipe(
+        map((result) => result?.status ? action.forGotPasswordSuccess({ response: result?.data }) :
+          action.validateActivationKeyError({ error: result?.error })),
+        catchError((result) => of(action.validateActivationKeyError({ error: result?.error })))
+      ))
+    )
+  );
 }

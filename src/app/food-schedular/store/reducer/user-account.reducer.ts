@@ -103,4 +103,10 @@ const reducer = createReducer(initialState,
   on(actions.deleteProfileByIdError, (state, { error }) => {
     return { ...state, load: true, hasSavedSuccess: false, error: error };
   }),
+  on(actions.forGotPassword, (state) => {
+    return { ...state, load: true, saveOrdUpdate: null };
+  }),
+  on(actions.forGotPasswordSuccess, (state, { response }) => {
+    return { ...state, load: false, saveOrdUpdate: response };
+  })
 );
