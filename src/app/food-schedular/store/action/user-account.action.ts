@@ -42,6 +42,20 @@ export const getUserProfilesError = createAction(
   props<{ error: any }>()
 );
 
+export const getUserProfileByProfileId = createAction(
+  '[app-profile] Get user profiles by userId & profileId',
+  props<{ userId: string, profileId: string }>()
+);
+export const getUserProfileByProfileIdSuccess = createAction(
+  '[app-profile] Get user profiles by userid & profileId success',
+  props<{ profiles: UserProfileModel[] }>()
+);
+export const getUserProfileByProfileIdError = createAction(
+  '[app-profile] Get user profiles by userid & profileId error',
+  props<{ error: any }>()
+);
+
+
 export const createUserProfile = createAction(
   '[app-profile] Create user profile',
   props<{ payload: UserProfileModel }>()

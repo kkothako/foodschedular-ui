@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'preferences/:userId/:profileId', component: PreferencesComponent },
       { path: 'terms-conditions', component: TermsConditionsComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'profile/:userId', component: ProfileComponent },
+      { path: 'profile/:userId/:profileId', component: ProfileComponent },
       { path: 'confirm-email', component: ConfirmEmailComponent },
       { path: 'manage-profile/:userId', component: ManageProfileComponent },
     ]

@@ -48,6 +48,15 @@ export class UserAccountEffect {
           catchError((result: any) => of(action.getUserProfilesError({ error: result.error }))))))
     ));
 
+    userProfileByProfileIdEffect$: Observable<Action> = createEffect(
+      () => this.actions.pipe(
+        ofType(action.getUserProfileByProfileId),
+        mergeMap(({ userId, profileId }) => this.userAccountService.getProfileByProfileId(userId, profileId).
+          pipe(map((result: any) => result.status ? action.getUserProfileByProfileIdSuccess({ profiles: result.data }) :
+            action.getUserProfileByProfileIdError({ error: result.error }),
+            catchError((result: any) => of(action.getUserProfileByProfileIdError({ error: result.error }))))))
+      ));
+
 
   validateLoginEffect$: Observable<Action> = createEffect(
     () => this.actions.pipe(

@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   hasSaveClicked = false;
   @ViewChild('input') zipCodeElement: ElementRef;
   userId: string;
+  profileId: string;
 
   constructor(private _formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
@@ -70,6 +71,7 @@ export class ProfileComponent implements OnInit {
 
     this.route.params.subscribe(param => {
       this.userId = param["userId"];
+      this.profileId = param["profileId"];
     });
 
     this.nameFormGroup = this._formBuilder.group({
@@ -87,6 +89,9 @@ export class ProfileComponent implements OnInit {
       country: ['']
     });
 
+    if (this.profileId != null) {
+      this.store.dispatch(actions.getUserProfileByProfileId({ userId: this.userId, profileId: this.profileId }));
+    }
 
   }
 

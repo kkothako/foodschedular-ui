@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -16,12 +16,15 @@ import * as userAccountSelectors from './../../../store/selector/user-account.se
   styleUrls: ['./forgot-passowrd.component.scss']
 })
 export class ForgotPassowrdComponent implements OnInit {
+  forgotFormGroup: FormGroup;
   load$: Observable<boolean>;
   handleClick = false;
-  email = new FormControl('', [Validators.required, Validators.email]);
+  //email = new FormControl('', [Validators.required, Validators.email]);
+  email = '';
 
   constructor(private router: Router,
     private _snackBar: MatSnackBar,
+    private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private store: Store<AppState>) {
     this.bindShowHideLoad();
@@ -37,15 +40,16 @@ export class ForgotPassowrdComponent implements OnInit {
         }
       })
   }
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
 
   ngOnInit(): void {
+
+    this.forgotFormGroup = this._formBuilder.group({
+      email: ['', {
+        validators: [Validators.required, Validators.email],
+        updateOn: "change",
+      }]
+    });
+
   }
   bindShowHideLoad(): void {
     this.load$ = this.store.pipe(select(userAccountSelectors.load))
@@ -62,8 +66,9 @@ export class ForgotPassowrdComponent implements OnInit {
 
   }
 
-  forgotPassword(): void {
+  forgotPassword(forgotFormGroup: FormGroup): void {
     this.handleClick = true;
-    this.store.dispatch(userAccountAction.forGotPassword({ emailId: this.email.value }));
+    this.email = forgotFormGroup.value;
+    this.store.dispatch(userAccountAction.forGotPassword({ emailId: this.email }));
   }
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
+//import { profile } from 'console';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -24,6 +25,12 @@ export class UserAccountService {
     return this.httpClient.get<any>(`${environment.baseUrl}/userprofiles/${userId}`)
       .pipe(catchError(error => of(error)));
   }
+
+  getProfileByProfileId(userId: string, profileId: string): Observable<any> {
+    return this.httpClient.get<any>(`${environment.baseUrl}/userprofilebyProfileId/${userId}/${profileId}`)
+      .pipe(catchError(error => of(error)));
+  }
+
   validateLogin(login: UserAccountRegistrationModel): Observable<any> {
     return this.httpClient.post<any>(`${environment.baseUrl}/useraccounts/validateLogin`, login)
       .pipe(
