@@ -68,7 +68,7 @@ export class ForgotPassowrdComponent implements OnInit {
 
   forgotPassword(forgotFormGroup: FormGroup): void {
     this.handleClick = true;
-    this.email = forgotFormGroup.value;
+    this.email = forgotFormGroup.get('email').value;
     this.store.dispatch(userAccountAction.forGotPassword({ emailId: this.email }));
   }
 }
