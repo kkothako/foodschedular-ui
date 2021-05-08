@@ -36,6 +36,7 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe(param => {
       this.userId = param["userId"];
+      this.selectedProfileId = param["profileId"];
     });
 
     this.getProfiles();
@@ -48,7 +49,7 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
   }
 
   redirectToProfile(): void {
-    this.router.navigate(["food-schedular/useraccount/profile", this.userId]);
+    this.router.navigate(["food-schedular/useraccount/profile", this.userId,  this.selectedProfileId]);
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -57,7 +58,7 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.store.pipe(select(userAccountSelectors.selectUserProfiles))
       .subscribe(response => {
-        if (response) {
+        if (response &&  this.profiles.length === 0) {
           this.profiles = response;
           this.dataSource = new MatTableDataSource<UserProfileModel>(response);;
           this.dataSource.sort = this.sort;

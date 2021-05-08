@@ -50,8 +50,6 @@ export class AddFoodComponent implements OnInit {
     private constantService: ConstantService,
     public dialogRef: MatDialogRef<AddFoodComponent>) {
       this.bindDropdowns();
-    this.getLogedInUserPreferences();
-    //this.bindDropdowns();
     this.load$ = this.store.pipe(select(selectors.selectLoad));
 
     this.store.pipe(select(selectors.selectOrderStatus))
@@ -81,7 +79,6 @@ export class AddFoodComponent implements OnInit {
       .subscribe(response => {
         this.cusines = [];
         this.protiens = [];
-        debugger
         if (response) {
           this.cusines = response.cusines;
           this.protiens = response.protiens;
@@ -128,13 +125,5 @@ export class AddFoodComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close();
   }
-  getLogedInUserPreferences(): void {
-    this.store.pipe(select(userAccountSelectors.selectLogedInUserPreferences))
-      .subscribe(response => {
-        if (response) {
-          this.preference = response;
-          //this.bindDropdowns();
-        }
-      });
-  }
+
 }

@@ -62,7 +62,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
       .subscribe(state => {
         this.isSmallScreen = state.matches;
@@ -88,7 +87,6 @@ export class ProfileComponent implements OnInit {
       zipCode: ['', Validators.required],
       country: ['']
     });
-
     if (this.profileId != null) {
       this.store.dispatch(actions.getUserProfileByProfileId({ userId: this.userId, profileId: this.profileId }));
     }

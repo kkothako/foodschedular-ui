@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'profile/:userId/:profileId', component: ProfileComponent },
       { path: 'confirm-email', component: ConfirmEmailComponent },
-      { path: 'manage-profile/:userId', component: ManageProfileComponent },
+      { path: 'manage-profile/:userId/:profileId', component: ManageProfileComponent },
     ]
   }
 ];

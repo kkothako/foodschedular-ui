@@ -61,7 +61,7 @@ export class SidenavComponent implements OnInit {
   }
   navigateToDashboard(): void {
     if (this.loggedInUser$.id) {
-      this.router.navigate(['food-schedular/useraccount/manage-profile', this.loggedInUser$.id]);
+      this.router.navigate(['food-schedular/useraccount/manage-profile', this.loggedInUser$.id, this.profileId]);
     } else {
       this.router.navigate(['food-schedular/useraccount/signin']);
     }
@@ -72,7 +72,7 @@ export class SidenavComponent implements OnInit {
 
   navigateToManageProfile(): void {
     if (this.loggedInUser$.id) {
-      this.router.navigate(['food-schedular/useraccount/manage-profile', this.loggedInUser$.id]);
+      this.router.navigate(['food-schedular/useraccount/manage-profile', this.loggedInUser$.id, this.profileId]);
     } else {
       this.router.navigate(['food-schedular/useraccount/signin']);
     }
