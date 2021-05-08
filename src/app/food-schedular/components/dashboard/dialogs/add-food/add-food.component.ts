@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { pid } from 'process';
-import { combineLatest, EMPTY, merge, Observable, of, pipe } from 'rxjs';
+import { combineLatest, EMPTY, EmptyError, merge, Observable, of, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CuisineModel, ProtienModel } from 'src/app/food-schedular/store/models/cuisine.model';
 import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
@@ -41,6 +41,7 @@ export class AddFoodComponent implements OnInit {
   cusines: CuisineModel[];
   protiens: ProtienModel[];
   preference: PreferencesModel;
+  loggedInUserPreferences: any;
 
   constructor(private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data:
@@ -48,6 +49,7 @@ export class AddFoodComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private constantService: ConstantService,
     public dialogRef: MatDialogRef<AddFoodComponent>) {
+      this.bindDropdowns();
     this.getLogedInUserPreferences();
     //this.bindDropdowns();
     this.load$ = this.store.pipe(select(selectors.selectLoad));
@@ -75,32 +77,18 @@ export class AddFoodComponent implements OnInit {
   }
   bindDropdowns(): void {
 
-    this.store.pipe(select(selectors.selectAllCuisines))
+    this.store.pipe(select(userAccountSelectors.selectLoggedInUserPreferences))
       .subscribe(response => {
+        this.cusines = [];
+        this.protiens = [];
+        debugger
         if (response) {
-          this.cusines =[];
-          this.preference.cuisines.forEach(item => {
-            const cuisine = response.find(x => x._id === item._id);
-            if (cuisine) {
-              this.cusines.push(cuisine);
-            }
-          });
+          this.cusines = response.cusines;
+          this.protiens = response.protiens;
         }
-
       });
-    this.store.pipe(select(selectors.slectAllProtiens))
-      .subscribe(response => {
-        if (response) {
-          this.protiens =[];
-          this.preference.proteins.forEach(item => {
-            const protien = response.find(x => x._id === item._id);
-            if (protien) {
-              this.protiens.push(protien);
-            }
-          });
-        }
 
-      });
+
     // this.protiens$ = this.store.pipe(select(selectors.slectAllProtiens))
     //   .pipe(catchError((error) => {
     //     console.log(error);
@@ -145,7 +133,7 @@ export class AddFoodComponent implements OnInit {
       .subscribe(response => {
         if (response) {
           this.preference = response;
-          this.bindDropdowns();
+          //this.bindDropdowns();
         }
       });
   }

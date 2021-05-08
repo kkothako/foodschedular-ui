@@ -84,3 +84,32 @@ export const selectLogedInUserPreferences = createSelector(
   }
 
 );
+
+export const selectLoggedInUserPreferences = createSelector(
+  appState,
+  accountState,
+  selectLoggedInUser,
+  (state, accountState, loggedInUser) => {
+    const cusines = [];
+    const protiens = [];
+    const userPreferences = accountState.preferencens.filter(item => item.userId === loggedInUser?.id)[0];
+    if (userPreferences && state.foodSchedularState.cuisines &&
+      state.foodSchedularState.protiens) {
+      userPreferences.cuisines.forEach(item => {
+        const cuisine = state.foodSchedularState.cuisines.find(x => x._id === item._id);
+        if (cuisine) {
+          cusines.push(cuisine);
+        }
+      });
+
+      userPreferences.proteins.forEach(item => {
+        const protien = state.foodSchedularState.protiens.find(x => x._id === item._id);
+        if (protien) {
+          protiens.push(protien);
+        }
+      });
+
+    }
+    return { cusines: cusines, protiens: protiens }
+  }
+);
