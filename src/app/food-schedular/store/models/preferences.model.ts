@@ -9,4 +9,5 @@ export interface PreferencesModel {
 export interface KeyValueModel {
   name: string;
   code: string;
+  _id: string;
 }

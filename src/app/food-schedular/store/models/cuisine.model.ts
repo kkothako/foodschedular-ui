@@ -7,6 +7,7 @@ export interface CuisineModel {
   createdBy: string;
   modifiedAt: Date;
   modifiedBy: string;
+  _id: string;
 }
 
 export interface ProtienModel {

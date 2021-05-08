@@ -75,3 +75,12 @@ export const selectSaveOrUpdate = createSelector(
   accountState,
   state => state.saveOrdUpdate
 );
+
+export const selectLogedInUserPreferences = createSelector(
+  accountState,
+  selectLoggedInUser,
+  (state, logedInUserState) => {
+    return state.preferencens.filter(item => item.userId === logedInUserState.id)[0];
+  }
+
+);

@@ -13,6 +13,9 @@ import * as orderActions from './../../../../store/action/order.action';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConstantService } from 'src/app/food-schedular/store/service/constant.service';
+import * as userAccountSelectors from './../../../../store/selector/user-account.selector';
+import { PreferencesModel } from 'src/app/food-schedular/store/models/preferences.model';
+
 
 @Component({
   selector: 'app-add-food',
@@ -35,15 +38,18 @@ export class AddFoodComponent implements OnInit {
   userId: string;
   load$: Observable<boolean>;
   hasOrderClick = false;
+  cusines: CuisineModel[];
+  protiens: ProtienModel[];
+  preference: PreferencesModel;
 
   constructor(private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data:
-     { userId: string, selectedProfileName: string, profileId: string, scheduleDate: string },
+      { userId: string, selectedProfileName: string, profileId: string, scheduleDate: string },
     private _snackBar: MatSnackBar,
     private constantService: ConstantService,
     public dialogRef: MatDialogRef<AddFoodComponent>) {
-
-    this.bindDropdowns();
+    this.getLogedInUserPreferences();
+    //this.bindDropdowns();
     this.load$ = this.store.pipe(select(selectors.selectLoad));
 
     this.store.pipe(select(selectors.selectOrderStatus))
@@ -69,19 +75,40 @@ export class AddFoodComponent implements OnInit {
   }
   bindDropdowns(): void {
 
-    this.cusines$ = this.store.pipe(select(selectors.selectAllCuisines))
-      .pipe(catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }));
-    this.protiens$ = this.store.pipe(select(selectors.slectAllProtiens))
-      .pipe(catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }));
+    this.store.pipe(select(selectors.selectAllCuisines))
+      .subscribe(response => {
+        if (response) {
+          this.cusines =[];
+          this.preference.cuisines.forEach(item => {
+            const cuisine = response.find(x => x._id === item._id);
+            if (cuisine) {
+              this.cusines.push(cuisine);
+            }
+          });
+        }
 
-    this.viewModel$ = combineLatest([this.cusines$, this.protiens$])
-      .pipe(map(([cuisines, protiens]) => ({ cuisines, protiens })));
+      });
+    this.store.pipe(select(selectors.slectAllProtiens))
+      .subscribe(response => {
+        if (response) {
+          this.protiens =[];
+          this.preference.proteins.forEach(item => {
+            const protien = response.find(x => x._id === item._id);
+            if (protien) {
+              this.protiens.push(protien);
+            }
+          });
+        }
+
+      });
+    // this.protiens$ = this.store.pipe(select(selectors.slectAllProtiens))
+    //   .pipe(catchError((error) => {
+    //     console.log(error);
+    //     return EMPTY;
+    //   }));
+
+    // this.viewModel$ = combineLatest([this.cusines$, this.protiens$])
+    //   .pipe(map(([cuisines, protiens]) => ({ cuisines, protiens })));
 
   }
 
@@ -112,5 +139,14 @@ export class AddFoodComponent implements OnInit {
   }
   closeDialog() {
     this.dialogRef.close();
+  }
+  getLogedInUserPreferences(): void {
+    this.store.pipe(select(userAccountSelectors.selectLogedInUserPreferences))
+      .subscribe(response => {
+        if (response) {
+          this.preference = response;
+          this.bindDropdowns();
+        }
+      });
   }
 }
