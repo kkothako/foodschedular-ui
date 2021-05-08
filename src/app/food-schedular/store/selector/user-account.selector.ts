@@ -92,7 +92,7 @@ export const selectLoggedInUserPreferences = createSelector(
   (state, accountState, loggedInUser) => {
     const cusines = [];
     const protiens = [];
-    const userPreferences = accountState.preferencens.filter(item => item.userId === loggedInUser?.id)[0];
+    const userPreferences = accountState.preferencens.filter(item => item.userId === state.userAccountState?.selectedProfile?.userId)[0];
     if (userPreferences && state.foodSchedularState.cuisines &&
       state.foodSchedularState.protiens) {
       userPreferences.cuisines.forEach(item => {
