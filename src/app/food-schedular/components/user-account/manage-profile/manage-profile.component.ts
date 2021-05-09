@@ -58,7 +58,7 @@ export class ManageProfileComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.store.pipe(select(userAccountSelectors.selectUserProfiles))
       .subscribe(response => {
-        if (response &&  this.profiles.length === 0) {
+        if (response) {
           this.profiles = response;
           this.dataSource = new MatTableDataSource<UserProfileModel>(response);;
           this.dataSource.sort = this.sort;

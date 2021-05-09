@@ -74,7 +74,10 @@ const reducer = createReducer(initialState,
     return { ...state, load: true, error: null };
   }),
   on(preferenceActions.createPreferencesSuccess, (state, { response }) => {
-    return { ...state, load: false, preferencens: [response], hasSavedSuccess: true, error: null, loggedInUser: state.newUser };
+    if(state.newUser){
+      return { ...state, load: false, preferencens: [response], hasSavedSuccess: true, error: null, loggedInUser: state.newUser };
+    }
+    return { ...state, load: false, preferencens: [response], hasSavedSuccess: true, error: null };
   }),
   on(preferenceActions.createPreferencesError, (state, { error }) => {
     return { ...state, load: false, error: error, hasSavedSuccess: false };
