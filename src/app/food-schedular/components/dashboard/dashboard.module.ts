@@ -9,11 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { AddFoodComponent } from './dialogs/add-food/add-food.component';
 import { ViewOrderComponent } from './dialogs/view-order/view-order.component';
 import { ReviewOrderCartComponent } from './components/review-order-cart/review-order-cart.component';
+import { AutheriseGaurd } from './gaurds/authorise-gaurd';
 
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
-      { path: 'schedule-food/:userId/:profileId', component: ScheduleFoodComponent },
+      { path: 'schedule-food/:userId/:profileId', canActivate:[AutheriseGaurd], component: ScheduleFoodComponent },
       { path: 'schedule-food/review-order-cart', component: ReviewOrderCartComponent },
     ]
   }

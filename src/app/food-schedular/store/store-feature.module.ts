@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { CalendarApi } from '@fullcalendar/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { AutheriseGaurd } from '../components/dashboard/gaurds/authorise-gaurd';
 import { FoodSchedularEffect } from './effects/food.schedular.effect';
 import { UserAccountEffect } from './effects/user-account.effect';
 import { foodSchedularReducer } from './reducer/food-schedular.reducer';
@@ -31,7 +32,8 @@ const reducerMap = {
     FoodSchedularService,
     ConstantService,
     UserPreferencesService,
-    CalendarApi
+    CalendarApi,
+    AutheriseGaurd
   ]
 })
 export class StoreFeatureBaseModule {
