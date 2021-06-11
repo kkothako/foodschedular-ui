@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl:'https://foodschedular-api.herokuapp.com/api'
+  baseUrl:'https://foodschedular-api.herokuapp.com/api',
+  latitudeAndLangitudeUrl: 'https://www.freemaptools.com/ajax/us/get-zip-codes.php',
+  distanceUrl:'https://www.freemaptools.com/ajax/route-service.php?',
+  freemaptoolsToken:'0860bed90754331'
 };
 
 /*
