@@ -7,6 +7,10 @@ import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import * as userAccountSelectors from './../../../../store/selector/user-account.selector';
 import * as selectors from './../../../../store/selector/food-shedular.selectors';
 
+import * as reviewOrderActions from './../../../../store/action/review-order.action';
+
+
+
 @Component({
   selector: 'app-review-order-cart',
   templateUrl: './review-order-cart.component.html',
@@ -38,7 +42,7 @@ export class ReviewOrderCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.store.dispatch(reviewOrderActions.getLanAndLat({ customerZipCode: "08628", restorentZipCode: '08534' }))
   }
   bindPrfileName(): void {
     this.userProfileName$ = this.store.pipe(select(userAccountSelectors.selectUserProfileNickNameByUserId))

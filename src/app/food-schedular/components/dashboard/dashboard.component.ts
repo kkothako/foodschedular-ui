@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DistanceModel } from '../../store/models/distance.model';
-import { DistanceSearchService } from '../../store/service/distance-search.service';
+import { DistanceSearchService } from '../../store/service/review-order.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
     };
     debugger
-    var distance = this.distanceSearchService.getDistanceBy(d);
+    //var distance = this.distanceSearchService.getDistanceBy(d);
   }
 
 }
