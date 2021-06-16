@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 
-import * as distanceActions from '../action/review-order.action';
+import * as reviewOrderActions from '../action/review-order.action';
 import { Injectable } from '@angular/core';
 import { DistanceSearchService } from '../service/review-order.service';
 
@@ -15,14 +15,25 @@ export class DistanceEffect {
 
   getLangAndLatEffect$: Observable<Action> = createEffect(
     () => this.actions.pipe(
-      ofType(distanceActions.getLanAndLat),
+      ofType(reviewOrderActions.getLanAndLat),
       mergeMap(({ customerZipCode, restorentZipCode }) => this.distanceService.getLangandLatitudes(customerZipCode, restorentZipCode).pipe(
-        map((result) =>{
-         return distanceActions.getLangAndLatSuccess({result: result?.data})
+        map((result) => {
+          return reviewOrderActions.getLangAndLatSuccess({ result: result?.data })
         }),
-          catchError((error) => of(distanceActions.getLangAndLatError(error)))
-        ))
-      )
-    );
+        catchError((error) => of(reviewOrderActions.getLangAndLatError(error)))
+      ))
+    )
+  );
 
+  getAllRestorentsByCuisineIds$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(reviewOrderActions.getAllResotrentsByCusineIds),
+      mergeMap(({ cuisineIds }) => this.distanceService.getAllRestorentsByCuisineIds(cuisineIds)
+        .pipe(
+          map((result) => result?.status ? reviewOrderActions.getAllResotrentsByCusineIdsSuccess({ payload: result?.data }) :
+            reviewOrderActions.errorAction({ error: result?.error })),
+          catchError((result) => of(reviewOrderActions.errorAction({ error: result?.error })))
+        ))
+    )
+  );
 }

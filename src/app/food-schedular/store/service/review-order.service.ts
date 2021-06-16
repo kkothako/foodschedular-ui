@@ -20,5 +20,11 @@ export class DistanceSearchService {
     );
   }
 
-
+  getAllRestorentsByCuisineIds(cuisineIds: string[]): Observable<any> {
+    const url = `${environment.baseUrl}/orderDraft/getAllRestorentsByCuisineIds`;
+    return this.httpClient.post<any>(url,cuisineIds)
+    .pipe(
+      tap((data)=> console.log(data))
+    );
+  }
 }

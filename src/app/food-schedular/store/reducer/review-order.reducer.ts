@@ -18,4 +18,14 @@ export const reviewOrderReducer =
       return {
         ...state, load: false, error: error
       }
-    }));
+    }),
+    on(reviewOrderActions.getAllResotrentsByCusineIds, (state) => {
+      return { ...state, load: true, restorents: null }
+    }),
+    on(reviewOrderActions.getAllResotrentsByCusineIdsSuccess, (state, { payload }) => {
+      return { ...state, load: false, restorents: payload }
+    }),
+    on(reviewOrderActions.errorAction, (state) => {
+      return { ...state, load: false, restorents: null }
+    }),
+  );
