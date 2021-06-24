@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { DistanceModel } from '../models/distance.model';
+import { RestaurentMenuModel } from '../models/restaurent-menu.model';
 import { RestorentMasterModel } from '../models/restorent-master.model';
 
 export const getLanAndLat = createAction(
@@ -29,5 +30,15 @@ export const getAllResotrentsByCusineIdsSuccess = createAction(
 
 export const errorAction = createAction(
   '[app-review-order-cart] Show errors',
-  props<{error: any}>()
+  props<{ error: any }>()
+);
+
+export const getAllRestaurentMenusAndTimings = createAction(
+  '[app-review-order-cart] Get all restaurent menus and timings',
+  props<{ restaurentId: string }>()
+);
+
+export const getAllRestaurentMenusAndTimingsSuccess = createAction(
+  '[app-review-order-cart] Get all restaurent menu and timing success',
+  props<{ payload: RestaurentMenuModel }>()
 );

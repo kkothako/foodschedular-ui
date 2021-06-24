@@ -28,4 +28,10 @@ export const reviewOrderReducer =
     on(reviewOrderActions.errorAction, (state) => {
       return { ...state, load: false, restorents: null }
     }),
+    on(reviewOrderActions.getAllRestaurentMenusAndTimings, (state) => {
+      return { ...state, load: true, restaurentMenus: null }
+    }),
+    on(reviewOrderActions.getAllRestaurentMenusAndTimingsSuccess, (state, { payload }) => {
+      return { ...state, load: false, restaurentMenus: payload }
+    })
   );
