@@ -21,10 +21,10 @@ export class DistanceSearchService {
   }
 
   getAllRestorentsByCuisineIds(cuisineIds: string[]): Observable<any> {
-    const url = `${environment.baseUrl}/orderDraft/getAllRestorentsByCuisineIds`;
-    return this.httpClient.post<any>(url, cuisineIds)
+    const url = `${environment.baseUrl}/restaurant/getAllRestorentsByCuisineIds`;
+    return this.httpClient.post<any>(url, {cuisineIds})
       .pipe(
-        tap((data) => console.log(data))
+        tap((data) => console.log('all restaurents',data))
       );
   }
   getAllRestaurentMenusAndTimings(restaurentId: string): Observable<any> {

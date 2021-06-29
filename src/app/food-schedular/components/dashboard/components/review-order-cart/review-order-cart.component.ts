@@ -42,6 +42,7 @@ export class ReviewOrderCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.store.dispatch(reviewOrderActions.getLanAndLat({ customerZipCode: "08628", restorentZipCode: '08534' }))
   }
   bindPrfileName(): void {
@@ -51,7 +52,16 @@ export class ReviewOrderCartComponent implements OnInit {
   bindDraftOrderReview(): void {
     this.store.pipe(select(selectors.selectDraftOrders))
       .subscribe(orders => {
-        this.draftOrders = orders;
+        if (this.draftOrders.length ===0) {
+          this.draftOrders = orders;
+          debugger
+          const cuisineIds = this.draftOrders.map(order => order.cuisineID);
+
+          this.store.dispatch(reviewOrderActions.getAllResotrentsByCusineIds({ cuisineIds: cuisineIds }));
+
+        }
+
+
       });
   }
 }
