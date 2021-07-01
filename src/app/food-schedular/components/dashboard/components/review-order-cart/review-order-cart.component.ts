@@ -52,7 +52,7 @@ export class ReviewOrderCartComponent implements OnInit {
   bindDraftOrderReview(): void {
     this.store.pipe(select(selectors.selectDraftOrders))
       .subscribe(orders => {
-        if (this.draftOrders.length ===0) {
+        if (this.draftOrders.length === 0) {
           this.draftOrders = orders;
           debugger
           const cuisineIds = this.draftOrders.map(order => order.cuisineID);
@@ -60,7 +60,6 @@ export class ReviewOrderCartComponent implements OnInit {
           this.store.dispatch(reviewOrderActions.getAllResotrentsByCusineIds({ cuisineIds: cuisineIds }));
 
         }
-
 
       });
   }

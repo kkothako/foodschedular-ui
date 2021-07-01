@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DistanceModel } from '../../store/models/distance.model';
-import { DistanceSearchService } from '../../store/service/review-order.service';
+import { ReviewOrderService } from '../../store/service/review-order.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { DistanceSearchService } from '../../store/service/review-order.service'
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private distanceSearchService: DistanceSearchService) { }
+  constructor(private reviewOrderService: ReviewOrderService) { }
 
   ngOnInit(): void {
 

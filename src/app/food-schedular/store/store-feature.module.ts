@@ -10,7 +10,7 @@ import { UserAccountEffect } from './effects/user-account.effect';
 import { foodSchedularReducer } from './reducer/food-schedular.reducer';
 import { userAccountReducer } from './reducer/user-account.reducer';
 import { ConstantService } from './service/constant.service';
-import { DistanceSearchService } from './service/review-order.service';
+import { ReviewOrderService } from './service/review-order.service';
 import { FoodSchedularService } from './service/food-schedular.service';
 import { UserAccountService } from './service/user-account.service';
 import { UserPreferencesService } from './service/user-preferences.service';
@@ -39,7 +39,7 @@ const reducerMap = {
     UserPreferencesService,
     CalendarApi,
     AutheriseGaurd,
-    DistanceSearchService
+    ReviewOrderService
   ]
 })
 export class StoreFeatureBaseModule {

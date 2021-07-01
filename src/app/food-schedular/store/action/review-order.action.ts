@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { DistanceModel } from '../models/distance.model';
 import { RestaurentMenuModel } from '../models/restaurent-menu.model';
 import { RestorentMasterModel } from '../models/restorent-master.model';
+import { ZipCodeModel } from '../models/zipcode.model';
 
 export const getLanAndLat = createAction(
   '[app-review-order-cart] Get Lat and Lang',
@@ -41,4 +42,14 @@ export const getAllRestaurentMenusAndTimings = createAction(
 export const getAllRestaurentMenusAndTimingsSuccess = createAction(
   '[app-review-order-cart] Get all restaurent menu and timing success',
   props<{ payload: RestaurentMenuModel }>()
+);
+
+export const getAllZipCodesByCustomerZipCode = createAction(
+  '[app-review-order-cart] Get all zip codes with in 5 miles from customer zipcode',
+  props<{ customerZipCode: string }>()
+);
+
+export const getAllZipCodesByCustomerZipCodeSuccess = createAction(
+  '[app-review-order-cart] Get all zip codes with in 5 miles from customer zipcode success',
+  props<{ payload: ZipCodeModel[] }>()
 );

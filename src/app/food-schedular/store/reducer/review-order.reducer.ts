@@ -33,5 +33,11 @@ export const reviewOrderReducer =
     }),
     on(reviewOrderActions.getAllRestaurentMenusAndTimingsSuccess, (state, { payload }) => {
       return { ...state, load: false, restaurentMenus: payload }
+    }),
+    on(reviewOrderActions.getAllZipCodesByCustomerZipCode, (state) => {
+      return { ...state, load: true, in5MilesAllZipCodes: [] }
+    }),
+    on(reviewOrderActions.getAllZipCodesByCustomerZipCodeSuccess, (state, {payload}) => {
+      return { ...state, load: false, in5MilesAllZipCodes:payload }
     })
   );

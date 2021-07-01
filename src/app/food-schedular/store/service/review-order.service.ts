@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { DistanceModel } from '../models/distance.model';
 
 @Injectable()
-export class DistanceSearchService {
+export class ReviewOrderService {
 
   constructor(private httpClient: HttpClient) {
 
@@ -22,9 +22,9 @@ export class DistanceSearchService {
 
   getAllRestorentsByCuisineIds(cuisineIds: string[]): Observable<any> {
     const url = `${environment.baseUrl}/restaurant/getAllRestorentsByCuisineIds`;
-    return this.httpClient.post<any>(url, {cuisineIds})
+    return this.httpClient.post<any>(url, { cuisineIds })
       .pipe(
-        tap((data) => console.log('all restaurents',data))
+        tap((data) => console.log('all restaurents', data))
       );
   }
   getAllRestaurentMenusAndTimings(restaurentId: string): Observable<any> {
@@ -34,6 +34,12 @@ export class DistanceSearchService {
         tap((data) => console.log('menus', data))
       )
   }
-
+  getAllZipCodesByCustomerZipCode(zipCode: string): Observable<any> {
+    const url = `${environment.baseUrl}/restaurantTimings/getAllZipCodesByCustomerZipCode`
+    return this.httpClient.post(url, { customerZipCode: zipCode })
+      .pipe(
+        tap((data) => console.log('5 miles zipcodes', data))
+      )
+  }
 }
 

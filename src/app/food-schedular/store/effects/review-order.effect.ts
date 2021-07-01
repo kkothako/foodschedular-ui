@@ -5,19 +5,19 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 
 import * as reviewOrderActions from '../action/review-order.action';
 import { Injectable } from '@angular/core';
-import { DistanceSearchService } from '../service/review-order.service';
+import { ReviewOrderService } from '../service/review-order.service';
 
 
 @Injectable()
 export class DistanceEffect {
-  constructor(private distanceService: DistanceSearchService, private actions: Actions) {
+  constructor(private reviewOrderService: ReviewOrderService, private actions: Actions) {
 
   }
 
   getLangAndLatEffect$: Observable<Action> = createEffect(
     () => this.actions.pipe(
       ofType(reviewOrderActions.getLanAndLat),
-      mergeMap(({ customerZipCode, restorentZipCode }) => this.distanceService.getLangandLatitudes(customerZipCode, restorentZipCode).pipe(
+      mergeMap(({ customerZipCode, restorentZipCode }) => this.reviewOrderService.getLangandLatitudes(customerZipCode, restorentZipCode).pipe(
         map((result) => {
           return reviewOrderActions.getLangAndLatSuccess({ result: result?.data })
         }),
@@ -29,7 +29,7 @@ export class DistanceEffect {
   getAllRestorentsByCuisineIds$: Observable<Action> = createEffect(
     () => this.actions.pipe(
       ofType(reviewOrderActions.getAllResotrentsByCusineIds),
-      mergeMap(({ cuisineIds }) => this.distanceService.getAllRestorentsByCuisineIds(cuisineIds)
+      mergeMap(({ cuisineIds }) => this.reviewOrderService.getAllRestorentsByCuisineIds(cuisineIds)
         .pipe(
           map((result) => result?.status ? reviewOrderActions.getAllResotrentsByCusineIdsSuccess({ payload: result?.data }) :
             reviewOrderActions.errorAction({ error: result?.error })),
@@ -41,7 +41,7 @@ export class DistanceEffect {
   getAllRestaurentMenusAndTimings$: Observable<Action> = createEffect(
     () => this.actions.pipe(
       ofType(reviewOrderActions.getAllRestaurentMenusAndTimings),
-      mergeMap(({ restaurentId }) => this.distanceService.getAllRestaurentMenusAndTimings(restaurentId)
+      mergeMap(({ restaurentId }) => this.reviewOrderService.getAllRestaurentMenusAndTimings(restaurentId)
         .pipe(
           map((result) => result?.status ? reviewOrderActions.getAllResotrentsByCusineIdsSuccess({ payload: result.data }) :
             reviewOrderActions.errorAction({ error: result?.error })
@@ -51,5 +51,16 @@ export class DistanceEffect {
     )
   );
 
+  getAllWithIn5MilesZipCodes$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(reviewOrderActions.getAllZipCodesByCustomerZipCode),
+      mergeMap(({ customerZipCode }) => this.reviewOrderService.getAllZipCodesByCustomerZipCode(customerZipCode).pipe(
+        map((result) => reviewOrderActions.getAllZipCodesByCustomerZipCodeSuccess({ payload: result?.data })),
+        catchError((result) => of(reviewOrderActions.errorAction({ error: result })))
+      ))
+    )
+  );
+
 }
+
 
