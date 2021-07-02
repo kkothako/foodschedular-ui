@@ -20,9 +20,9 @@ export class ReviewOrderService {
       );
   }
 
-  getAllRestorentsByCuisineIds(cuisineIds: string[]): Observable<any> {
-    const url = `${environment.baseUrl}/restaurant/getAllRestorentsByCuisineIds`;
-    return this.httpClient.post<any>(url, { cuisineIds })
+  getAllRestorentsByZipCodes(zipCodes: string[]): Observable<any> {
+    const url = `${environment.baseUrl}/restaurant/getAllRestorentsByZipCodes`;
+    return this.httpClient.post<any>(url, { zipCodes })
       .pipe(
         tap((data) => console.log('all restaurents', data))
       );
@@ -35,7 +35,7 @@ export class ReviewOrderService {
       )
   }
   getAllZipCodesByCustomerZipCode(zipCode: string): Observable<any> {
-    const url = `${environment.baseUrl}/restaurantTimings/getAllZipCodesByCustomerZipCode`
+    const url = `${environment.baseUrl}/restaurant/getAllZipCodesByCustomerZipCode`
     return this.httpClient.post(url, { customerZipCode: zipCode })
       .pipe(
         tap((data) => console.log('5 miles zipcodes', data))

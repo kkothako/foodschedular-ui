@@ -19,13 +19,13 @@ export const getLangAndLatError = createAction(
   props<{ error: any }>()
 );
 
-export const getAllResotrentsByCusineIds = createAction(
-  '[app-review-order-cart] Get all restorents by cuisineIds',
-  props<{ cuisineIds: string[] }>()
+export const getAllRestaurentsByZipCodes = createAction(
+  '[app-review-order-cart] Get all restorents by zipcodes',
+  props<{ zipCodes: string[] }>()
 );
 
-export const getAllResotrentsByCusineIdsSuccess = createAction(
-  '[app-review-order-cart] Get all restorents by cuisineIds success',
+export const getAllRestaurentsByZipCodesSuccess = createAction(
+  '[app-review-order-cart] Get all restorents by zipcodes success',
   props<{ payload: RestorentMasterModel[] }>()
 );
 

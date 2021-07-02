@@ -19,10 +19,10 @@ export const reviewOrderReducer =
         ...state, load: false, error: error
       }
     }),
-    on(reviewOrderActions.getAllResotrentsByCusineIds, (state) => {
+    on(reviewOrderActions.getAllRestaurentsByZipCodes, (state) => {
       return { ...state, load: true, restorents: null }
     }),
-    on(reviewOrderActions.getAllResotrentsByCusineIdsSuccess, (state, { payload }) => {
+    on(reviewOrderActions.getAllRestaurentsByZipCodesSuccess, (state, { payload }) => {
       return { ...state, load: false, restorents: payload }
     }),
     on(reviewOrderActions.errorAction, (state) => {

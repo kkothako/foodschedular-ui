@@ -28,10 +28,10 @@ export class DistanceEffect {
 
   getAllRestorentsByCuisineIds$: Observable<Action> = createEffect(
     () => this.actions.pipe(
-      ofType(reviewOrderActions.getAllResotrentsByCusineIds),
-      mergeMap(({ cuisineIds }) => this.reviewOrderService.getAllRestorentsByCuisineIds(cuisineIds)
+      ofType(reviewOrderActions.getAllRestaurentsByZipCodes),
+      mergeMap(({ zipCodes }) => this.reviewOrderService.getAllRestorentsByZipCodes(zipCodes)
         .pipe(
-          map((result) => result?.status ? reviewOrderActions.getAllResotrentsByCusineIdsSuccess({ payload: result?.data }) :
+          map((result) => result?.status ? reviewOrderActions.getAllRestaurentsByZipCodesSuccess({ payload: result?.data }) :
             reviewOrderActions.errorAction({ error: result?.error })),
           catchError((result) => of(reviewOrderActions.errorAction({ error: result?.error })))
         ))
@@ -43,7 +43,7 @@ export class DistanceEffect {
       ofType(reviewOrderActions.getAllRestaurentMenusAndTimings),
       mergeMap(({ restaurentId }) => this.reviewOrderService.getAllRestaurentMenusAndTimings(restaurentId)
         .pipe(
-          map((result) => result?.status ? reviewOrderActions.getAllResotrentsByCusineIdsSuccess({ payload: result.data }) :
+          map((result) => result?.status ? reviewOrderActions.getAllRestaurentMenusAndTimingsSuccess({ payload: result.data }) :
             reviewOrderActions.errorAction({ error: result?.error })
           ),
           catchError((result) => of(reviewOrderActions.errorAction({ error: result?.error })))

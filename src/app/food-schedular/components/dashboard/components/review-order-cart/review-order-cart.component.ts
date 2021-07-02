@@ -8,8 +8,7 @@ import * as userAccountSelectors from './../../../../store/selector/user-account
 import * as selectors from './../../../../store/selector/food-shedular.selectors';
 
 import * as reviewOrderActions from './../../../../store/action/review-order.action';
-
-
+import * as reviewOrderSelectors from './../../../../store/selector/review-order.selector';
 
 @Component({
   selector: 'app-review-order-cart',
@@ -20,6 +19,7 @@ export class ReviewOrderCartComponent implements OnInit {
 
   userProfileName$: Observable<string>;
   draftOrders: OrderModel[] = [];
+  hasDispactedAction = true;
 
   displayedColumns: string[] = ['date', 'item', 'cost'];
   transactions: any[] = [
@@ -39,6 +39,9 @@ export class ReviewOrderCartComponent implements OnInit {
   constructor(private store: Store<AppState>) {
     this.bindPrfileName();
     this.bindDraftOrderReview();
+
+    this.getAllIn5MilesZipCodes();
+    this.bindAllIn5MilesZipCodes();
   }
 
   ngOnInit(): void {
@@ -54,13 +57,30 @@ export class ReviewOrderCartComponent implements OnInit {
       .subscribe(orders => {
         if (this.draftOrders.length === 0) {
           this.draftOrders = orders;
-          debugger
           const cuisineIds = this.draftOrders.map(order => order.cuisineID);
 
-          this.store.dispatch(reviewOrderActions.getAllResotrentsByCusineIds({ cuisineIds: cuisineIds }));
+          //this.store.dispatch(reviewOrderActions.getAllRestaurentsByZipCodes({ cuisineIds: cuisineIds }));
 
         }
 
       });
+  }
+  getAllIn5MilesZipCodes(): void {
+    this.store.pipe(select(userAccountSelectors.selectSelectedUserProfile))
+      .subscribe(profile => {
+        if (profile) {
+          this.store.dispatch(reviewOrderActions.getAllZipCodesByCustomerZipCode({ customerZipCode: profile.address.zipCode }));
+        }
+      });
+  }
+  bindAllIn5MilesZipCodes(): void {
+    this.store.pipe(select(reviewOrderSelectors.getAll5MilesZipCodes))
+      .subscribe(response => {
+        if (response.length > 0 && this.hasDispactedAction) {
+          this.hasDispactedAction = false;
+          const zipCodes = response.map(item => item.zip_code);
+          this.store.dispatch(reviewOrderActions.getAllRestaurentsByZipCodes({ zipCodes: zipCodes }));
+        }
+      })
   }
 }
