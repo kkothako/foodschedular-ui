@@ -36,7 +36,7 @@ export const errorAction = createAction(
 
 export const getAllRestaurentMenusAndTimings = createAction(
   '[app-review-order-cart] Get all restaurent menus and timings',
-  props<{ restaurentId: string }>()
+  props<{ restaurentIds: string[] }>()
 );
 
 export const getAllRestaurentMenusAndTimingsSuccess = createAction(

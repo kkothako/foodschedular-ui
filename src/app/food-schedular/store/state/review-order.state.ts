@@ -10,7 +10,7 @@ export interface ReviewOrderState extends EntityState<ReviewOrderModel> {
   selectedOrder: ReviewOrderModel[],
   deliveryDistance: any,
   restorents: RestorentMasterModel[],
-  restaurentMenus: RestaurentMenuModel,
+  restaurentMenusPlusTimings: RestaurentMenuModel,
   in5MilesAllZipCodes: ZipCodeModel[]
 }
 
@@ -21,7 +21,7 @@ export const defaultState: ReviewOrderState = {
   selectedOrder: [],
   deliveryDistance: null,
   restorents: null,
-  restaurentMenus: null,
+  restaurentMenusPlusTimings: null,
   in5MilesAllZipCodes: []
 };
 

@@ -27,9 +27,9 @@ export class ReviewOrderService {
         tap((data) => console.log('all restaurents', data))
       );
   }
-  getAllRestaurentMenusAndTimings(restaurentId: string): Observable<any> {
+  getAllRestaurentMenusAndTimings(restorentIds: string[]): Observable<any> {
     const url = `${environment.baseUrl}/restaurantTimings/getAllRestaurentMenusAndTimings`
-    return this.httpClient.post(url, { restorentId: restaurentId })
+    return this.httpClient.post(url, { restorentIds })
       .pipe(
         tap((data) => console.log('menus', data))
       )

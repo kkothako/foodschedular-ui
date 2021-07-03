@@ -41,7 +41,7 @@ export class DistanceEffect {
   getAllRestaurentMenusAndTimings$: Observable<Action> = createEffect(
     () => this.actions.pipe(
       ofType(reviewOrderActions.getAllRestaurentMenusAndTimings),
-      mergeMap(({ restaurentId }) => this.reviewOrderService.getAllRestaurentMenusAndTimings(restaurentId)
+      mergeMap(({ restaurentIds }) => this.reviewOrderService.getAllRestaurentMenusAndTimings(restaurentIds)
         .pipe(
           map((result) => result?.status ? reviewOrderActions.getAllRestaurentMenusAndTimingsSuccess({ payload: result.data }) :
             reviewOrderActions.errorAction({ error: result?.error })

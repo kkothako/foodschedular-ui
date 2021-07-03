@@ -29,10 +29,11 @@ export const reviewOrderReducer =
       return { ...state, load: false, restorents: null }
     }),
     on(reviewOrderActions.getAllRestaurentMenusAndTimings, (state) => {
-      return { ...state, load: true, restaurentMenus: null }
+      return { ...state, load: true, restaurentMenusPlusTimings: null }
     }),
     on(reviewOrderActions.getAllRestaurentMenusAndTimingsSuccess, (state, { payload }) => {
-      return { ...state, load: false, restaurentMenus: payload }
+      debugger
+      return { ...state, load: false, restaurentMenusPlusTimings: payload }
     }),
     on(reviewOrderActions.getAllZipCodesByCustomerZipCode, (state) => {
       return { ...state, load: true, in5MilesAllZipCodes: [] }

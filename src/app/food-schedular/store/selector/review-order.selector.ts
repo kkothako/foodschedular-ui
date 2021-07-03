@@ -13,3 +13,7 @@ export const getAll5MilesZipCodes = createSelector(
   state => state.in5MilesAllZipCodes
 );
 
+export const selectAllRestaurents = createSelector(
+  reviewOrderState,
+  state => state.restorents
+);

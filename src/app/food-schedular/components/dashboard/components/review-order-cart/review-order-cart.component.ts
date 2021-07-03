@@ -9,6 +9,7 @@ import * as selectors from './../../../../store/selector/food-shedular.selectors
 
 import * as reviewOrderActions from './../../../../store/action/review-order.action';
 import * as reviewOrderSelectors from './../../../../store/selector/review-order.selector';
+import { RestorentMasterModel } from 'src/app/food-schedular/store/models/restorent-master.model';
 
 @Component({
   selector: 'app-review-order-cart',
@@ -20,6 +21,8 @@ export class ReviewOrderCartComponent implements OnInit {
   userProfileName$: Observable<string>;
   draftOrders: OrderModel[] = [];
   hasDispactedAction = true;
+
+  restaurents: RestorentMasterModel[] = [];
 
   displayedColumns: string[] = ['date', 'item', 'cost'];
   transactions: any[] = [
@@ -42,6 +45,7 @@ export class ReviewOrderCartComponent implements OnInit {
 
     this.getAllIn5MilesZipCodes();
     this.bindAllIn5MilesZipCodes();
+    this.bindAllRestaurents();
   }
 
   ngOnInit(): void {
@@ -81,6 +85,21 @@ export class ReviewOrderCartComponent implements OnInit {
           const zipCodes = response.map(item => item.zip_code);
           this.store.dispatch(reviewOrderActions.getAllRestaurentsByZipCodes({ zipCodes: zipCodes }));
         }
-      })
+      });
+  }
+
+  bindAllRestaurents(): void {
+    this.store.pipe(select(reviewOrderSelectors.selectAllRestaurents))
+      .subscribe(restaurents => {
+        if (this.restaurents.length === 0 && restaurents) {
+          this.restaurents = restaurents;
+          var restaurentIdList = this.restaurents.map(restaurent => restaurent.restaurantId);
+this.store.dispatch(reviewOrderActions.getAllRestaurentMenusAndTimings({restaurentIds: restaurentIdList}))
+        }
+      });
+
+  }
+  bindRestaurentMenus(): void {
+
   }
 }
