@@ -17,3 +17,33 @@ export const selectAllRestaurents = createSelector(
   reviewOrderState,
   state => state.restorents
 );
+
+
+export const selectDraftOrderWithPriceDetails = createSelector(
+  appState,
+  reviewOrderState,
+  (state, orderState) => {
+    if (state.foodSchedularState && state.foodSchedularState.draftOrders &&
+      orderState.restaurentMenusPlusTimings) {
+      debugger
+      const draftOrders = state.foodSchedularState.draftOrders;
+      draftOrders?.forEach(order => {
+        const restaurents = orderState.restorents?.filter(restaurent => restaurent.cuisineId === order.cuisineID);
+        if (restaurents) {
+          const randomIndex = Math.floor(Math.random() * restaurents.length);
+          const randomRestaurent = restaurents[randomIndex];
+          order.restaurent = randomRestaurent;
+
+          const restaurentMenuWithPrice = orderState.restaurentMenusPlusTimings.filter(menu => menu.restaurantId === randomRestaurent.restaurantId);
+          const randomCount = Math.floor(Math.random() * restaurentMenuWithPrice.length);
+          const randonRestaurentMenu = restaurentMenuWithPrice[randomCount];
+          order.restaurentMenu = randonRestaurentMenu;
+        }
+
+      });
+      return draftOrders;
+    }
+
+
+  }
+);

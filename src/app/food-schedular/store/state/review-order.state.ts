@@ -10,7 +10,7 @@ export interface ReviewOrderState extends EntityState<ReviewOrderModel> {
   selectedOrder: ReviewOrderModel[],
   deliveryDistance: any,
   restorents: RestorentMasterModel[],
-  restaurentMenusPlusTimings: RestaurentMenuModel,
+  restaurentMenusPlusTimings: RestaurentMenuModel[],
   in5MilesAllZipCodes: ZipCodeModel[]
 }
 

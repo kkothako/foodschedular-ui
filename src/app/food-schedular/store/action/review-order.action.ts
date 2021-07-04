@@ -41,7 +41,7 @@ export const getAllRestaurentMenusAndTimings = createAction(
 
 export const getAllRestaurentMenusAndTimingsSuccess = createAction(
   '[app-review-order-cart] Get all restaurent menu and timing success',
-  props<{ payload: RestaurentMenuModel }>()
+  props<{ payload: RestaurentMenuModel[] }>()
 );
 
 export const getAllZipCodesByCustomerZipCode = createAction(

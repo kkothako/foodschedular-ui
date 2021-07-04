@@ -32,7 +32,6 @@ export const reviewOrderReducer =
       return { ...state, load: true, restaurentMenusPlusTimings: null }
     }),
     on(reviewOrderActions.getAllRestaurentMenusAndTimingsSuccess, (state, { payload }) => {
-      debugger
       return { ...state, load: false, restaurentMenusPlusTimings: payload }
     }),
     on(reviewOrderActions.getAllZipCodesByCustomerZipCode, (state) => {

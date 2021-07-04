@@ -1,3 +1,5 @@
+import { RestaurentMenuModel } from './restaurent-menu.model';
+
 export interface RestorentMasterModel {
   restaurantId: string;
   restaurantName: string;
@@ -15,4 +17,7 @@ export interface RestorentMasterModel {
   createdBy: string;
   modifiedAt: Date;
   modifiedBy: string;
+
 }
+
+

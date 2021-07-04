@@ -41,11 +41,11 @@ export class ReviewOrderCartComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
     this.bindPrfileName();
-    this.bindDraftOrderReview();
 
     this.getAllIn5MilesZipCodes();
     this.bindAllIn5MilesZipCodes();
     this.bindAllRestaurents();
+    this.bindAllDraftOrderWithPriceDetails();
   }
 
   ngOnInit(): void {
@@ -56,19 +56,7 @@ export class ReviewOrderCartComponent implements OnInit {
     this.userProfileName$ = this.store.pipe(select(userAccountSelectors.selectUserProfileNickNameByUserId))
   }
 
-  bindDraftOrderReview(): void {
-    this.store.pipe(select(selectors.selectDraftOrders))
-      .subscribe(orders => {
-        if (this.draftOrders.length === 0) {
-          this.draftOrders = orders;
-          const cuisineIds = this.draftOrders.map(order => order.cuisineID);
 
-          //this.store.dispatch(reviewOrderActions.getAllRestaurentsByZipCodes({ cuisineIds: cuisineIds }));
-
-        }
-
-      });
-  }
   getAllIn5MilesZipCodes(): void {
     this.store.pipe(select(userAccountSelectors.selectSelectedUserProfile))
       .subscribe(profile => {
@@ -94,12 +82,16 @@ export class ReviewOrderCartComponent implements OnInit {
         if (this.restaurents.length === 0 && restaurents) {
           this.restaurents = restaurents;
           var restaurentIdList = this.restaurents.map(restaurent => restaurent.restaurantId);
-this.store.dispatch(reviewOrderActions.getAllRestaurentMenusAndTimings({restaurentIds: restaurentIdList}))
+          this.store.dispatch(reviewOrderActions.getAllRestaurentMenusAndTimings({ restaurentIds: restaurentIdList }))
         }
       });
 
   }
-  bindRestaurentMenus(): void {
 
+  bindAllDraftOrderWithPriceDetails(): void {
+    this.store.pipe(select(reviewOrderSelectors.selectDraftOrderWithPriceDetails))
+      .subscribe(order => {
+        console.log('Drat order with price details', order);
+      });
   }
 }
