@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
       lng2: "-74.795630"
 
     };
-    debugger
     //var distance = this.distanceSearchService.getDistanceBy(d);
   }
 

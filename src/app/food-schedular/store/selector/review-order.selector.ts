@@ -25,11 +25,11 @@ export const selectDraftOrderWithPriceDetails = createSelector(
   (state, orderState) => {
     if (state.foodSchedularState && state.foodSchedularState.draftOrders &&
       orderState.restaurentMenusPlusTimings) {
-      debugger
       const draftOrders = state.foodSchedularState.draftOrders;
       draftOrders?.forEach(order => {
         const restaurents = orderState.restorents?.filter(restaurent => restaurent.cuisineId === order.cuisineID);
         if (restaurents) {
+
           const randomIndex = Math.floor(Math.random() * restaurents.length);
           const randomRestaurent = restaurents[randomIndex];
           order.restaurent = randomRestaurent;

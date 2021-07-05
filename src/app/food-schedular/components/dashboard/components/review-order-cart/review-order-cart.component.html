@@ -45,7 +45,7 @@
         </ng-container>
         <ng-container matColumnDef="item">
           <th mat-header-cell *matHeaderCellDef> Item </th>
-          <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
+          <td mat-cell *matCellDef="let transaction"> <span [innerHTML]="transaction.item"></span> </td>
           <td mat-footer-cell *matFooterCellDef>  </td>
         </ng-container>
 

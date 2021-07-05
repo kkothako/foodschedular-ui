@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 
@@ -10,6 +10,8 @@ import * as selectors from './../../../../store/selector/food-shedular.selectors
 import * as reviewOrderActions from './../../../../store/action/review-order.action';
 import * as reviewOrderSelectors from './../../../../store/selector/review-order.selector';
 import { RestorentMasterModel } from 'src/app/food-schedular/store/models/restorent-master.model';
+import { groupBy, map, mergeMap, reduce, toArray } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-review-order-cart',
@@ -25,19 +27,9 @@ export class ReviewOrderCartComponent implements OnInit {
   restaurents: RestorentMasterModel[] = [];
 
   displayedColumns: string[] = ['date', 'item', 'cost'];
-  transactions: any[] = [
-    { date: '09/03/2021', time: '9:00:00', item: 'Beach ball', cost: 4 },
-    { date: '09/03/2021', time: '9:00:00', item: 'Towel', cost: 5 },
-    { date: '09/03/2021', time: '9:00:00', item: 'Frisbee', cost: 2 },
-    { date: '09/03/2021', time: '9:00:00', item: 'Sunscreen', cost: 4 },
-    { date: '09/03/2021', time: '9:00:00', item: 'Cooler', cost: 25 },
-    { date: '09/03/2021', time: '9:00:00', item: 'Swim suit', cost: 15 },
-  ];
+  transactions: MatTableDataSource<any>;
+  totalPrice: number;
 
-  /** Gets the total cost of all transactions. */
-  getTotalCost() {
-    return this.transactions.map(t => t.cost).reduce((acc, value) => acc + value, 0);
-  }
 
   constructor(private store: Store<AppState>) {
     this.bindPrfileName();
@@ -91,7 +83,50 @@ export class ReviewOrderCartComponent implements OnInit {
   bindAllDraftOrderWithPriceDetails(): void {
     this.store.pipe(select(reviewOrderSelectors.selectDraftOrderWithPriceDetails))
       .subscribe(order => {
+
+        const orderTableData = [];
         console.log('Drat order with price details', order);
+        if (order) {
+          of(...order).pipe(
+            groupBy((p: any) => new Date(p.scheduledDate).toLocaleDateString()),
+            mergeMap(group$ =>
+              group$.pipe(reduce((acc, cur) => [...acc, cur], [`${group$.key}`]))
+            ),
+            map(arr => ({ date: arr[0], orderData: arr.slice(1) })),
+            toArray()
+          ).subscribe(groupOrder => {
+            this.totalPrice = 0;
+            groupOrder.forEach(order => {
+              let menuAndSlot = '';
+              order.orderData.forEach(item => {
+                const slotTime = item.scheduledDate.split(' ');
+                this.totalPrice += item.restaurentMenu.restaurentMenu.Price;
+
+                menuAndSlot += `<br/><i class="pi pi-circle-on" style="font-size: 0.7rem"></i> ${slotTime[1]}:
+                                ${item.restaurentMenu.restaurentMenu.menuName} <br/> <br/>`
+                orderTableData.push({ date: order.date, item: menuAndSlot, cost: '' });
+              });
+            });
+            // groupOrder.forEach(order => {
+            //   const item = order.orderData.map(item => item.restaurentMenu).map(item => {
+            //     return item.restaurentMenu.menuName
+            //   }).join(',');
+            //   orderTableData.push({ date: order.date, item: menuAndSlot, cost: 10 });
+            // });
+
+          });
+          this.transactions = new MatTableDataSource<any>(orderTableData);;
+
+        }
+
       });
   }
+  getTotalCost() {
+    return this.totalPrice + 5;
+  }
+  ngAfterViewInit(): void {
+    this.bindAllDraftOrderWithPriceDetails();
+
+  }
+
 }
