@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12 col-md-12">
+    <div class="col-sm-9 col-md-9">
       <br>
       <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
         <ng-container matColumnDef="date">
@@ -89,6 +89,40 @@
         <tr mat-footer-row *matFooterRowDef="displayedColumns" class="example-first-footer-row"></tr>
         <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>
       </table>
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <mat-card class="example-card">
+
+
+        <mat-card-content>
+          <p>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Total($)
+              <span class="badge badge-primary badge-pill">{{getTotalCost() | currency}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Tax($)
+              <span class="badge badge-primary badge-pill">{{5 | currency}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              SubTotal($)
+              <span class="badge badge-primary badge-pill">{{getTotalCost()+5 | currency}}</span>
+            </li>
+          </ul>
+
+          <button mat-raised-button color="primary" class="mat-raised-button-250">
+            <mat-icon>save</mat-icon>
+            Order Submit</button>
+          <button mat-raised-button color="accent">
+            <mat-icon>cancel</mat-icon>
+            Cancel</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

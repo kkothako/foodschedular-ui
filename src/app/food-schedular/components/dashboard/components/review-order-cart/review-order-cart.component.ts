@@ -86,7 +86,7 @@ export class ReviewOrderCartComponent implements OnInit {
 
         const orderTableData = [];
         console.log('Drat order with price details', order);
-        if (order) {
+        if (order && orderTableData.length === 0) {
           of(...order).pipe(
             groupBy((p: any) => new Date(p.scheduledDate).toLocaleDateString()),
             mergeMap(group$ =>
@@ -96,23 +96,19 @@ export class ReviewOrderCartComponent implements OnInit {
             toArray()
           ).subscribe(groupOrder => {
             this.totalPrice = 0;
+            debugger
             groupOrder.forEach(order => {
               let menuAndSlot = '';
               order.orderData.forEach(item => {
                 const slotTime = item.scheduledDate.split(' ');
                 this.totalPrice += item.restaurentMenu.restaurentMenu.Price;
 
-                menuAndSlot += `<br/><i class="pi pi-circle-on" style="font-size: 0.7rem"></i> ${slotTime[1]}:
-                                ${item.restaurentMenu.restaurentMenu.menuName} <br/> <br/>`
-                orderTableData.push({ date: order.date, item: menuAndSlot, cost: '' });
+                menuAndSlot += `<br/><i  class="pi pi-circle-on text-danger" style="font-size: 0.5rem"></i> ${slotTime[1]}:
+                                ${item.restaurentMenu.restaurentMenu.menuName} ${order.orderData.length ===1 ? '': '<br/>'}`
+
               });
+              orderTableData.push({ date: order.date, item: menuAndSlot, cost: '' });
             });
-            // groupOrder.forEach(order => {
-            //   const item = order.orderData.map(item => item.restaurentMenu).map(item => {
-            //     return item.restaurentMenu.menuName
-            //   }).join(',');
-            //   orderTableData.push({ date: order.date, item: menuAndSlot, cost: 10 });
-            // });
 
           });
           this.transactions = new MatTableDataSource<any>(orderTableData);;
@@ -122,7 +118,7 @@ export class ReviewOrderCartComponent implements OnInit {
       });
   }
   getTotalCost() {
-    return this.totalPrice + 5;
+    return this.totalPrice;
   }
   ngAfterViewInit(): void {
     this.bindAllDraftOrderWithPriceDetails();
