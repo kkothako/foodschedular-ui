@@ -61,6 +61,28 @@ export class DistanceEffect {
     )
   );
 
+  createOrderHistoryEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(reviewOrderActions.createOrderHistory),
+      mergeMap(({ payload }) => this.reviewOrderService.createOrderHistory(payload).pipe(
+        map((result) => result?.status ? reviewOrderActions.createOrderHistorySuccess({ payload: result.data }) :
+          reviewOrderActions.errorAction({ error: result.error })),
+        catchError((result) => of(reviewOrderActions.errorAction({ error: result.error })))
+      ))
+    )
+  );
+
+  createOrderMasterEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(reviewOrderActions.createOrderMaster),
+      mergeMap(({ payload }) => this.reviewOrderService.createOrderMaster(payload).pipe(
+        map((result) => result?.status ? reviewOrderActions.createOrderMasterSuccess({ payload: result.data }) :
+          reviewOrderActions.errorAction({ error: result?.error })),
+        catchError((result) => of(reviewOrderActions.errorAction({ error: result.error })))
+      ))
+    )
+  );
+
 }
 
 

@@ -1,6 +1,5 @@
-import { state } from '@angular/animations';
+
 import { createReducer, on } from '@ngrx/store';
-import { load } from '../selector/user-account.selector';
 
 import * as reviewOrderActions from './../action/review-order.action';
 import * as reviewOrderEntity from './../entity/review-order-state';
@@ -25,8 +24,8 @@ export const reviewOrderReducer =
     on(reviewOrderActions.getAllRestaurentsByZipCodesSuccess, (state, { payload }) => {
       return { ...state, load: false, restorents: payload }
     }),
-    on(reviewOrderActions.errorAction, (state) => {
-      return { ...state, load: false, restorents: null }
+    on(reviewOrderActions.errorAction, (state, {error}) => {
+      return { ...state, load: false, restorents: null, errors: error}
     }),
     on(reviewOrderActions.getAllRestaurentMenusAndTimings, (state) => {
       return { ...state, load: true, restaurentMenusPlusTimings: null }
@@ -37,7 +36,19 @@ export const reviewOrderReducer =
     on(reviewOrderActions.getAllZipCodesByCustomerZipCode, (state) => {
       return { ...state, load: true, in5MilesAllZipCodes: [] }
     }),
-    on(reviewOrderActions.getAllZipCodesByCustomerZipCodeSuccess, (state, {payload}) => {
-      return { ...state, load: false, in5MilesAllZipCodes:payload }
+    on(reviewOrderActions.getAllZipCodesByCustomerZipCodeSuccess, (state, { payload }) => {
+      return { ...state, load: false, in5MilesAllZipCodes: payload }
+    }),
+    on(reviewOrderActions.createOrderHistory, (state) => {
+      return { ...state, load: true, orderHistoryStatus: false }
+    }),
+    on(reviewOrderActions.createOrderHistorySuccess, (state, { payload }) => {
+      return { ...state, load: false, orderHistoryStatus: payload != null ? true : false }
+    }),
+    on(reviewOrderActions.createOrderMaster, (state) => {
+      return { ...state, load: true, orderMaster: null }
+    }),
+    on(reviewOrderActions.createOrderMasterSuccess, (state, { payload }) => {
+      return { ...state, load: true, orderMaster: payload }
     })
   );

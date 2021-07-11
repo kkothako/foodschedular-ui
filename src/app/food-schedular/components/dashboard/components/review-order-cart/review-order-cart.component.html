@@ -91,7 +91,7 @@
       </table>
     </div>
     <div class="col-sm-3 col-md-3">
-      <mat-card class="example-card">
+      <mat-card class="example-card mat-elevation-z8">
 
 
         <mat-card-content>
@@ -115,9 +115,19 @@
             </li>
           </ul>
 
-          <button mat-raised-button color="primary" class="mat-raised-button-250">
+          <button mat-raised-button color="primary" class="mat-raised-button-250" (click)="orderSubmit()">
             <mat-icon>save</mat-icon>
-            Order Submit</button>
+            Order Submit
+            <span *ngIf="load$ | async as load">
+              <p-progressSpinner
+                [style]="{ width: '30px', height: '30px' }"
+                styleClass="custom-spinner"
+                strokeWidth="8"
+                fill="#EEEEEE"
+                animationDuration=".5s"
+              ></p-progressSpinner>
+            </span>
+          </button>
           <button mat-raised-button color="accent">
             <mat-icon>cancel</mat-icon>
             Cancel</button>

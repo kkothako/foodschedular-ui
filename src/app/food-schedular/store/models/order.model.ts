@@ -16,4 +16,32 @@ export interface OrderModel {
   modifiedBy: string;
   restaurent: RestorentMasterModel;
   restaurentMenu: RestaurentMenuModel
+
+  orderId: string;
+  menuId: string;
+  price: number;
+  orderStatus: string;
+  restaurentId: string;
+  proteinId:string;
+  cuisineId: string;
+  scheduleDate: string
+}
+
+export interface OrderMasterModel {
+  orderId: string;
+  profileId: string;
+  userId: string;
+  totalAmount: number;
+  paidAmmount: number;
+  tax: number;
+  orderStatus: string;
+  upDatedBy: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
+export interface OrderMasterRequestModel{
+  orderMaster:OrderMasterModel;
+  orders:OrderModel[];
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DistanceModel } from '../models/distance.model';
+import { OrderMasterModel, OrderMasterRequestModel, OrderModel } from '../models/order.model';
 
 @Injectable()
 export class ReviewOrderService {
@@ -41,5 +42,23 @@ export class ReviewOrderService {
         tap((data) => console.log('5 miles zipcodes', data))
       )
   }
+
+  createOrderHistory(draftOrders: OrderModel[]): Observable<any> {
+    const url = `${environment.baseUrl}/orderhistory`
+    return this.httpClient.post(url, { orders: draftOrders })
+      .pipe(
+        tap((data) => console.table('draft orders', data))
+      )
+  }
+
+  createOrderMaster(order: OrderMasterRequestModel): Observable<any> {
+    debugger
+    const url = `${environment.baseUrl}/orderMaster`
+    return this.httpClient.post(url, {request: order })
+      .pipe(
+        tap(data => console.table(data))
+      )
+  }
+
 }
 

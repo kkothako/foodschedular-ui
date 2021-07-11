@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
+import { EMPTY, Observable, of } from 'rxjs';
+import { OrderMasterRequestModel, OrderModel } from 'src/app/food-schedular/store/models/order.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 
 import * as userAccountSelectors from './../../../../store/selector/user-account.selector';
@@ -10,8 +10,10 @@ import * as selectors from './../../../../store/selector/food-shedular.selectors
 import * as reviewOrderActions from './../../../../store/action/review-order.action';
 import * as reviewOrderSelectors from './../../../../store/selector/review-order.selector';
 import { RestorentMasterModel } from 'src/app/food-schedular/store/models/restorent-master.model';
-import { groupBy, map, mergeMap, reduce, toArray } from 'rxjs/operators';
+import { catchError, groupBy, map, mergeMap, reduce, toArray } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-review-order-cart',
@@ -29,15 +31,20 @@ export class ReviewOrderCartComponent implements OnInit {
   displayedColumns: string[] = ['date', 'item', 'cost'];
   transactions: MatTableDataSource<any>;
   totalPrice: number;
+  load$: Observable<boolean>;
 
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+    private _snackBar: MatSnackBar) {
     this.bindPrfileName();
 
     this.getAllIn5MilesZipCodes();
     this.bindAllIn5MilesZipCodes();
     this.bindAllRestaurents();
     this.bindAllDraftOrderWithPriceDetails();
+
+    this.bindErrors();
+    this.bindLoadError();
   }
 
   ngOnInit(): void {
@@ -83,7 +90,7 @@ export class ReviewOrderCartComponent implements OnInit {
   bindAllDraftOrderWithPriceDetails(): void {
     this.store.pipe(select(reviewOrderSelectors.selectDraftOrderWithPriceDetails))
       .subscribe(order => {
-
+        this.draftOrders = order;
         const orderTableData = [];
         console.log('Drat order with price details', order);
         if (order && orderTableData.length === 0) {
@@ -104,7 +111,7 @@ export class ReviewOrderCartComponent implements OnInit {
                 this.totalPrice += item.restaurentMenu.restaurentMenu.Price;
 
                 menuAndSlot += `<br/><i  class="pi pi-circle-on text-danger" style="font-size: 0.5rem"></i> ${slotTime[1]}:
-                                ${item.restaurentMenu.restaurentMenu.menuName} ${order.orderData.length ===1 ? '': '<br/>'}`
+                                ${item.restaurentMenu.restaurentMenu.menuName} ${order.orderData.length === 1 ? '' : '<br/>'}`
 
               });
               orderTableData.push({ date: order.date, item: menuAndSlot, cost: '' });
@@ -125,4 +132,65 @@ export class ReviewOrderCartComponent implements OnInit {
 
   }
 
+  orderSubmit(): void {
+    debugger
+
+    const orderRequest = <OrderMasterRequestModel>{
+      orders: [],
+      orderMaster: {}
+    };
+
+    orderRequest.orderMaster.profileId = this.draftOrders[0].profileId;
+    orderRequest.orderMaster.userId = this.draftOrders[0].userId;
+    orderRequest.orderMaster.totalAmount = this.totalPrice;
+    orderRequest.orderMaster.paidAmmount = 0.00;
+    orderRequest.orderMaster.tax = 5.00;
+    orderRequest.orderMaster.orderStatus = 'New';
+
+    this.draftOrders.forEach(order => {
+
+      const orderData = <OrderModel>{};
+      orderData.profileId = order.profileId;
+      orderData.userId = order.userId;
+      orderData.proteinId = order.proteinID;
+      orderData.cuisineId = order.cuisineID;
+      orderData.menuId = order.restaurentMenu.restaurentMenu._id;
+      orderData.restaurentId = order.restaurent.restaurantId;
+      orderData.scheduleDate = order.scheduledDate;
+      orderData.price = order.restaurentMenu.restaurentMenu.Price;
+      orderData.orderStatus = 'New';
+
+      orderRequest.orders.push(orderData);
+
+    });
+
+    this.store.dispatch(reviewOrderActions.createOrderMaster({ payload: orderRequest }));
+  }
+  bindErrors(): void {
+    this.store.pipe(select(reviewOrderSelectors.selectIfAnyErrors))
+      .subscribe(error => {
+        if (error) {
+          this.openSnackBar(`Opps something went wrong, ${error}`, 'Error', 5000);
+        }
+      });
+  }
+
+  openSnackBar(message: string, action: string, duration = 5000) {
+    this._snackBar.dismiss();
+    this._snackBar.open(message, action, {
+      duration: duration,
+    });
+  }
+
+  bindLoadError(): void {
+    this.load$ = this.store.pipe(select(reviewOrderSelectors.selectLoad))
+      .pipe(
+        catchError((error) => {
+          if (error) {
+            this.openSnackBar(`Opps something went wrong, ${error}`, 'Error', 5000);
+          }
+          return EMPTY;
+        })
+      )
+  }
 }

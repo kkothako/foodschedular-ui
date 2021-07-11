@@ -14,6 +14,7 @@ export interface RestaurentMenuModel {
 }
 
 export interface RestaurentTimingsModel {
+  _id:string;
   restaurantId: string;
   dayOfTheWeek: string;
   openTime: string;
@@ -22,4 +23,5 @@ export interface RestaurentTimingsModel {
   createdBy: string;
   modifiedAt: Date;
   modifiedBy: string;
+  Price: number;
 }

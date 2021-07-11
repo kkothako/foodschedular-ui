@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { DistanceModel } from '../models/distance.model';
+import { OrderMasterModel, OrderMasterRequestModel, OrderModel } from '../models/order.model';
 import { RestaurentMenuModel } from '../models/restaurent-menu.model';
 import { RestorentMasterModel } from '../models/restorent-master.model';
 import { ZipCodeModel } from '../models/zipcode.model';
@@ -52,4 +53,25 @@ export const getAllZipCodesByCustomerZipCode = createAction(
 export const getAllZipCodesByCustomerZipCodeSuccess = createAction(
   '[app-review-order-cart] Get all zip codes with in 5 miles from customer zipcode success',
   props<{ payload: ZipCodeModel[] }>()
+);
+
+
+export const createOrderMaster = createAction(
+  '[app-review-order-cart] Create order master',
+  props<{ payload: OrderMasterRequestModel }>()
+);
+
+export const createOrderMasterSuccess = createAction(
+  '[app-review-order-cart] Create order master success',
+  props<{ payload: OrderMasterModel }>()
+);
+
+export const createOrderHistory = createAction(
+  '[app-review-order-cart] Create order history',
+  props<{ payload: OrderModel[] }>()
+);
+
+export const createOrderHistorySuccess = createAction(
+  '[app-review-order-cart] Create order history success',
+  props<{ payload: OrderModel[] }>()
 );

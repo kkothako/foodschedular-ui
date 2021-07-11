@@ -47,3 +47,13 @@ export const selectDraftOrderWithPriceDetails = createSelector(
 
   }
 );
+
+export const selectIfAnyErrors = createSelector(
+  reviewOrderState,
+  state => state.errors
+);
+
+export const selectLoad = createSelector(
+  reviewOrderState,
+  state => state.load
+);
