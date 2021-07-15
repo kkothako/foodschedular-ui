@@ -52,9 +52,17 @@ export class ReviewOrderService {
   }
 
   createOrderMaster(order: OrderMasterRequestModel): Observable<any> {
-    debugger
+
     const url = `${environment.baseUrl}/orderMaster`
-    return this.httpClient.post(url, {request: order })
+    return this.httpClient.post(url, { request: order })
+      .pipe(
+        tap(data => console.table(data))
+      )
+  }
+
+  getOrderHistoryBy(userId: string, profileId: string): Observable<any> {
+    const url = `${environment.baseUrl}/orderhistory/getOrderHistoryBy`
+    return this.httpClient.post(url, { userId, profileId })
       .pipe(
         tap(data => console.table(data))
       )

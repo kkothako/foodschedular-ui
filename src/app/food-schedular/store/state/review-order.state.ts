@@ -1,5 +1,6 @@
 import { EntityState } from '@ngrx/entity';
 import { reviewOrderEntity } from '../entity/review-order-state';
+import { OrderHistoryModel } from '../models/order-history.model';
 import { OrderMasterModel } from '../models/order.model';
 import { RestaurentMenuModel } from '../models/restaurent-menu.model';
 import { RestorentMasterModel } from '../models/restorent-master.model';
@@ -15,7 +16,8 @@ export interface ReviewOrderState extends EntityState<ReviewOrderModel> {
   in5MilesAllZipCodes: ZipCodeModel[],
   orderMaster: OrderMasterModel,
   orderHistoryStatus: boolean,
-  errors: any;
+  errors: any,
+  orderHistory: OrderHistoryModel[]
 }
 
 export const defaultState: ReviewOrderState = {
@@ -29,7 +31,8 @@ export const defaultState: ReviewOrderState = {
   in5MilesAllZipCodes: [],
   orderMaster: null,
   orderHistoryStatus: false,
-  errors: null
+  errors: null,
+  orderHistory:[]
 };
 
 export const initialState = reviewOrderEntity.getInitialState(defaultState);

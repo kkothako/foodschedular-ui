@@ -57,3 +57,23 @@ export const selectLoad = createSelector(
   reviewOrderState,
   state => state.load
 );
+
+export const selectCreatedOrderMaster = createSelector(
+  reviewOrderState,
+  state => state.orderMaster
+);
+
+export const selectOrderHisoty = createSelector(
+  appState,
+  reviewOrderState,
+  (state, reviewOrderState) => {
+    if (state.foodSchedularState && reviewOrderState.orderHistory) {
+      reviewOrderState.orderHistory.forEach(order => {
+
+        order.cuisineName = state.foodSchedularState.protiens.filter(item => item._id === order.proteinId)[0].proteinName;
+        order.cuisineName = state.foodSchedularState.cuisines.filter(item => item._id === order.cuisineId)[0].cuisineName;
+
+      });
+    }
+  }
+);

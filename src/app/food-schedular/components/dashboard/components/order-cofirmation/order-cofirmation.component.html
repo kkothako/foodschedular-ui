@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-11 col-md-11">
+      <h2 class="mt-0 mb-1">
+        <mat-icon
+          aria-hidden="false"
+          color="warn"
+          aria-label="Example home icon"
+          >home</mat-icon
+        >&nbsp;Order Confirmation
+      </h2>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <mat-divider></mat-divider>
+      <br/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <div class="col-sm-12 col-md-12">
+        <mat-card class="example-card mat-elevation-z8">
+          <mat-card-content>
+            <p>
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+              scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+              vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+              vulputate fringilla. Donec lacinia congue felis in faucibus.
+            </p>
+          </mat-card-content>
+          <mat-card-actions *ngIf="this.orderMaster$ | async as order">
+            <ul class="list-group">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                Order#
+                <span class="badge badge-primary badge-pill">{{
+                  order.orderId
+                }}</span>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                Order Status
+                <span class="badge badge-primary badge-pill">{{
+                  order.orderStatus
+                }}</span>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                Total($)
+                <span class="badge badge-primary badge-pill">{{
+                  order.totalAmount | currency
+                }}</span>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                Tax($)
+                <span class="badge badge-primary badge-pill">{{
+                  order.tax | currency
+                }}</span>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                Paid Amount($)
+                <span class="badge badge-primary badge-pill">{{
+                  order.paidAmmount | currency
+                }}</span>
+              </li>
+            </ul>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

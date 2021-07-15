@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { DistanceModel } from '../models/distance.model';
+import { OrderHistoryModel } from '../models/order-history.model';
 import { OrderMasterModel, OrderMasterRequestModel, OrderModel } from '../models/order.model';
 import { RestaurentMenuModel } from '../models/restaurent-menu.model';
 import { RestorentMasterModel } from '../models/restorent-master.model';
@@ -75,3 +76,14 @@ export const createOrderHistorySuccess = createAction(
   '[app-review-order-cart] Create order history success',
   props<{ payload: OrderModel[] }>()
 );
+
+export const getOrderHistoryBy = createAction(
+  '[app-review-order-cart] Get all order history by userid and profileid',
+  props<{userId: string, profileId: string}>()
+);
+
+export const getOrderHistoryBySuccess = createAction(
+  '[app-review-order-cart] Get all order history by userid and profileid success',
+  props<{payload: OrderHistoryModel[]}>()
+);
+

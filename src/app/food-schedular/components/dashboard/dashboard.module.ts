@@ -10,12 +10,14 @@ import { AddFoodComponent } from './dialogs/add-food/add-food.component';
 import { ViewOrderComponent } from './dialogs/view-order/view-order.component';
 import { ReviewOrderCartComponent } from './components/review-order-cart/review-order-cart.component';
 import { AutheriseGaurd } from './gaurds/authorise-gaurd';
+import { OrderCofirmationComponent } from './components/order-cofirmation/order-cofirmation.component';
 
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
       { path: 'schedule-food/:userId/:profileId', canActivate:[AutheriseGaurd], component: ScheduleFoodComponent },
       { path: 'schedule-food/review-order-cart', component: ReviewOrderCartComponent },
+      {path:'schedule-food/order-confirmation', component: OrderCofirmationComponent}
     ]
   }
 ]
@@ -25,7 +27,8 @@ const routes: Routes = [
     ScheduleFoodComponent,
     AddFoodComponent,
     ViewOrderComponent,
-    ReviewOrderCartComponent
+    ReviewOrderCartComponent,
+    OrderCofirmationComponent
   ],
   imports: [
     CommonModule,

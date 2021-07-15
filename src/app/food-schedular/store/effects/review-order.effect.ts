@@ -83,6 +83,18 @@ export class DistanceEffect {
     )
   );
 
+  getAllOrderHistoryByEffect$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(reviewOrderActions.getOrderHistoryBy),
+      mergeMap(({ userId, profileId }) => this.reviewOrderService.getOrderHistoryBy(userId, profileId).pipe(
+        map((result) => result?.status ? reviewOrderActions.getOrderHistoryBySuccess({ payload: result?.data }) :
+          reviewOrderActions.errorAction({ error: result.error }),
+          catchError((result) => of(reviewOrderActions.errorAction({ error: result?.error })))
+        )
+      ))
+    )
+  );
+
 }
 
 

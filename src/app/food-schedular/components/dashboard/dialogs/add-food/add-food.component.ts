@@ -7,7 +7,7 @@ import { CuisineModel, ProtienModel } from 'src/app/food-schedular/store/models/
 import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 
-import * as actions from './../../../../store/action/food-schedular.action';
+
 import * as selectors from './../../../../store/selector/food-shedular.selectors';
 import * as orderActions from './../../../../store/action/order.action';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -70,8 +70,7 @@ export class AddFoodComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(actions.getAllCuisines());
-    this.store.dispatch(actions.getAllProtiens());
+
   }
   bindDropdowns(): void {
 

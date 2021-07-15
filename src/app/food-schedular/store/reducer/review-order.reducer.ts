@@ -24,8 +24,8 @@ export const reviewOrderReducer =
     on(reviewOrderActions.getAllRestaurentsByZipCodesSuccess, (state, { payload }) => {
       return { ...state, load: false, restorents: payload }
     }),
-    on(reviewOrderActions.errorAction, (state, {error}) => {
-      return { ...state, load: false, restorents: null, errors: error}
+    on(reviewOrderActions.errorAction, (state, { error }) => {
+      return { ...state, load: false, restorents: null, errors: error }
     }),
     on(reviewOrderActions.getAllRestaurentMenusAndTimings, (state) => {
       return { ...state, load: true, restaurentMenusPlusTimings: null }
@@ -49,6 +49,12 @@ export const reviewOrderReducer =
       return { ...state, load: true, orderMaster: null }
     }),
     on(reviewOrderActions.createOrderMasterSuccess, (state, { payload }) => {
-      return { ...state, load: true, orderMaster: payload }
+      return { ...state, load: false, orderMaster: payload }
+    }),
+    on(reviewOrderActions.getOrderHistoryBy, (state) => {
+      return { ...state, load: true }
+    }),
+    on(reviewOrderActions.getOrderHistoryBySuccess, (state, { payload }) => {
+      return { ...state, load: false, orderHistory: payload }
     })
   );

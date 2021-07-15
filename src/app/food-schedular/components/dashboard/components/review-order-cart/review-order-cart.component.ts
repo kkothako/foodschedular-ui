@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { EMPTY, Observable, of } from 'rxjs';
-import { OrderMasterRequestModel, OrderModel } from 'src/app/food-schedular/store/models/order.model';
+import { OrderMasterModel, OrderMasterRequestModel, OrderModel } from 'src/app/food-schedular/store/models/order.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 
 import * as userAccountSelectors from './../../../../store/selector/user-account.selector';
@@ -13,6 +13,8 @@ import { RestorentMasterModel } from 'src/app/food-schedular/store/models/restor
 import { catchError, groupBy, map, mergeMap, reduce, toArray } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -32,10 +34,14 @@ export class ReviewOrderCartComponent implements OnInit {
   transactions: MatTableDataSource<any>;
   totalPrice: number;
   load$: Observable<boolean>;
+  hasOrderSubmitted = false;
 
+  @ViewChild('orderConfirm') orderConfirm: TemplateRef<any>;
 
   constructor(private store: Store<AppState>,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    public dialog: MatDialog) {
     this.bindPrfileName();
 
     this.getAllIn5MilesZipCodes();
@@ -165,6 +171,7 @@ export class ReviewOrderCartComponent implements OnInit {
     });
 
     this.store.dispatch(reviewOrderActions.createOrderMaster({ payload: orderRequest }));
+    this.hasOrderSubmitted = true;
   }
   bindErrors(): void {
     this.store.pipe(select(reviewOrderSelectors.selectIfAnyErrors))
@@ -192,5 +199,26 @@ export class ReviewOrderCartComponent implements OnInit {
           return EMPTY;
         })
       )
+
+    this.load$.subscribe(load => {
+      if (!load && this.hasOrderSubmitted) {
+        this.hasOrderSubmitted = false;
+        this.openSnackBar(`Order been created successfully.`, 'Success', 5000);
+        this.router.navigate(['food-schedular/dashboard/schedule-food/order-confirmation']);
+      }
+    })
+  }
+
+  doesOrderCreatedSuccessfully(): void {
+
+    this.store.pipe(select(reviewOrderSelectors.selectCreatedOrderMaster))
+      .subscribe(response => {
+        if (response) {
+          this.router.navigate(['/schedule-food/order-confirmation']);
+        }
+      })
+  }
+  orderConfirmDialog() {
+    this.dialog.open(this.orderConfirm);
   }
 }

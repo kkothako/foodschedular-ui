@@ -31,91 +31,131 @@
       ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
       viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
       lacinia congue felis in faucibus.
-
     </div>
   </div>
   <div class="row">
     <div class="col-sm-9 col-md-9">
-      <br>
+      <br />
       <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
         <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef> Date </th>
-          <td mat-cell *matCellDef="let transaction"> {{transaction.date}} </td>
-          <td mat-footer-cell *matFooterCellDef> Total </td>
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let transaction">{{ transaction.date }}</td>
+          <td mat-footer-cell *matFooterCellDef>Total</td>
         </ng-container>
         <ng-container matColumnDef="item">
-          <th mat-header-cell *matHeaderCellDef> Item </th>
-          <td mat-cell *matCellDef="let transaction"> <span [innerHTML]="transaction.item"></span> </td>
-          <td mat-footer-cell *matFooterCellDef>  </td>
+          <th mat-header-cell *matHeaderCellDef>Item</th>
+          <td mat-cell *matCellDef="let transaction">
+            <span [innerHTML]="transaction.item"></span>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
         <!-- Cost Column -->
         <ng-container matColumnDef="cost">
-          <th mat-header-cell *matHeaderCellDef> Cost </th>
-          <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency}} </td>
-          <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
+          <th mat-header-cell *matHeaderCellDef>Cost</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.cost | currency }}
+          </td>
+          <td mat-footer-cell *matFooterCellDef>
+            {{ getTotalCost() | currency }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="date-description">
-          <th mat-header-cell *matHeaderCellDef> Date of the schedule </th>
+          <th mat-header-cell *matHeaderCellDef>Date of the schedule</th>
         </ng-container>
         <!-- Item Description Column -->
         <ng-container matColumnDef="item-description">
-          <th mat-header-cell *matHeaderCellDef> Name of the item </th>
+          <th mat-header-cell *matHeaderCellDef>Name of the item</th>
         </ng-container>
 
         <!-- Cost Description Column -->
         <ng-container matColumnDef="cost-description">
-          <th mat-header-cell *matHeaderCellDef> Cost in USD </th>
+          <th mat-header-cell *matHeaderCellDef>Cost in USD</th>
         </ng-container>
 
         <!-- Disclaimer column -->
         <ng-container matColumnDef="disclaimer">
           <td mat-footer-cell *matFooterCellDef colspan="2">
-            Please note that the cost of items displayed are completely and totally made up.
+            Please note that the cost of items displayed are completely and
+            totally made up.
           </td>
         </ng-container>
 
         <!-- The table will render two header rows, one data row per data object, and two footer rows. -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"
-            class="example-first-header-row">
-        </tr>
-        <tr mat-header-row *matHeaderRowDef="['date-description','item-description', 'cost-description']"
-            class="example-second-header-row">
-        </tr>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+          class="example-first-header-row"
+        ></tr>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="[
+            'date-description',
+            'item-description',
+            'cost-description'
+          ]"
+          class="example-second-header-row"
+        ></tr>
 
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-        <tr mat-footer-row *matFooterRowDef="displayedColumns" class="example-first-footer-row"></tr>
-        <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>
+        <tr
+          mat-footer-row
+          *matFooterRowDef="displayedColumns"
+          class="example-first-footer-row"
+        ></tr>
+        <tr
+          mat-footer-row
+          *matFooterRowDef="['disclaimer']"
+          class="example-second-footer-row"
+        ></tr>
       </table>
     </div>
     <div class="col-sm-3 col-md-3">
       <mat-card class="example-card mat-elevation-z8">
-
-
         <mat-card-content>
           <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+            vulputate fringilla. Donec lacinia congue felis in faucibus.
           </p>
         </mat-card-content>
         <mat-card-actions>
           <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
               Total($)
-              <span class="badge badge-primary badge-pill">{{getTotalCost() | currency}}</span>
+              <span class="badge badge-primary badge-pill">{{
+                getTotalCost() | currency
+              }}</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
               Tax($)
-              <span class="badge badge-primary badge-pill">{{5 | currency}}</span>
+              <span class="badge badge-primary badge-pill">{{
+                5 | currency
+              }}</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
               SubTotal($)
-              <span class="badge badge-primary badge-pill">{{getTotalCost()+5 | currency}}</span>
+              <span class="badge badge-primary badge-pill">{{
+                getTotalCost() + 5 | currency
+              }}</span>
             </li>
           </ul>
 
-          <button mat-raised-button color="primary" class="mat-raised-button-250" (click)="orderSubmit()">
+          <button
+            mat-raised-button
+            color="primary"
+            class="mat-raised-button-250"
+            (click)="orderConfirmDialog()"
+          >
             <mat-icon>save</mat-icon>
             Order Submit
             <span *ngIf="load$ | async as load">
@@ -130,9 +170,20 @@
           </button>
           <button mat-raised-button color="accent">
             <mat-icon>cancel</mat-icon>
-            Cancel</button>
+            Cancel
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
 </div>
+
+<ng-template #orderConfirm>
+  <h2 mat-dialog-title>Order Submit</h2>
+  <mat-dialog-content>Are you sure want to place a order?</mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+
+    <button mat-button [mat-dialog-close]="true" (click)="orderSubmit()">Submit</button>
+  </mat-dialog-actions>
+</ng-template>

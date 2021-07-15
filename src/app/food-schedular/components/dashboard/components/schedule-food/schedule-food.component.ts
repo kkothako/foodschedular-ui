@@ -13,11 +13,11 @@ import * as userAccountActions from './../../../../store/action/user-account.act
 import * as userAccountSelectors from './../../../../store/selector/user-account.selector'
 import * as orderActions from './../../../../store/action/order.action';
 import * as foodSelectors from './../../../../store/selector/food-shedular.selectors';
-import { OrderModel } from 'src/app/food-schedular/store/models/order.model';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+
 import { ConstantService } from 'src/app/food-schedular/store/service/constant.service';
 import { ViewOrderComponent } from '../../dialogs/view-order/view-order.component';
-
+import * as actions from './../../../../store/action/food-schedular.action';
+import * as reviewOrderAction from './../../../../store/action/review-order.action';
 
 declare var $: any;
 
@@ -100,6 +100,9 @@ export class ScheduleFoodComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.store.dispatch(actions.getAllCuisines());
+    this.store.dispatch(actions.getAllProtiens());
+
     this.userProfileFormGroup = this._formBuilder.group({
       userProfile: [null, Validators.required]
     });
@@ -109,6 +112,7 @@ export class ScheduleFoodComponent implements OnInit {
       this.profileId = param["profileId"];
       this.bindUserProfiles();
       this.store.dispatch(orderActions.getDraftOrders({ userId: this.userId, profileId: this.profileId }));
+      this.store.dispatch(reviewOrderAction.getOrderHistoryBy({ userId: this.userId, profileId: this.profileId }));
     });
   }
 
