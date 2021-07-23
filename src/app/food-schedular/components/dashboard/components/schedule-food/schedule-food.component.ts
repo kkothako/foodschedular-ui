@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CalendarApi, CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { UserProfileModel } from 'src/app/food-schedular/store/models/user-profile.model';
 import { AppState } from 'src/app/food-schedular/store/state/app.state';
 import { AddFoodComponent } from '../../dialogs/add-food/add-food.component';
@@ -18,6 +18,8 @@ import { ConstantService } from 'src/app/food-schedular/store/service/constant.s
 import { ViewOrderComponent } from '../../dialogs/view-order/view-order.component';
 import * as actions from './../../../../store/action/food-schedular.action';
 import * as reviewOrderAction from './../../../../store/action/review-order.action';
+import * as reviewOrderSelectors from './../../../../store/selector/review-order.selector';
+import { map } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -88,7 +90,7 @@ export class ScheduleFoodComponent implements OnInit {
   draftOrdersEvents: any[] = [];
   profileId: string;
   selectedUserProfile: UserProfileModel;
-
+  viewModel$: Observable<any>;
   constructor(private router: Router,
     public dialog: MatDialog,
     private store: Store<AppState>,
@@ -145,18 +147,64 @@ export class ScheduleFoodComponent implements OnInit {
   }
 
   bindDraftOrders(): void {
-    this.store.pipe(select(foodSelectors.selectDraftOrders))
-      .subscribe(draftOders => {
-        if (draftOders) {
-          this.draftOrdersEvents = [];
-          draftOders.forEach(order => {
-            this.draftOrdersEvents.push({orderId:`${order.id}`, title: `${order.cuisineName}, ${order.proteinName}`, date: order.scheduledDate })
+
+
+
+    combineLatest(
+      this.store.pipe(select(foodSelectors.selectDraftOrders)),
+      this.store.pipe(select(reviewOrderSelectors.selectOrderHisoty))
+    )
+      .pipe(
+        map(([draftOrder, orderHistory]) => ({ draftOrder, orderHistory }))
+      )
+      .subscribe(response => {
+
+        this.draftOrdersEvents = [];
+
+        if (response.draftOrder) {
+          response.draftOrder.forEach(draftOrder => {
+
+            this.draftOrdersEvents.push({
+              orderId: `${draftOrder.id}`,
+              title: `${draftOrder.cuisineName},${draftOrder.proteinName}`,
+              date: draftOrder.scheduledDate,
+              hasDraftOrder: true
+            });
+
           });
-          this.calendarOptions.eventBackgroundColor = '#ff4081';
-          this.calendarOptions.events = this.draftOrdersEvents;
-          //this.ch.detectChanges();
         }
-      });
+        if (response.orderHistory) {
+          response.orderHistory.forEach(orderHistory => {
+            const orderExist = this.draftOrdersEvents.find(item => item.date === orderHistory.scheduleDate);
+            if (!orderExist) {
+              this.draftOrdersEvents.push({
+                orderId: `${orderHistory._id}`,
+                title: `${orderHistory.cuisineName}, ${orderHistory.proteinName}`,
+                date: orderHistory.scheduleDate,
+                hasDraftOrder: false
+              });
+            }
+
+          });
+        }
+
+        this.calendarOptions.eventBackgroundColor = '#ff4081';
+        this.calendarOptions.events = this.draftOrdersEvents;
+      })
+
+
+    // this.store.pipe(select(foodSelectors.selectDraftOrders))
+    //   .subscribe(draftOders => {
+    //     if (draftOders) {
+    //       this.draftOrdersEvents = [];
+    //       draftOders.forEach(order => {
+    //         this.draftOrdersEvents.push({ orderId: `${order.id}`, title: `${order.cuisineName}, ${order.proteinName}`, date: order.scheduledDate })
+    //       });
+    //       this.calendarOptions.eventBackgroundColor = '#ff4081';
+    //       this.calendarOptions.events = this.draftOrdersEvents;
+    //       //this.ch.detectChanges();
+    //     }
+    //   });
 
   }
   initializeCalendarClickEvents(): void {
@@ -170,7 +218,7 @@ export class ScheduleFoodComponent implements OnInit {
       this.openViewOrderFoodDialog(scheduleDate, info.event.title, info.event.extendedProps.orderId)
     }
   }
-  openViewOrderFoodDialog(scheduleDate: string, title: string, orderId:string): void {
+  openViewOrderFoodDialog(scheduleDate: string, title: string, orderId: string): void {
     this.dialog.open(ViewOrderComponent, {
       width: '500px',
       data: {
@@ -192,7 +240,7 @@ export class ScheduleFoodComponent implements OnInit {
     this.store.dispatch(orderActions.getDraftOrders({ userId: profile.value.userId, profileId: profile.value.id }));
   }
 
-  deleteDraftOrder(profileId: string): void{
+  deleteDraftOrder(profileId: string): void {
 
   }
 }

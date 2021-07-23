@@ -6,6 +6,7 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 import * as reviewOrderActions from '../action/review-order.action';
 import { Injectable } from '@angular/core';
 import { ReviewOrderService } from '../service/review-order.service';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Injectable()
@@ -92,6 +93,17 @@ export class DistanceEffect {
           catchError((result) => of(reviewOrderActions.errorAction({ error: result?.error })))
         )
       ))
+    )
+  );
+
+  deleteDraftOrders$: Observable<Action> = createEffect(
+    () => this.actions.pipe(
+      ofType(reviewOrderActions.deleteDraftOrdersBy),
+      mergeMap(({ orderIds }) => this.reviewOrderService.deleteDraftOrders(orderIds).pipe(
+        map((result) => result?.status ? reviewOrderActions.deleteDraftOrdersBySuccess({ payload: result?.data }) :
+          reviewOrderActions.errorAction({ error: result?.error }))
+      )),
+      catchError((result) => of(reviewOrderActions.errorAction({ error: result?.error })))
     )
   );
 

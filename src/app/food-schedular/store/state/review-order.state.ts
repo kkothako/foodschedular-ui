@@ -17,7 +17,8 @@ export interface ReviewOrderState extends EntityState<ReviewOrderModel> {
   orderMaster: OrderMasterModel,
   orderHistoryStatus: boolean,
   errors: any,
-  orderHistory: OrderHistoryModel[]
+  orderHistory: OrderHistoryModel[],
+  hasDeleted: boolean
 }
 
 export const defaultState: ReviewOrderState = {
@@ -32,7 +33,8 @@ export const defaultState: ReviewOrderState = {
   orderMaster: null,
   orderHistoryStatus: false,
   errors: null,
-  orderHistory:[]
+  orderHistory:[],
+  hasDeleted: false
 };
 
 export const initialState = reviewOrderEntity.getInitialState(defaultState);

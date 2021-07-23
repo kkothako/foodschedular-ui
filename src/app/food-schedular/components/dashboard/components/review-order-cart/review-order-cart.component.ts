@@ -35,6 +35,7 @@ export class ReviewOrderCartComponent implements OnInit {
   totalPrice: number;
   load$: Observable<boolean>;
   hasOrderSubmitted = false;
+  draftPrders: string[] = [];
 
   @ViewChild('orderConfirm') orderConfirm: TemplateRef<any>;
 
@@ -109,7 +110,6 @@ export class ReviewOrderCartComponent implements OnInit {
             toArray()
           ).subscribe(groupOrder => {
             this.totalPrice = 0;
-            debugger
             groupOrder.forEach(order => {
               let menuAndSlot = '';
               order.orderData.forEach(item => {
@@ -139,8 +139,6 @@ export class ReviewOrderCartComponent implements OnInit {
   }
 
   orderSubmit(): void {
-    debugger
-
     const orderRequest = <OrderMasterRequestModel>{
       orders: [],
       orderMaster: {}
@@ -168,6 +166,7 @@ export class ReviewOrderCartComponent implements OnInit {
 
       orderRequest.orders.push(orderData);
 
+      this.draftPrders.push(order.id);
     });
 
     this.store.dispatch(reviewOrderActions.createOrderMaster({ payload: orderRequest }));
@@ -203,21 +202,15 @@ export class ReviewOrderCartComponent implements OnInit {
     this.load$.subscribe(load => {
       if (!load && this.hasOrderSubmitted) {
         this.hasOrderSubmitted = false;
+        this.store.dispatch(reviewOrderActions.deleteDraftOrdersBy({orderIds: this.draftPrders}));
+
         this.openSnackBar(`Order been created successfully.`, 'Success', 5000);
         this.router.navigate(['food-schedular/dashboard/schedule-food/order-confirmation']);
       }
     })
   }
 
-  doesOrderCreatedSuccessfully(): void {
 
-    this.store.pipe(select(reviewOrderSelectors.selectCreatedOrderMaster))
-      .subscribe(response => {
-        if (response) {
-          this.router.navigate(['/schedule-food/order-confirmation']);
-        }
-      })
-  }
   orderConfirmDialog() {
     this.dialog.open(this.orderConfirm);
   }

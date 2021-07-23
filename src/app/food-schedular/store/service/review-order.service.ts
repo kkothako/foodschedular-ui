@@ -68,5 +68,15 @@ export class ReviewOrderService {
       )
   }
 
+  deleteDraftOrders(order: string[]): Observable<any> {
+
+    const url = `${environment.baseUrl}/orderDraft/deletedraftorder`;
+    return this.httpClient.post(url, { orderIds: order })
+      .pipe(
+        tap((data) => console.log('Deleted draft orders', data))
+      )
+
+  }
+
 }
 

@@ -2,7 +2,7 @@ import { RestaurentMenuModel } from './restaurent-menu.model';
 import { RestorentMasterModel } from './restorent-master.model';
 
 export interface OrderModel {
-  id: String,
+  id: string,
   cuisineID: string;
   cuisineName: string;
   proteinID: string;

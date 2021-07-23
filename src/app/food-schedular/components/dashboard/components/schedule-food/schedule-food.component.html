@@ -54,3 +54,4 @@
 
   <full-calendar  [options]="calendarOptions" id="mycal" #mycal></full-calendar>
 </div>
+<div *ngIf='viewModel$ | async as data'>{{data | json}}</div>

@@ -79,11 +79,20 @@ export const createOrderHistorySuccess = createAction(
 
 export const getOrderHistoryBy = createAction(
   '[app-review-order-cart] Get all order history by userid and profileid',
-  props<{userId: string, profileId: string}>()
+  props<{ userId: string, profileId: string }>()
 );
 
 export const getOrderHistoryBySuccess = createAction(
   '[app-review-order-cart] Get all order history by userid and profileid success',
-  props<{payload: OrderHistoryModel[]}>()
+  props<{ payload: OrderHistoryModel[] }>()
 );
 
+export const deleteDraftOrdersBy = createAction(
+  '[app-review-order-cart] Delete draft orders',
+  props<{ orderIds: string[] }>()
+);
+
+export const deleteDraftOrdersBySuccess = createAction(
+  '[app-review-order-cart] Delete draft orders success',
+  props<{ payload: string }>()
+);

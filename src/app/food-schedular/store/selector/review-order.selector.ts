@@ -70,10 +70,12 @@ export const selectOrderHisoty = createSelector(
     if (state.foodSchedularState && reviewOrderState.orderHistory) {
       reviewOrderState.orderHistory.forEach(order => {
 
-        order.cuisineName = state.foodSchedularState.protiens.filter(item => item._id === order.proteinId)[0].proteinName;
-        order.cuisineName = state.foodSchedularState.cuisines.filter(item => item._id === order.cuisineId)[0].cuisineName;
+        order.proteinName = state.foodSchedularState.protiens.filter(item => item._id === order.proteinId)[0].proteinName;
+        order.cuisineName = state.foodSchedularState.cuisines.filter(item => item.cuisineID === order.cuisineId)[0].cuisineName;
 
       });
+
+      return reviewOrderState.orderHistory;
     }
   }
 );
